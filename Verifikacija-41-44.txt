@@ -1,0 +1,405 @@
+## **Pitanje 2.41. Instrumentacija.**
+
+### Definicija
+
+**Instrumentacija** (instrumentation) je proces dodavanja instrukcija u program kako bi se, tokom njegovog izvršavanja, pratile određene pojave i prikupljali podaci o njegovom ponašanju.[100](about:blank#fn100)
+
+### Primena instrumentacije
+
+Instrumentacija se koristi u:[101](about:blank#fn101)
+
+- **Profajlerima** (jednoj vrsti profajlera)
+- **Sanitajzerima** (alati za dinamičku detekciju grešaka)
+- **Alati za merenje pokrivenosti koda**
+
+### Osobine dobre instrumentacije
+
+Najvažnije osobine koje dobra instrumentacija treba da zadovolji su:[102](about:blank#fn102)
+
+1. **Prikuplja samo potrebne podatke** - Zahtev za previše podataka dodatno usporava program i njihovu obradu, dok premalo informacija može biti beznačajno.[103](about:blank#fn103)
+2. **Ne utiče na funkcionalnost programa** - Ako dodata instrumentacija utiče na funkcionalnost programa, onda prikupljeni podaci neće oslikavati pravi način njegovog rada.[104](about:blank#fn104)
+3. **Ne usporava previše rad programa** - Preterano usporavanje može voditi do praktične neupotrebljivosti programa zbog instrumentacije. Npr. ako izvršavanje traje 1 sat, a usporenje je 100×, program će se izvršavati 100 sati.[105](about:blank#fn105)
+4. **Ne povećava previše upotrebu memorije** - Ako program već zahteva upotrebu velike količine memorije, povećanje potrošnje memorije može uticati na to da instrumentovan program ne može da stane na uređaj.[106](about:blank#fn106)
+
+### Klasifikacija instrumentacije
+
+**Prema izvršiocu**:[107](about:blank#fn107)
+
+**Manuelna instrumentacija**: Programer ručno dodaje i inkrementira brojače na željenim mestima u kodu.[108](about:blank#fn108)
+
+**Primer**:
+
+```c
+int brojac_saberi = 0;
+
+int saberi(int a, int b) {
+    brojac_saberi++;  // Manuelna instrumentacija
+    return a + b;
+}
+```
+
+Manuelna instrumentacija se u praksi gotovo nikada ne primenjuje, već se koristi kao ilustracija jer se sličan kod automatski ubacuje.[109](about:blank#fn109)
+
+**Automatska instrumentacija**: Može je vršiti:[110](about:blank#fn110)
+
+- **Kompajler ili linker** tokom prevođenja i linkovanja programa
+- **Specijalizovani alat** na već prevedenom izvršivom programu
+- **Specijalizovani alat** tokom samog izvršavanja programa (npr. Valgrind platforma)
+
+**Prema momentu izvršavanja**:[111](about:blank#fn111)
+
+- **Instrumentacija u fazi kompilacije**: Kod se modifikuje tokom prevođenja
+- **Instrumentacija u fazi linkovanja**: Dodatne instrukcije se dodaju prilikom linkovanja
+- **Instrumentacija u fazi izvršavanja**: Kod se dinamički modifikuje dok se program izvršava
+
+### Instrumentacija u fazi izvršavanja - Valgrind
+
+**Valgrind** je platforma koja omogućava izvršavanje programa, njegovu instrumentaciju u fazi izvršavanja i snimanje izveštaja koji nastaju prilikom analize izvršavanja programa.[112](about:blank#fn112)
+
+**Proces transformacije koda u Valgrind-u**:[113](about:blank#fn113)
+
+1. **Disasembliranje**: Valgrind vrši podizanje mašinskog koda programa u internu međureprezentaciju
+2. **Optimizacija 1**: Uklanjanje redundantnog koda i eliminacija zajedničkih podizraza
+3. **Instrumentacija**: Alat dodaje novi međukod
+4. **Optimizacija 2**: Jednostavnija optimizacija - izračunavanje izraza koji se mogu izračunati pre izvršavanja i uklanjanje mrtvog koda
+5. **Izgradnja stabla**: Kreiranje stabla radi lakšeg odabira instrukcija
+6. **Odabir instrukcija**: Koriste se virtuelni registri
+7. **Alokacija registara**: Virtuelni registri se preslikavaju u fizičke registre
+8. **Asembliranje**: Kod se prevodi u mašinski i smešta u blok memorije
+
+### Uticaj instrumentacije na performanse
+
+**Usporavanje izvršavanja**:[114](about:blank#fn114)
+
+- Zavisi od tipa aplikacije
+- Može se kontrolisati izborom delova programa koji se instrumentuju
+- Valgrind usporenje: **5 do 100 puta**, u zavisnosti od alata[115](about:blank#fn115)
+
+**Povećanje memorije**:[116](about:blank#fn116)
+
+- Dodatni kod za instrumentaciju i njegovo rukovanje uvećava program
+- Posebno problematično za embedded sisteme sa ograničenom memorijom[117](about:blank#fn117)
+
+### Posebni slučajevi
+
+**Uređaji koji rade u realnom vremenu**:[118](about:blank#fn118)
+
+- Usporavanje može poremetiti (prekriti) vremenska ograničenja
+- Memorska ograničenja mogu onemogućiti relevantnu analizu rada uređaja
+
+### Zaključak
+
+Instrumentacija je moćna tehnika, ali zahteva pažljivu primenu kako bi se postigla ravnoteža između količine prikupljenih podataka i uticaja na performanse i ponašanje programa.[119](about:blank#fn119)
+
+---
+
+## **Pitanje 2.42. Profajliranje. Upotreba profila.**
+
+### Definicija profila
+
+**Profil programa** je skup podataka prikupljenih tokom izvršavanja programa nad unapred definisanim skupom ulaznih podataka. Profil obuhvata detaljne informacije o ponašanju programa u realnim uslovima.[120](about:blank#fn120)
+
+### Načini upotrebe profila
+
+Profil programa se može upotrebljavati na različite načine, u zavisnosti od informacija koje on sadrži:[121](about:blank#fn121)
+
+### 1. Identifikacija “vrućih” delova koda (Hot spots)
+
+**Najčešća upotreba profila**:[122](about:blank#fn122)
+
+- Identifikacija delova koda koji se najčešće izvršavaju
+- Identifikacija delova koda koji najviše doprinose ukupnom vremenu izvršavanja
+- Ovo je od suštinskog značaja za optimizaciju performansi
+
+**Princip**: Optimizacija “vrućih” delova koda donosi najveći benefit jer se ti delovi najčešće izvršavaju.[123](about:blank#fn123)
+
+### 2. Procena pokrivenosti koda testovima
+
+**Upotreba**:[124](about:blank#fn124)
+
+- Dobijanje uvida koji delovi koda su izvršeni tokom testiranja
+- Identifikacija delova koda koji nisu pokriveni testovima
+- Proširenje skupa testova sa ciljem postizanja veće pokrivenosti
+
+**Benefit**: Omogućava sistematsko poboljšanje kvaliteta testiranja.[125](about:blank#fn125)
+
+### 3. Detekcija curenja memorije i grešaka
+
+**Upotreba profila**:[126](about:blank#fn126)
+
+- Praćenje alokacija i dealokacija memorije
+- Identifikacija memorije koja je alocirana ali nikada nije oslobođena
+- Otkrivanje grešaka u pristupu memoriji
+
+### 4. Optimizacije vođene profilima (Profile-Guided Optimizations - PGO)
+
+**Optimizaciju na osnovu profila mogu izvršiti**:[127](about:blank#fn127)
+
+**Programer**:[128](about:blank#fn128)
+
+- Na osnovu profila identifikuje “vruće” delove koda
+- Ručno optimizuje kritične delove
+- Donosi odluke o arhitekturi i algoritmima
+
+**Programski prevodilac (kompajler)**:[129](about:blank#fn129)
+
+- Automatski sprovodi optimizacije zasnovane na profilu
+- Optimizacije vođene profilima značajno poboljšavaju performanse
+- Prevazilaze domete standardnih kompajlerskih optimizacija
+
+### Optimizacije kompaјlera vođene profilima
+
+**Optimizacija u fazi kompilacije (pre izvršavanja programa)**:[130](about:blank#fn130)
+
+Da bi se sprovela, zahteva se da profil programa bude dostupan, što znači:
+
+1. Prva kompilacija i izvršavanje programa sa ciljem prikupljanja profila
+2. Druga kompilacija uz korišćenje prikupljenog profila za optimizaciju
+
+**Primer**: Kompajler može da reorganizuje kod tako da se najčešće korišćene grane smeste zajedno (bolje korišćenje keš memorije).[131](about:blank#fn131)
+
+**Optimizacija u fazi kompilacije tokom izvršavanja programa (JIT)**:[132](about:blank#fn132)
+
+- Karakteristična za **Just-In-Time (JIT)** kompilaciju
+- Kompilacija u toku izvršavanja koristi profil koji se dobija tokom izvršavanja
+- Donose se odluke o tome koji delovi koda treba da se kompiliraju umesto da se interpretiraju
+- Dodatno optimizovanje “vrućih” delova koda
+
+**Primer**: Java Virtual Machine (JVM) koristi JIT kompilaciju - često izvršavan bajtkod se prevodi u mašinski kod i optimizuje.[133](about:blank#fn133)
+
+### Statički profajleri
+
+**Problem**: Prikupljanje profila je često veoma zahtevan posao koji značajno troši memorske i vremenske resurse.[134](about:blank#fn134)
+
+**Rešenje**: Umesto prikupljanja profila, koriste se **statički profajleri** - predviđanje profila metodama mašinskog učenja na osnovu karakteristika koda.[135](about:blank#fn135)
+
+**Primer**: Modeli mašinskog učenja mogu naučiti da obrada grešaka i izuzetaka obično odgovaraju putanjama programa koje se ređe izvršavaju u odnosu na glavne funkcionalnosti programa.[136](about:blank#fn136)
+
+### Primer upotrebe
+
+**Scenario optimizacije**:[137](about:blank#fn137)
+
+1. Program se profajlira sa reprezentativnim ulaznim podacima
+2. Analizira se profil i identifikuju se funkcije koje zauzimaju 80% vremena izvršavanja
+3. Programer optimizuje te funkcije (poboljšanje algoritma, korišćenje bržih operacija)
+4. Program se ponovo profajlira da bi se potvrdio napredak
+
+---
+
+## **Pitanje 2.43. Profajliranje. Kvalitet profila.**
+
+### Važnost kvaliteta profila
+
+Izvršavanjem programa upravljaju konkretni ulazi, i **različiti ulazi daju različite rezultate profajliranja**. Da bi se donosile odluke o optimizaciji na osnovu profajliranja, važno je da izvršavanje u okviru kojeg se vrši profajliranje **reflektuje realnu upotrebu programa**, odnosno da su skupljeni podaci reprezentativni.[138](about:blank#fn138)
+
+### Problemi nekvalitetnog profila
+
+**Propuštena prilika**:[139](about:blank#fn139)
+
+**Primer**: Razmotrimo funkciju koja vrši obradu elemenata niza algoritmom kubne složenosti i pretpostavimo da se ta funkcija u praksi koristi nad velikim nizovima. Ukoliko se program profajlira sa ulazom koji funkciji prosleđuje niz sa malim brojem elemenata, onda se profajliranjem ne može uočiti problem sa performansama koji će nastati u praksi.[140](about:blank#fn140)
+
+**Pogrešne odluke**:[141](about:blank#fn141)
+
+**Primer**: Razmotrimo funkciju koja ima naredbu grananja u okviru koje se u `then` grani poziva funkcija `f`, a u `else` grani funkcija `g`. Pretpostavimo da se u praksi `then` grana izvršava 20 puta češće nego `else` grana, ali da su ulazni podaci za profajliranje izabrani tako da nas vode u `else` granu. Na osnovu takvog profajliranja, može da se donese pogrešan zaključak da je potrebno optimizovati funkciju `g`. Optimizacija te funkcije u praksi neće davati vidljive rezultate, s obzirom na to da se ona retko izvršava.[142](about:blank#fn142)
+
+### Kako postići kvalitetan profil
+
+**Reprezentativni ulazni podaci**:[143](about:blank#fn143)
+
+- Odabir ulaznih podataka koji odgovaraju realnoj upotrebi programa
+- Korišćenje različitih scenarija upotrebe
+- Testiranje granišnih slučajeva
+
+**Više skupova ulaznih podataka**:[144](about:blank#fn144)
+
+- Profajliranje sa više različitih skupova ulaznih podataka
+- Agregiranje rezultata iz više profajliranja
+
+**Validacija profila**:[145](about:blank#fn145)
+
+- Provera da li profil odgovara očekivanom ponašanju programa
+- Upoređivanje profila sa metrikama iz produkcije (ako su dostupne)
+
+### Ravnoteža između preciznosti i troškova
+
+Prilikom optimizacije na osnovu dobijenih profila važno je pronaći **ravnotežu između vremena utrošenog na prikupljanje podataka i koristi od dobijenih informacija**:[146](about:blank#fn146)
+
+**U početnim fazama optimizacije**:[147](about:blank#fn147)
+
+- Mogu se koristiti **jednostavne i manje precizne metode** kako bi se identifikovali najveći problemi
+- Brzo profajliranje uzimanjem uzoraka
+- Identifikacija očiglednih uskih grla
+
+**Kako optimizacija napreduje**:[148](about:blank#fn148)
+
+- Preostale prilike za unapređenje postaju **suptilnije**
+- Zahtevaju se **precizne tehnike profajliranja**
+- Instrumentaciono profajliranje za tačne brojeve
+
+### Tipovi podataka u profilu
+
+Kvalitetan profil obično sadrži:[149](about:blank#fn149)
+
+- **Broj poziva funkcija**: Koliko puta je svaka funkcija pozvana
+- **Vreme izvršavanja**: Koliko vremena je utrošeno u svakoj funkciji
+- **Ekskluzivno vreme**: Vreme provedeno samo u toj funkciji (bez poziva drugih funkcija)
+- **Inkluzivno vreme**: Ukupno vreme uključujući i pozvane funkcije
+- **Broj izvršavanja osnovnih blokova**: Koliko puta je svaki blok koda izvršen
+- **Statistika grana**: Koja grana u grananju se češće izvršava
+
+### Zaključak
+
+Kvalitet profila direktno utiče na uspešnost optimizacije. Profil treba da bude:[150](about:blank#fn150)
+
+- **Reprezentativan** - odražava realnu upotrebu
+- **Precizan** - sadrži dovoljno detalja za donošenje odluka
+- **Praktičan** - prikupljanje ne sme biti previsoko opterećenje
+
+---
+
+## **Pitanje 2.44. Profajliranje. Profajliranje uzimanjem uzoraka. Primeri.**
+
+### Definicija
+
+**Profajler zasnovan na uzorkovanju** (sample-based profiler) periodično prekida izvršavanje programa, najčešće u fiksnim vremenskim intervalima, koristeći prekide operativnog sistema.[151](about:blank#fn151)
+
+### Princip rada
+
+**Uzorkovanje**:[152](about:blank#fn152)
+
+1. Program se izvršava normalno
+2. U periodičnim intervalima (npr. svakih 10ms), operativni sistem generiše prekid
+3. Profajler snima **stek poziva** (call stack) svake niti
+4. Beleži se niz aktivnih funkcijskih poziva u tom trenutku
+5. Prikupljeni podaci se agregiraju za analizu
+
+**Statistička priroda**:[153](about:blank#fn153)
+
+- Na osnovu dovoljno velikog broja uzoraka i za dobro izabrane intervale merenja, moguće je napraviti preciznu statistiku
+- Ako se funkcija često nalazi na vrhu steka, to znači da program u njoj provodi mnogo vremena
+
+### Prednosti
+
+**Minimalan uticaj na performanse**:[154](about:blank#fn154)
+
+- Program se izvršava gotovo punom brzinom
+- Nema potrebe za modifikacijom koda
+- Pogodno za velike i složene aplikacije, dugotrajne aplikacije i sisteme u realnom vremenu
+
+**Ne zahteva ponovno prevođenje**:[155](about:blank#fn155)
+
+- Profajliranje se može vršiti nad proizvoljnim izvršivim datotekama
+- Prisustvo debug simbola može poboljšati analizu i interpretaciju rezultata
+
+### Nedostaci
+
+**Statistička priroda**:[156](about:blank#fn156)
+
+- Rezultati su probabilistički, ne apsolutno precizni
+- Uzorak ne pruža tačan broj poziva funkcija
+
+**Propuštanje retkih događaja**:[157](about:blank#fn157)
+
+- Ako se funkcija izvršava vrlo brzo i retko, moguće je da neće biti obuhvaćena uzorkovanjem
+
+### Najpoznatiji alati
+
+**perf** (Linux):[158](about:blank#fn158)
+
+- Uveden u Linux kernel verziji 2.6.31 (septembar 2009)
+- Zamenjuje starije alate poput `oprofile`
+- Moderan interfejs za korišćenje hardverskih brojača za performanse (PMU - Performance Monitoring Units)
+- Pruža statistički pregled vremena izvršavanja i resursa koje program koristi
+- Standardni alat za profajliranje na Linux platformama
+
+**oprofile** (Linux):[159](about:blank#fn159)
+
+- Stariji profajler, uglavnom zamenjen sa `perf`
+
+**gprof**:[160](about:blank#fn160)
+
+- Kombinacija uzorkovanja i instrumentacije
+- GNU profajler
+
+**Visual Studio Profiler** (Windows):[161](about:blank#fn161)
+
+- Ima podršku i za instrumentaciono profajliranje
+- Deo Microsoft Visual Studio okruženja
+
+**Intel VTune Profiler**:[162](about:blank#fn162)
+
+- Napredno profajliranje sa hardverskom podrškom
+- Analiza keš memorije, grana, vektorizacije
+
+**Google CPU Profiler**:[163](about:blank#fn163)
+
+- Deo gperftools paketa
+- Lako se integriše u C++ aplikacije
+
+**Instruments** (macOS/Xcode):[164](about:blank#fn164)
+
+- Apple-ov profajler za macOS i iOS
+- Praćenje CPU, memorije, mreže, energije
+
+### Primeri
+
+**Primer 1: perf**
+
+**Pokretanje profajliranja**:
+
+```bash
+perf record ./myprogram
+```
+
+Generiše se `perf.data` fajl sa prikupljenim uzorcima.[165](about:blank#fn165)
+
+**Prikaz rezultata**:
+
+```bash
+perf report
+```
+
+Prikazuje funkcije sortirane po tome koliko vremena je program u njima proveo.[166](about:blank#fn166)
+
+**Detaljnija analiza**:
+
+```bash
+perf record -g ./myprogram   # Sa call graph-om
+perf report --stdio          # Tekstualni izveštaj
+```
+
+**Primer 2: Flamegraph (Plameni graf)**
+
+**Plameni graf** (flame graph) je vizualizacija koja se koristi za analizu performansi softvera, posebno za identifikovanje uskih grla.[167](about:blank#fn167)
+
+**Karakteristike**:[168](about:blank#fn168)
+
+- Svaka traka (pravougaonik) odgovara pozivu jedne metode
+- Svaki “plamen” odgovara jednom nizu poziva metoda
+- **Širina svake trake je proporcionalna vremenu** koje je program proveo u tom metodu i metodama koje su iz njega pozvane
+- Obično je interaktivan prikaz
+
+**Primer generisanja**:
+
+```bash
+perf record -g ./myprogram
+perf script > out.perf
+stackcollapse-perf.pl out.perf > out.folded
+flamegraph.pl out.folded > flamegraph.svg
+```
+
+**Primer 3: Instruments (macOS)**
+
+Instruments je deo Xcode okruženja:[169](about:blank#fn169)
+
+```bash
+instruments -t "Time Profiler" ./myprogram
+```
+
+Pokreće profajliranje sa uzorkovanjem i generiše grafički izveštaj.[170](about:blank#fn170)
+
+### Zaključak
+
+Profajliranje uzimanjem uzoraka je efikasan način za brzu identifikaciju problema sa performansama uz minimalan uticaj na izvršavanje programa. Posebno je korisno za analizu kompleksnih i dugotrajnih aplikacija.[171](about:blank#fn171)
+
+---

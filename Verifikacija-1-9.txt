@@ -1,0 +1,1238 @@
+# Verifikacija 1-9
+
+## Pitanje 1.1: Značaj kvaliteta softvera. Procesi i standardi.
+
+### Značaj kvaliteta softvera
+
+Kvalitet softvera predstavlja jedan od ključnih faktora uspešnosti svake softverske aplikacije. U savremenom digitalno orijentisanom svetu, softver je prisutan u gotovo svim aspektima naše životne i poslovne delatnosti – od malih kućnih aparata i mobilnih telefona, preko prevoznih sredstava i satelita, do raketa, medicinskih aparata i industrijskih sistema. Kvalitet softvera direktno utiče na zadovoljstvo korisnika, efikasnost poslovanja i, što je još važnije, na bezbednost ljudskih života.
+
+Upravljanje kvalitetom softvera (eng. quality management) obuhvata skup principa, metoda i procesa koji se koriste za obezbeđivanje i unapređivanje kvaliteta softvera. Osnovni cilj je ispunjavanje korisničkih zahteva, optimizovanje poslovnih procesa i smanjenje broja grešaka i defekta. Visok kvalitet softvera predstavlja ključni faktor za komercijalni uspeh na tržištu, kao i za primenu u specifičnim nekomercialnim okruženjima gde su zahtevi i uslovi strožiji.
+
+### Procesi vezani za kvalitet softvera
+
+Upravljanje kvalitetom softvera uključuje četiri osnovna procesa:
+
+1. **Planiranje kvaliteta softvera** – Neophodno je definisati pristup razvoju softvera koji omogućava postizanje željenog nivoa kvaliteta. Različiti nivoi kvaliteta se očekuju za različite vrste softvera. Na primer, softver korišćen u avionskoj industriji mora imati mnogo viši nivo kvaliteta u odnosu na igru na mobilnom telefonu.
+2. **Obezbeđivanje kvaliteta softvera** (eng. assurance) – Podrazumeva uključivanje aspekata kvaliteta u svakodnevni razvoj softvera. To znači da se tokom celog procesa razvoja vode računa o kvaliteti i primenjuju najbolje prakse.
+3. **Kontrola kvaliteta softvera** (eng. control) – Trebalo bi da obezbedi da dobijeni krajnji proizvod bude željenog kvaliteta. Ovo uključuje testiranje, preglede i druge mehanizme provere.
+4. **Poboljšanje kvaliteta softvera** – Podrazumeva kontinuirano praćenje i unapređivanje procesa razvoja softvera kroz analizu povratnih informacija i primenu novih metodologija razvoja.
+
+### Standardi kvaliteta softvera
+
+Željeni kvalitet softvera definiše se kroz softverske zahteve, ali može biti nametnut i različitim međunarodnim standardima. Dva najvažnija standarda su:
+
+### ISO/IEC 25010 Standard
+
+Serija standarda **ISO/IEC 25000** sadrži okvir za procenu kvaliteta softvera. Najvažniji standard u ovoj seriji je **ISO/IEC 25010**, koji definiše devet karakteristika (atributa) kvaliteta softvera:
+
+- Funkcionalna podobnost
+- Performantnost (efikasnost)
+- Kompatibilnost
+- Pouzdanost
+- Upotrebljivost
+- Bezbednost (fizička bezbednost)
+- Sigurnost (informaciona bezbednost)
+- Održivost
+- Prenosivost
+
+Standard **ISO/IEC 25023** opisuje kako se ove karakteristike koriste za merenje ukupnog kvaliteta proizvoda.
+
+### IEEE Standardi
+
+Postoje i važni IEEE standardi koji se široko koriste:
+
+- **IEEE 730** – Daje smernice za pokretanje, planiranje, kontrolu i izvršavanje procesa obezbeđenja kvaliteta softvera.
+- **IEEE 1012-2016** – Definiše procese verifikacije i validacije za razvoj sistema, softvera i hardvera.
+
+### Primer iz prakse
+
+Razmotrimo bankarsku aplikaciju. Za ovu aplikaciju kritični su sledeći procesi:
+- **Planiranje**: Potrebno je definisati vrlo stroge zahteve i nivoe kvaliteta jer se radi sa osetljivim finansijskim podacima.
+- **Obezbeđivanje**: Tokom razvoja se primenjuju sigurnosni protokoli i beste prakse.
+- **Kontrola**: Ekstenzivno testiranje sigurnosti, validacija transakcija i provera podataka.
+- **Poboljšanje**: Redovna analiza sigurnosnih incidenata i unapređivanje sistema.
+
+---
+
+## Pitanje 1.2: Značaj kvaliteta softvera. Atributi kvaliteta softvera: funkcionalna podobnost, performantnost, kompatibilnost, pouzdanost. Primeri.
+
+### Atributi kvaliteta softvera
+
+Prema standardu ISO/IEC 25010, atributi kvaliteta softvera predstavljaju karakteristike koje definišu koliko dobro softver zadovoljava korisničke zahteve. Svaki atribut ima određenu važnost u zavisnosti od svrhe aplikacije.
+
+### 1. Funkcionalna podobnost
+
+**Definicija**: Funkcionalna podobnost (eng. functional suitability) odgovara stepenu u kojem softver ispunjava funkcionalne zahteve. Obuhvata tri aspekta:
+
+- **Funkcionalna ispravnost** – Softver treba da daje tačne rezultate. Svaka operacija mora biti izvršena na očekivani i korektan način.
+- **Funkcionalna potpunost** – Dostupnost svih funkcionalnosti predviđenih specifikacijom.
+- **Funkcionalna prikladnost** – Softver se ponaša na očekivani način, bez neočekivanih ili nepotrebnih dodatnih opcija.
+
+**Primer - Kalkulator**:
+- *Funkcionalna ispravnost*: Kalkulator mora uvek računati ispravne vrednosti. Na primer, sabiranje 5 + 3 mora dati rezultat 8, nikad 7 ili 9.
+- *Funkcionalna potpunost*: Kalkulator mora imati sve funkcionalnosti predviđene specifikacijom – sabiranje, oduzimanje, množenje, deljenje, možda i kvadratni koren i logaritam.
+- *Funkcionalna prikladnost*: Kalkulator ne sme imati neočekivane dodatne opcije kao što su preuzimanje sadržaja sa interneta ili reprodukovanje filmova – to bi bilo neprikladna funkcionalnost za kalkulator.
+
+**Primer - Web pretraživač**:
+Pretraživač mora ispravno da otvara web stranice (ispravnost), mora imati sve obещane funkcionalnosti kao što su bookmarks, istorija, privatni režim (potpunost), i ne sme da instalira viruse ili pratitelje bez znanja korisnika (prikladnost).
+
+### 2. Performantnost (Efikasnost)
+
+**Definicija**: Performantnost (eng. performance) odgovara stepenu u kojem softver zadovoljava vremenske i resursne zahteve. Obuhvata:
+
+- **Vremensko ponašanje** – Vreme odgovora i obrade. Koliko vremena je potrebno da aplikacija odgovori korisniku ili obradi zahtev.
+- **Stopa protoka** – Koliko transakcija aplikacija može obraditi u jedinici vremena.
+- **Korišćenje resursa** – Količina i vrsta korišćenih resursa (procesor, memorija, disk, mrežni resursi).
+- **Kapacitet** – Maksimalna ograničenja u kontekstu broja korisnika ili veličine ulaza koje aplikacija može obraditi.
+
+**Primer - Sistem za online kupovinu avionskih karata**:
+
+Ovaj sistem treba da obezbedi brzu pretragu i rezervaciju, čak i kada na njega simultano pristupi veliki broj korisnika:
+
+- *Vremensko ponašanje*:
+    - Pretraga dostupnih karata treba da se izvrši za manje od 2 sekunde u 97% slučajeva
+    - Prikaz rezultata pretrage mora da se učita u roku od 3 sekunde za 95% zahteva
+    - Plaćanje i potvrda rezervacije ne smeju trajati duže od 5 sekundi u 99% slučajeva
+- *Korišćenje resursa*:
+    - Opterećenje procesora ne sme preći 70% pri normalnom radu
+    - Opterećenje procesora ne sme preći 90% pri vrnom opterećenju duže od 10 sekundi
+    - Potrošnja RAM memorije ne sme preći 8 GB po instanci aplikacije tokom normalnog rada
+    - Upotreba baze podataka mora omogućiti obradu do 500 upita u sekundi bez značajnog usporavanja
+    - Odgovore baze mora biti uvek ispod 200ms
+    - Potrošnja mrežnih resursa ne sme preći 1 GB po sekundi na pojedinim serverima
+- *Kapacitet*: Sistem mora da podržava najmanje 10.000 istovremenih korisnika bez degradacije performansi.
+
+### 3. Kompatibilnost
+
+**Definicija**: Kompatibilnost (eng. compatibility) odgovara stepenu u kojem softver može da funkcioniše na različitim platformama ili da deli podatke sa drugim proizvodima, sistemima i komponentama. Obuhvata:
+
+- **Koegzistencabilnost** – Sposobnost deljenja okruženja i resursa sa drugim softverskim proizvodima.
+- **Interoperabilnost** – Sposobnost promene i korišćenja informacija sa drugim aplikacijama.
+
+**Primer - Aplikacija za razmenu poruka (npr. WhatsApp, Viber, Slack)**:
+
+- *Koegzistencabilnost*: Aplikacija mora da funkcioniše zajedno sa drugim aplikacijama na uređaju bez ometanja:
+    - Ako je glazba u toku preko Spotify-ja i primeni se telefonski poziv, muzika se automatski pauzira
+    - Nakon završetka poziva, muzika se automatski nastavlja
+    - Notifikacije od aplikacije ne smeju blokirati druge aplikacije
+    - Aplikacija ne sme konzumirati sve dostupne resurse i ostaviti druge aplikacije bez mogućnosti rada
+- *Interoperabilnost*: Aplikacija treba da omogući:
+    - Slanje slika iz lokalne galerije telefona
+    - Pristup fajlovima sa Google Drive-a
+    - Deljenje fajlova sa Dropbox-om
+    - Integraciju sa drugim servisima za video pozive
+    - Kompatibilnost sa različitim operativnim sistemima (Android, iOS, Windows, Linux)
+
+### 4. Pouzdanost
+
+**Definicija**: Pouzdanost (eng. reliability) označava stepen u kojem je softver pouzdan. Obuhvata:
+
+- **Zrelost** – Stabilnost tokom svakodnevne upotrebe. Softver ne sme da imati česte rušenje ili greške.
+- **Dostupnost** – Mogućnost neprekidnog rada. Sistem mora biti dostupan korisnicima kada ga trebaju.
+- **Toleranca na greške** – Sposobnost funkcionisanja čak i u prisustvu određenih hardverskih i softverskih kvarova.
+- **Sposobnost oporavka** – Povratljivost, sposobnost vraćanja podataka i procesa u slučaju kvara sistema.
+
+**Primer - Sistem za hitne službe (policija, prva pomoć)**:
+
+Za ovakve sisteme kritično je da zadovolje sve kriterijume pouzdanosti:
+
+- *Zrelost*: Sistem mora biti dobro proveren i stabilan. Svaka nova funkcionalnost mora biti temeljno testirana i verifikovana pre uvođenja. Nema tolerancije za frequent crashes.
+- *Dostupnost*: Sistem mora biti neprekidno dostupan, što znači da nikada ne sme biti van funkcije:
+    - Sistem mora biti aktivan 24/7/365
+    - Mogućnost simultanog hvatanja velikog broja poziva
+    - Postojanje dodatne infrastrukture u slučaju pada primarnog sistema
+    - Automatsko prebacivanje poziva na drugi dostupan server
+- *Toleranca na greške*:
+    - Ako dođe do prekida napajanja na nekoj serverskoj lokaciji, sistem mora nastaviti sa radom bez vidljivih problema
+    - Posao tog servera se automatski prebacuje na drugi dostupni server
+    - Sistem se osigurava da nema gubitka podataka
+- *Sposobnost oporavka*:
+    - Ako dođe do softverskog pada, sistem mora automatski da se oporavi
+    - Sistem mora da nastavi sa radom
+    - Svi važni podaci se čuvaju i ne smeju biti izgubljeni
+
+**Primer - E-commerce platforma**:
+
+Platforma za online kupovinu mora biti pouzdana jer svaki pad sistema znači direktnu finansijsku štetu:
+
+- Najmanje 99.9% uptime (The “three nines” standard)
+- Redundantni sistemi na različitim geografskim lokacijama
+- Automatski backup-ovi podataka svakih nekoliko minuta
+- Brza detekcija i oporavak od greške
+
+---
+
+## Pitanje 1.3: Značaj kvaliteta softvera. Atributi kvaliteta softvera: održivost. Primeri.
+
+### Održivost softvera
+
+**Definicija**: Održivost (eng. maintainability) odgovara lakosti integrišenja promena u softver. Promene uključuju:
+
+- Dodavanje novih funkcionalnosti
+- Ispravljanje grešaka (bug fixes)
+- Poboljšanje performansi
+- Prilagođavanja promenama korisničkih zahteva
+- Prilagođavanja promenama u tehnološkom okruženju
+
+Izmena softvera zahteva četiri ključne koraka:
+1. **Razumevanje softvera** – Potrebno je razumeti kako softver funkcioniše
+2. **Pronalaženje relevantnih delova koda** – Identificiranje gde je potrebno izvršiti izmenu
+3. **Izvršenje željenih izmena** – Kodiranje nove funkcionalnosti ili ispravke
+4. **Provera da izmene nisu poremetile postojeću funkcionalnost** – Testiranje
+
+Održivost se odnosi na lakou svih ovih koraka. Smatra se jednim od ključnih atributa kvaliteta jer direktno utiče na dugovečnost softvera i troškove razvoja i održavanja.
+
+### Podattributi održivosti
+
+Održivost obuhvata pet ključnih podattributa:
+
+### 1. Modularnost
+
+**Definicija**: Modularnost se odnosi na stepen u kome je softver logički podeljen na nezavisne i međusobno zamenljive module.
+
+Razlaganje softvera na module (jedinice, komponente) omogućava:
+- Skrivanje ukupne složenosti kroz apstrakciu
+- Definisanje jasnih interfejsa između modula
+- Nezavisno testiranje svakog modula
+- Fleksibilnu kombinaciju modula
+
+Idealan modul treba da bude:
+- Relativno male dimenzije
+- Niske ciklomatske složenosti (mali broj mogućih putanja izvršavanja)
+- Visoke kohezije (elementi unutar modula su usko povezani)
+- Minimalno spregnut sa ostalim modulima (mali broj zavisnosti)
+
+**Primeri-Aplikacija za razmenu poruka**:
+
+Aplikacija za razmenu poruka (npr. WhatsApp, Viber) treba da ima različite funkcionalnosti:
+- Sistem za slanje poruka
+- Sistem za obaveštenja
+- Korisnike postavke
+- Grupno slanje poruka
+- Sistem za autentifikaciju
+
+Implementacija koju karakteriše dobra modularnost bi bila:
+- Svaki modul je odvojen i nezavisan
+- Moduli se međusobno povezuju preko jasno definisanih interfejsa
+- Sistem za autentifikaciju je odvojen od sistema za poruke i pozive
+- To omogućava lakše upravljanje bez uticaja na ostatak aplikacije
+- Ako je potrebna promena u sistemu za autentifikaciju, ostali moduli nisu pogođeni
+
+### 2. Iskoristivost (Ponovna upotrebljivost)
+
+**Definicija**: Iskoristivost predstavlja stepen u kome se komponente jednog sistema mogu koristiti u drugim sistemima.
+
+Postoje različiti nivoi iskoristivosti:
+- Ponovna upotreba specifikacija
+- Ponovna upotreba dizajna
+- Ponovna upotreba koda
+- Ponovna upotreba podataka
+- Ponovna upotreba testova
+
+Glavne prednosti ponovne upotrebe:
+- Povećanje produktivnosti
+- Smanjenje troškova razvoja
+- Poboljšanje kvaliteta (kod je već testiran)
+- Ubrzanje razvoja
+- Smanjenje rizika
+
+**Primer-Aplikacija za razmenu poruka**:
+
+Poeljno je da se aplikacija može koristiti na različitim platformama:
+- Mobilni telefoni (Android, iOS)
+- Desktop računari (Linux, Windows, macOS)
+
+Da bi se to ostvarilo, kritična je iskoristivost:
+- Sve komponente i funkcionalnosti, koje nisu specifične za platformu, trebalo bi da budu ponovljivo korišćene
+- Sistem za autentifikaciju treba da bude identičan na svim platformama
+- Core logika za slanje poruka se može ponovljivo koristiti
+- Umesto pisanja koda tri puta (Android, iOS, Web), koristi se ista logika sa platformski-specifičnim kodom samo za interfejs
+
+### 3. Analizabilnost
+
+**Definicija**: Analizabilnost označava lakou analize i razumevanja softvera.
+
+Direktno utiče na:
+- Razumevanje softvera
+- Pronalaženje delova softvera koji trebaju da se izmene
+
+Analizabilnost se poboljšava kroz:
+- **Dobra modularnost** – Smanjuje kompleksnost i olakšava razumevanje
+- **Dobra dokumentacija** – Jasne smernice za korišćenje
+- **Dosledan kod** – Potovanje kodnih standarda
+- **Mehanizmi praćenja** – Logovi, monitoring, tracing koji omogućavaju razumevanje ponašanja sistema
+
+**Primer-Sistem za razmenu poruka**:
+
+Analizabilnost omogućava brzo praćenje i analiziranje problema:
+- Ako korisnici prijave da se neke poruke nisu stigle
+- Ili da su stigle dva puta
+- Sistem treba da omogući praćenje aktivnosti korisnika i sistema
+- Potrebni su detaljni logovi grešaka, statistika korišćenja, praćenje mrežnih veza
+- Razvojaču treba da bude lako da pronađe uzrok problema kroz analizu logova
+
+### 4. Izmenljivost
+
+**Definicija**: Izmenljivost predstavlja lakou implementacije izmena bez uvođenja grešaka.
+
+Ključni pokazatelj izmenljivosti je spregnutost:
+- **Niska spregnutost** – Manje zavisnosti između modula, lakše izmene
+- **Visoka spregnutost** – Više zavisnosti, potrebne izmene u različitim delovima koda, veća mogućnost greške
+
+Dobra modularnost utiče pozitivno na izmenljivost:
+- Smanjenje kompleksnosti
+- Ograničenje uticaja izmena na lokalne delove koda
+
+**Primer-Dodavanje video poziva**:
+
+Razmotrimo dodavanje video poziva kao nove funkcionalnosti:
+- Ako je sistem dobro modularan, video pozivi se mogu implementirati kao odvojeni modul
+- Video modul je odvojen od sistema za razmenu poruka
+- Ali se mora integrisati u postojeći korisnički interfejs
+- Izmene su lokalizovane i ne utiču na ostatak sistema
+- Rizik od uvođenja grešaka je minimalan
+
+### 5. Testabilnost
+
+**Definicija**: Testabilnost označava lakou provere da li su izmene narušile postojeću funkcionalnost.
+
+Prednosti visoke testabilnosti:
+- Brža isporuka korisnicima
+- Češća povratna informacija o ispravnosti softvera
+- Manja mogućnost da greške stignu do korisnika
+
+Testabilnost se poboljšava kroz:
+- **Automatizacija testiranja** – Brzi testovi koji se mogu ponavljati
+- **Automatsko generisanje testova** – Alati koji prave testove
+- **Dostupnost test slučajeva** – Test slučajevi sa unapred poznatim rezultatima
+
+**Primer-Sistem za razmenu poruka**:
+
+Testabilnost u kontekstu čestih promena i nadgradnji je kritična:
+- Potrebno je pisati jedinične testove za svaki modul
+- Potrebna je automatizacija testiranja
+- Testovi trebali bi da pokrivaju:
+- Sve vrste poruka (tekstualne, glasovne, multimedalne)
+- Scenare koji obuhvataju pogrešno korišćenje
+- Nestandardne slučajeve (npr. aplikacija se koristi u slučaju problema sa mrežom)
+- Svaka nova promena se testira automatski
+- Ako testovi padnu, greška je odmah pronađena
+
+### Metrike održivosti
+
+Bitne metrike za održivost:
+
+1. **Spregnutost** (eng. coupling) – Kvantitativna mera međuzavisnosti između modula. Trebalo bi biti niska.
+2. **Kohezija** (eng. cohesion) – Kvantitativna mera povezanosti funkcija ili objekata unutar istog modula. Trebalo bi biti visoka.
+3. **Ciklomatska složenost** (eng. cyclomatic complexity) – Kvantitativna mera broja linearno nezavisnih putanja kontrole toka programa. Trebalo bi biti niska (idealno manje od 10).
+4. **Veličina** (eng. size) – Broj linija koda. Manji kod je lakši za održavanje.
+
+Karakteristike održivog softvera:
+- Niska spregnutost
+- Visoka kohezija
+- Niska ciklomatska složenost
+- Manja veličina modula
+
+### Refaktorisanje
+
+Refaktorisanje softvera predstavlja proces poboljšanja dizajna postojećeg koda i ključan je deo održavanja tokom evolucije softvera.
+
+Održivost zahteva kontinuirano unapređivanje jer se dizajn softvera vremenom pogoršava kroz različite izmene.
+
+---
+
+## Pitanje 1.4: Značaj kvaliteta softvera. Atributi kvaliteta softvera: upotrebljivost, sigurnost, bezbednost, prenosivost. Primeri.
+
+### 1. Upotrebljivost
+
+**Definicija**: Upotrebljivost (eng. usability) odgovara stepenu u kojem korisnici mogu koristiti softver. Glavni cilj je da softver bude intuitivan, jednostavan za učenje i korišćenje.
+
+### Podattributi upotrebljivosti:
+
+1. **Nauljivost** – Koliko je jednostavno naučiti kako softver funkcioniše
+2. **Operabilnost** – Koliko je lako raditi sa softverom i kontrolisati ga
+3. **Zaštita od korisničkih grešaka** – Mere koje sprečavaju pravljenje grešaka u korišćenju
+4. **Estetika korisničkog interfejsa** – Vizuelna prelanost i prikhvatljivost dizajna
+5. **Pristupačnost** – Mogućnost korišćenja od strane osoba sa različitim sposobnostima
+6. **Prepoznatljivost svrhe aplikacije** – Jasnoća namene softvera korisnicima
+
+### Primeri - Bankarska aplikacija:
+
+**Nauljivost**:
+- Novom korisniku trebalo bi da bude moguće da samostalno pronađe i izvrši osnovne radnje (slanje novca, provera stanja) za manje od 5 minuta bez potrebe za tutorialom
+
+**Operabilnost**:
+- Ključne funkcionalnosti (provera stanja, transfer sredstava između računa) trebalo bi da budu dostupne sa manje od četiri klika
+- Omogućava brz i lak rad sa aplikacijom
+
+**Zaštita od korisničkih grešaka**:
+- Ako korisnik unese neispravan broj računa pri slanju novca, aplikacija mora automatski izvršiti validaciju
+- Upozoriti korisnika na grešku pre potvrde transakcije
+- Sprečiti da se pogrešna transakcija izvrši
+
+**Estetika korisničkog interfejsa**:
+- Aplikacija treba da ima profesionalan i vizuelno priličan dizajn
+- Dizajn bi trebalo da bude minimalistički, moderan i intuitivan
+- Jasan kontrast između elemenata
+- Harmonične boje i lako čitljive fontove
+- Dugmad i ikonice moraju biti vizuelno jasne i prepoznatljive
+
+**Pristupačnost**:
+- Aplikacija mora biti pristupačna osobama sa različitim potrebama
+- Kompatibilnost sa alatima za čitanje ekrana
+- Fontovi mogu biti uvećani po potrebi
+- Kontrast boja omogućava čitanje osobama sa daltonizmom
+
+**Prepoznatljivost svrhe aplikacije**:
+- Korisnik odmah treba da razume da je aplikacija namenjena bankarskim uslugama
+- Početni ekran treba da sadrži jasno prepoznatljive elemente (saldo računa, dugme za transfer novca)
+- Ikonice i nazivi funkcionalnosti trebali bi da budu intuitivni (Plaćanje, Kartice, Računi)
+- Brend-boje i logo banke trebali bi da budu istaknuti
+
+### 2. Bezbednost (Fizička bezbednost - Safety)
+
+**Definicija**: Bezbednost (eng. safety) odgovara stepenu u kojem proizvod, pod definisanim uslovima, izbegava stanje u kojem su ugroženi ljudski život, zdravlje, imovina ili životna sredina.
+
+### Podattributi bezbednosti:
+
+1. **Operativna ograničenost** – Stepen do kojeg proizvod ograničava svoje funkcionisanje unutar bezbednih parametara
+2. **Identifikacija rizika** – Stepen do kojeg proizvod može da identifikuje tok događaja ili operacija koji mogu izložiti život, imovinu ili životnu sredinu neprihvatljivom riziku
+3. **Bezbednost kvara** – Stepen do kojeg proizvod može automatski da se postavi u bezbedno stanje rada ili da se vrati u bezbedno stanje u slučaju kvara
+4. **Upozorenje na opasnost** – Stepen do kojeg proizvod pruža upozorenja o neprihvatljivim rizicima
+5. **Bezbednost integracije** – Stepen do kojeg proizvod može da održi bezbednost tokom i nakon integracije sa drugim komponentama
+
+### Primer - Sistem za autonomnu vožnju:
+
+Za sisteme autonomne vožnje svi atributi bezbednosti su izuzetno važni:
+
+**Operativna ograničenost**:
+- Automobil mora ograničiti svoje manevre (brzina, skretanje) u skladu sa bezbednim parametrima
+- Posebno pri lošim vremenskim uslovima ili oštećenjima na putu
+- Ako pada kiša ili sneg, sistem mora da usporavi i prilagodi vožnju
+
+**Identifikacija rizika**:
+- Sistem treba da ume da prepozna potencijalne opasnosti:
+- Pešaci koji iznenada prelaze ulicu
+- Druga vozila koja se kreću nepredvidivo
+- Prepreke na putu
+- Životinje
+- Rizična vremenska stanja
+
+**Bezbednost kvara**:
+- U slučaju otkaza senzora ili računarskog sistema:
+- Automobil mora automatski da se zaustavi na bezbedan način
+- Ili da preuzme minimalno funkcijsko stanje koje ne ugrožava putnike
+- Nema mogućnosti da nastavi sa opasnom vožnjom
+
+**Upozorenje na opasnost**:
+- Ako se pojavi situacija koju sistem ne može da reši sam:
+- Mora brzo upozoriti vozača na opasnost
+- Ili da kontaktira centralni nadzorni sistem
+
+**Bezbednost integracije**:
+- Kada se novi moduli (dodatni senzori, softverske nadogradnje) integriu u postojeći sistem:
+- Ceo sistem mora i dalje održavati visok nivo bezbednosti
+- Ne sme uvoditi nove rizike
+
+### 3. Sigurnost (Informaciona bezbednost - Security)
+
+**Definicija**: Sigurnost (eng. security) odgovara stepenu u kojem softver štiti informacije i podatke od neovlašćenog pristupa.
+
+### Podattributi sigurnosti:
+
+1. **Poverljivost** – Dostupnost podataka samo ovlašćenim korisnicima
+2. **Integritet** – Sprečavanje neovlašćenog pristupa i modifikacije podataka
+3. **Odgovornost** – Mogućnost praćenja radnji korisnika (audit trail)
+4. **Autentifikabilnost** – Mogućnost dokazivanja identiteta korisnika
+5. **Neporecivost** – Nemogućnost osporavanja, mogućnost prikupljanja informacija o određenim aktivnostima
+
+### Primer - Bankarska aplikacija:
+
+Bankarske aplikacije moraju biti maksimalno sigurne jer rukuju osetljivim finansijskim podacima:
+
+**Poverljivost**:
+- Podaci korisnika moraju biti maksimalno zaštićeni
+- Ukoliko korisnik pristupi svojoj mobilnoj banci i pregleda stanje na računu, niko drugi ne sme videti ove informacije
+- Pristup aplikaciji mora biti zaštićen lozinkom, PIN-om ili biometrom (otisak prsta, prepoznavanje lica)
+- Podaci moraju biti šifrovani tokom prenosa i skladištenja
+- Aplikacija ne sme dozvoliti snimanje ekrana kako bi se sprečilo curenje podataka
+
+**Integritet**:
+- Transakcije ne smeju biti neovlašćeno menjane
+- Ukoliko korisnik izvrši uplatu, transakacija mora biti tačna
+- Niko ne sme neovlašćeno izmeniti iznos uplate
+- Banka mora šifrirati podatke tokom prenosa
+- Svaka transakacija mora imati digitalni potpis
+- Sistem mora detektovati bilo kakve neovlašćene izmene i odmah ih blokirati
+
+**Odgovornost**:
+- Sve aktivnosti se beleže i mogu se proveriti
+- Ako se korisnik žali da neko neovlašćeno koristi njegov račun:
+- Banka mora biti u stanju da proveriti ko je koristio aplikaciju i kada
+- Sve akcije moraju biti logovan sa vremenskim žigom
+
+**Autentifikabilnost**:
+- Samo pravi korisnik može pristupiti svom računu
+- Banka mora biti sigurna da se korisnik koji se prijavljivuje zaista identifikuje kao pravi vlasnik računa
+- Korišćenje viefaktorske autentifikacije:
+- Lozinka
+- Biometrija
+- Jednokratni kodovi
+- Prijava sa novog uređaja zahteva dodatnu verifikaciju (SMS, email)
+
+**Neporecivost**:
+- Korisnik ne može kasnije tvrditi da nije izvršio transakaciju
+- Digitalno potpisivanje kriptografskim ključevima
+- Logovi moraju biti nepromenljivi
+- Čak ni administratori ne mogu izbrisati ili izmeniti istoriju transakcija
+
+### 4. Prenosivost
+
+**Definicija**: Prenosivost (eng. portability) odgovara stepenu u kome se softver može koristiti u različitim okruženjima.
+
+### Podattributi prenosivosti:
+
+1. **Prilagodljivost** – Mogućnost korišćenja sa različitim hardverom, softverom ili okruženju
+2. **Instalabilnost** – Mogućnost instaliranja/deinstaliranja softvera u različitim okruženjima
+3. **Zamenljivost** – Mogućnost zamene drugim softverskim proizvodom za istu svrhu
+
+### Primer - Sistem za kupovinu avionskih karata (nastavak):
+
+**Prilagodljivost**:
+- Aplikacija treba da funkcioniše na različitim platformama:
+- Web (različiti pregledači: Chrome, Firefox, Safari, Edge)
+- Mobilne aplikacije (Android, iOS)
+- Desktop (Windows, Linux, macOS)
+- Trebalo bi biti moguće da se baza podataka preseli na drugi server
+- Trebalo bi biti moguće da se aplikacija koristi sa različitim brzinama interneta
+
+**Instalabilnost**:
+- Trebalo bi biti moguće lako instalirati aplikaciju na nove servere
+- Trebalo bi biti moguće lako deinstalirati aplikaciju
+- Instalacija ne sme zavisiti od specifičnog operativnog sistema ili hardvera
+- Trebalo bi biti moguće da se koriste automatizirani skripta za instalaciju
+
+**Zamenljivost**:
+- Ako korisnik ima sličnu aplikaciju drugog pružaoca (npr. Ryanair umesto Lufthanze):
+- Trebalo bi biti moguće lako preći sa jedne na drugu aplikaciju
+- Mogućnost prenošenja podataka između aplikacija (npr. lista omiljenih letova)
+- Sličan interfejs i funkcionalnosti bi trebali da olakšaju prelazak
+
+---
+
+## Pitanje 1.5: Uticaj neispravnog softvera. Primeri neprijatnosti i materijalnih gubitaka.
+
+### Uticaj neispravnog softvera
+
+Neispravan softver može imati ozbiljne posledice, od malih neugodnosti do velikih materijalnih gubitaka. Evo nekoliko primer iz stvarnog sveta:
+
+### Primeri neprijatnosti i materijalnih gubitaka:
+
+### 1. Apple Maps Fail (2012)
+
+**Šta se desilo**:
+- Apple je lansirao Apple Maps kao zamenu za Google Maps u iOS 6
+- Aplikacija je sadržavala brojne greške u mapiranju
+- Problemi su bili:
+- Pogrešna lokacija važnih zgrada
+- Pogrešne putanje za vožnju
+- Lokacije su premešane na pogrešne mesta
+- Kompanije su postavljane na potpuno pogrešne adrese
+
+**Posledica**:
+- Korisnici su bili zbunjeni i nisu mogli da nađu lokacije
+- Apple je morao da se izvini
+- Apple je preporučio korišćenje konkurentskih aplikacija (Google Maps, Waze)
+- Reputacijska šteta za Apple
+- Korisnici su počeli da koriste konkurentske servise
+- Ulaganja u razvoj su bila uništena jer je proizvod bio neupotrebljiv
+
+### 2. Outage servisa (2021)
+
+**Šta se desilo**:
+- Mnogi popularni servisi su bili nedostupni nekoliko sati zbog greške u kodu
+- Služba nije bila dostupna korisnicima
+
+**Posledica**:
+- Milioni korisnika su bili odsečeni od servisa
+- Finansijske gubitke za kompanije koje su pružale usluge
+- Gubitak poverenja korisnika
+- Medijska pažnja i kritika
+
+### 3. Windows 10 Update Bug (2021)
+
+**Šta se desilo**:
+- Jedan od Update-a za Windows 10 je sadržavao grešku
+- Greška je prouzrokovala brisanje važnih fajlova korisnika
+- Hiljade korisnika je izgubilo svoje podatke
+
+**Posledica**:
+- Velika reputacijska šteta za Microsoft
+- Korisnici su izgubili važne podatke
+- Potrebni su bili oporavci podataka
+- Sudski sporovi
+- Microsoft je morao da iznese javnu ispriku
+
+### 4. Problemi sa programom za obračun plata
+
+**Šta se desilo**:
+- Javna institucija (npr. škola) koristi softver za obračun plata
+- Softver ima grešku u izračunavanju plata
+- Zaposlenici primaju pogrešne iznose
+
+**Posledica**:
+- Zaposlenici ne mogu da žive jer nemaju dovoljno novca
+- Zaposlenici su ljuti i protestuju
+- Potrebna je istraga i ručna provera svih plata
+- Institucija mora da nadoknadi razliku
+- Reputacijska šteta
+
+### 5. Greške u e-commerce sistemu
+
+**Šta se desilo**:
+- Online prodavnica ima grešku u sistemu za naplate
+- Greška prouzrokuje:
+- Dupliranje narudžbi
+- Naplate koje se ne izvršavaju
+- Pogrešne količine proizvoda
+
+**Posledica**:
+- Korisnici bivaju zbunjeni
+- Povećani troškovi servisa
+- Vraćanja novca
+- Gubitak korisnika koji su imali loše iskustvo
+- Mogućnost gubitka kreditne kartice ili podataka
+
+### 6. Greške u zdravstvenim sistemima
+
+**Šta se desilo**:
+- Softver u bolnici je imao grešku u dozama lekova
+- Greška je prouzrokovala da se pacijentima dade pogrešne doze
+- Ili da se neki pacijenti izostave iz tretmana
+
+**Posledica**:
+- Pacijenti mogu biti ozbiljno povređeni
+- Moguća smrtna stradanja
+- Sudski sporovi
+- Zatvaranje bolnice ili odeljenja
+- Ogromni finansijski gubici i reputacijska šteta
+
+### 7. Greške u transportnim sistemima
+
+**Šta se desilo**:
+- Grešku u sistemu za upravljanje prometom
+- Sistema za automatsku kontrolu brzine vozila
+- Ili sistema za automatske signale
+
+**Posledica**:
+- Posledica mogu biti nesreće sa povređenim ili mrtvima
+- Ogromna finansijska odgovornost
+- Kriminalne proskulje
+- Zatvaranje kompanije
+
+---
+
+## Pitanje 1.6: Uticaj neispravnog softvera. Primeri fatalnih posledica.
+
+### Primeri fatalnih posledica neispravnog softvera
+
+Neispravan softver u kritičnim sistemima može imati katastrofalne posledice sa gubicima ljudskih života:
+
+### 1. Ariane 5 raketa - Neuspešan let 1996
+
+**Šta se desilo**:
+- 4. juna 1996, raketa Ariane 5 je lansirana sa satelitima vrednosti 370 miliona dolara
+- Greška u softveru je prouzrokovala eksploziju rakete samo 37 sekundi nakon lansiranja
+
+**Uzrok greške**:
+- Softver je pokušao da smesti 64-bitni broj u 16-bitni prostor memorije (overflow)
+- Ovo je prouzrokilo pogrešne signale za kontrolu rakete
+- Raketa je počela da se skreće pod pogrešnim uglom
+- Sistemi za samounistavanje su se aktivirali
+
+**Posledica**:
+- Totalna finansijska gubitak od 370 miliona dolara
+- Izgubljeni sateliti koji bi bili korišćeni za komunikaciju i meteorologiju
+- Ozbiljna reputacijska šteta za ESA (Evropska svemirska agencija)
+- Odbložavanje programa Ariane 5 za nekoliko meseci
+
+**Lekcija**: Važnost testiranja, posebno u graničnim slučajevima.
+
+### 2. Mars Climate Orbiter - Gubitak svemirske letilice 1999
+
+**Šta se desilo**:
+- NASA je lansirala Mars Climate Orbiter 1998. godine
+- Letilica je trebala da stupi u orbitu oko Marsa 1999.
+- Umesto toga, letilica je prošla premalo blizu Marsu
+- Letilica je bila uništena, pretpostavlja se da je ušla u Marsovu atmosferu i raspoljena
+
+**Uzrok greške**:
+- Greška u konverziji jedinica merenja
+- Jedan deo softvera je koristio američki sistem (funt-sile)
+- Drugi deo softvera je koristio metrički sistem (Njutni)
+- Razlika je bila malo vidljiva, ali je dovoljno veoma promenila putanju
+
+**Posledica**:
+- Gubitak 165 miliona dolara na letilici i instrumentima
+- Gubitak vrednih naučnih podataka
+- Odložavanje Marsovog programa
+- Ozbiljna kritika NASA-e
+
+**Lekcija**: Važnost standardizacije, testiranja i komunikacije između timova.
+
+### 3. Therac-25 - Medicinski akcelerator (1985-1987)
+
+**Šta se desilo**:
+- Therac-25 je bio medicinski linearni akcelerator koji se koristi za radijacionu terapiju raka
+- Softver je imao nekoliko kritičnih grešaka
+- Greške su prouzrokovale da pacijenti budu izloženi masivnim dozama radijacije
+- Šest pacijenata je bilo ozbiljno povređeno ili ubijeno od 1985. do 1987.
+
+**Uzrok greške**:
+- Softver nije proveravao ulazne podatke
+- Softver je dozvoljavao dangerously high dose values (previsokim dozama)
+- Greške u logici radi sa različitim režimima (elektronski zrak vs. fotoni)
+- Nedostatak sigurnosnih provera
+
+**Posledica**:
+- Smrt ili trajne povrede pacijenata
+- Ogromni sudski sporovi
+- Zatvaranje proizvođača uređaja
+- Ozbiljne kritike in zdravstvenom sistemu
+- Uvođenje novih standarda za medicinsku opremu
+
+**Lekcija**: Kritična važnost testiranja sigurnosti, validacije ulaza, i redundantnih sigurnosnih mera u medicini.
+
+### 4. Pentium Bug (1994)
+
+**Šta se desilo**:
+- Intel je razvio Pentium procesor sa greškom u deljenju sa brojevima u pokretnom zarezu
+- Greška je izazvala netačne rezultate pri deljenju sa određenim brojevima
+
+**Primeri pogrešnih rezultata**:
+- 4195835 / 3145727 je trebalo da bude 1.333820.., ali je Pentium dao 1.333…
+
+**Posledica**:
+- Intel je prvo pokušao da minimizira problem
+- Javnost i mediji su bili ozbiljni
+- Intel je morao da zameni sve defektne procesore
+- Troškovi zamene su bili oko 475 miliona dolara
+- Ogromna reputacijska šteta za Intel
+- Gubitak poverenja korisnika
+
+**Lekcija**: Važnost testiranja svih mogućih ulaza, čak i nakon što se proizvod smatra gotovim.
+
+### 5. Y2K problem (2000)
+
+**Šta se desilo**:
+- Mnogi sistemi su koristili samo dve cifre za godinu (npr. “99” umesto “1999”)
+- Kada je došlo do prelaska iz 1999 na 2000, sistemi nisu znali da li je “00” = 1900 ili 2000
+- Strax pre millennium-a, postojala je ogromna zabrinutost da će sistemi biti ozbiljno pogođeni
+
+**Primeri potencijalnih problema**:
+- Bankovni sistemi ne bi znali kakva je trenutna godipa
+- Medicinski sistemi ne bi znali datume pacijentovih operacija
+- Letilice i sateliti mogu biti pogrešno orijentisane
+- Nuklearne elektrane mogu imati probleme sa kontrolom
+
+**Šta se desilo**:
+- Globalni napor je pobedio problem - mnogi sistemi su ispravljeni pre nego što je Y2K došao
+- Kada je došlo do prelaska, problemi su bili minimalni jer je pre-millennium-a bilo puno testiranja
+
+**Posledica**:
+- Ogromni troškovi ispravljanja softvera (procenjuje se na 600 milijardi dolara globalno)
+- Ali je izbegnut katastrofalan scenario
+- Primena važne lekcije: planiranje i testiranje su ključni
+
+**Lekcija**: Globalni koordinirani napor je mogao da izbegne potencijalnu katastrofu.
+
+---
+
+## Pitanje 1.7: Troškovi usled grešaka u softveru.
+
+### Troškovi grešaka u softveru
+
+Greške u softveru imaju značajne finansijske, vremenske i reputacijske troškove. Ovi troškovi se razmatraju iz različitih uglova:
+
+### 1. Direktni finansijski troškovi
+
+### A. Troškovi hvatanja i ispravljanja greške:
+
+**Faza otkrivanja greške:**
+- Ako se greška otkrije u fazi razvoja (faza kodiranja): 1x
+- Ako se greška otkrije nakon lansiranja: 10-100x
+- Ako se greška otkrije u polju kod korisnika (u realnim uslovima): 100-1000x+
+
+**Primer**:
+- Greška u niti razvoja: potreban je jedan inženjer, 1 sat rada
+- Greška otkrivena tokom testiranja: trebalo bi više testiranja, možda 10 sati
+- Greška otkrivena kod korisnika: trebalo bi ekstrena hitna analiza, ispravljanje i ponovno lansiranje, možda 1000 sati rada
+
+**Razlozi za razliku u troškovima**:
+- Kada se greška otkrije kasnije, teže je reprodukovati
+- Više je moguća da je greška već uticala na mnoge module
+- Potrebni su brži popravci zbog korisnikove frustracije
+- Mogu biti potrebne hitne patche
+
+### B. Troškovi kompenzacije korisnicima:
+
+- Vraćanje novca korisnicima koji su pretrpeli štetu
+- Besplatne verzije softvera kao zamena
+- Naknade za gubitke koji su korisnici imali
+- Sudski sporovi i advokati
+
+### C. Troškovi testiranja i verifikacije:
+
+- Više testiranja je potrebno jer je softver bio neispravan
+- Potrebni su novi test slučajevi
+- Potrebna je ponovno testiranja
+
+### 2. Indirektni finansijski troškovi
+
+### A. Gubitak produktivnosti:
+
+- Korisnici ne mogu da koriste sistem
+- Radnici su neproduktivni čekajući ispravljanje
+- Downtime je direktno gubitak prihoda
+
+**Primer**:
+- E-commerce platforma je Down 2 sata
+- Ako platforma generiše 1000 dolara po satu, gubitak je 2000 dolara
+
+### B. Šteta reputaciji:
+
+- Gubitak poverenja korisnika
+- Prelazak korisnika konkurentskim softverima
+- Loše recenzije na internetu
+- Медијска pažnja i kritika
+
+**Primer**:
+- Apple Maps je bio tako neispravan da su korisnici počeli da koriste Google Maps
+- Trebalo je godinama da Apple vrati poverenje korisnika
+
+### C. Gubici na tržištu:
+
+- Pad vrednosti akcija kompanije
+- Smanjenje prodaje
+- Gubitak novih investicija
+
+### 3. Vremenski troškovi
+
+### A. Odložavanje lansiranja:
+
+- Softver koji nije spreman mora biti ponovo testiran
+- To odložava lansiranje
+- Konkurencija može da lansira prvi svoj proizvod
+
+### B. Odložavanje novih funkcionalnosti:
+
+- Umesto razvoja novih funkcionalnosti, ingenjeri moraju da ispravljaju greške
+- Razvoj je usporen
+- Korisnici čekaju funkcionalnosti koje su obećane
+
+### 4. Analiza troškova greške tokom faza razvoja
+
+Prema istraživanjima, troškovi greške rastale brže što je greška otkrivena kasnije:
+
+| Faza | Relativni trošak |
+| --- | --- |
+| Specifikacija | 1x |
+| Dizajn | 3x |
+| Razvoj/Kodiranje | 5x |
+| Testiranje | 10x |
+| Post-lansiranje | 100-1000x |
+
+Ovo znači:
+- Greška otkrivena u specifikaciji će koštati malo jer se samo dokumentacija mora ispravljiti
+- Greška otkrivena tokom razvoja će koštati malo više jer se samo kod mora ispravljiti
+- Greška otkrivena tokom testiranja biće skuplja jer mora biti testiran ceo sistem
+- Greška otkrivena nakon lansiranja može biti **100-1000 puta skuplja** jer:
+- Korisnici su već pogođeni
+- Potrebna je emergency isporuka
+- Sistem mora biti ispravljeprljiv bez prekida servisa
+- Reputacijska šteta
+
+### 5. Primeri finansijskih gubitaka iz stvarnog sveta
+
+### Knight Capital Group (2012)
+
+**Šta se desilo**:
+- Greška u softveru za automatsku trgovinu
+- Softver je počeo da automatski prodaje/kupuje akcije na pogrešan način
+- U roku od 45 minuta, greška je uzrokovala gubitak od 440 miliona dolara
+
+**Posledica**:
+- Kompanija je gotovo propala
+- Trebalo je spajanje sa drugom kompanijom da bi preživela
+- Ozbiljna kritika finansijskog sistema
+
+**Lekcija**: Greške u fintech sistemu mogu biti katastrofalne.
+
+### Coca-Cola Delivery System (1997-1999)
+
+**Šta se desilo**:
+- Coca-Cola je implementirala novi softver za upravljanje distribucijom
+- Softver je imao greške u predviđanju potražnje
+- Distributeri nisu imali dovoljno produkata kada je tražnja bila visoka
+- Ili su imali previše produkata kada je tražnja bila niska
+
+**Posledica**:
+- Prodaja je pala
+- Konkurenti su preuzeli tržišnu zastupljenost
+- Gubitak od 900 miliona dolara
+- Softver je morao biti kompletno preuređen
+
+**Lekcija**: Važnost testing-a sa realnim podacima i scenarima.
+
+### 6. Procena ukupnih troškova
+
+Prema konzorcijumu CISQ, greške u softveru svake godine koštaju globalnu ekonomiju na stotine milijardi dolara:
+
+- Direktni troškovi (ispravljanje, testiranje): 60 milijardi dolara godišnje
+- Indirektni troškovi (gubitak produktivnosti, reputacijska šteta): 540+ milijardi dolara godišnje
+
+Ukupno: **600+ milijardi dolara godišnje**
+
+---
+
+## Pitanje 1.8: Odnos verifikacije i validacije softvera. Primeri.
+
+### Razlika između verifikacije i validacije
+
+**Verifikacija** i **validacija** su dva ključna procesa u osiguranju kvaliteta softvera, ali se razlikuju u svojim ciljevima:
+
+### Verifikacija (Verification)
+
+**Definicija**: Verifikacija odgovara na pitanje: **“Da li softver ispunjavamo specifikaciju? Da li je softver pravi?”**
+
+Verifikacija je proces provere da li softver zadovoljava specificiran dizajn i zahteve. Nastoji da se osigura da je softver “ispravno razvijen”.
+
+**Ključne karakteristike**:
+- Fokus je na procesu, ne na krajnjem rezultatu
+- Odgovara na interna zahteva projektnog tima
+- Koristi se interna dokumentacija
+- “Are we building the product right?”
+- Provera specifikacije, dizajna, koda
+
+**Primeri verifikacijskih aktivnosti**:
+- Pregledi koda (code reviews)
+- Statička analiza koda
+- Testiranje jedinica (unit testing)
+- Integracijsko testiranje
+- Formalne metode i provere
+
+### Validacija (Validation)
+
+**Definicija**: Validacija odgovara na pitanje: **“Da li softver zadovoljava korisničke zahteve? Da li je ovo pravi softver?”**
+
+Validacija je proces provere da li finalni softver zaista radi ono što korisnici očekuju i trebaju. Nastoji da se osigura da je softver “ispravno razvijen za potrebe korisnika”.
+
+**Ključne karakteristike**:
+- Fokus je na krajnjem rezultatu, ne samo na procesu
+- Odgovara na vanjske zahteve korisnika
+- Koristi se vanjska, realna okruženja
+- “Are we building the right product?”
+- Provera sa krajnjim korisnicima
+
+**Primeri validacijskih aktivnosti**:
+- Sistemsko testiranje
+- Prihvatno testiranje (acceptance testing)
+- Testiranje sa stvarnim korisnicima (user acceptance testing - UAT)
+- Beta testiranje
+- Evaluacija sa korisnicima
+
+### Grafički prikaz odnosa
+
+```
+VERIFIKACIJA                    VALIDACIJA
+===============                 ===========
+
+Specifikacija ───────────────── Specifikacija
+      │                              │
+      ↓ (Proveravamo)                ↓ (Proveravamo)
+     KOD                          KRAJNJE STANJE
+      │                              │
+      ├─ Ispravna?                   ├─ Korisno?
+      ├─ Kompletan?                  ├─ Lako upotrebljivo?
+      ├─ Dizajnirano?                ├─ Bezbedno?
+      │                              │
+      └─ Prema specifikaciji         └─ Za korisnika
+```
+
+### Primeri razlika između verifikacije i validacije
+
+### Primer 1: Bankarska aplikacija
+
+**Specifikacija kaže**:
+- Aplikacija treba da omogući transfer novca između računa
+- Transfer se izvršava u roku od 24 sata
+- Minimalna suma za transfer je 100 dinara
+
+**Verifikacija** - Proveravamo da li softver zadovoljava specifikaciju:
+- Testiramo da li transfer novca između računa funkcioniše kako je specifikovano
+- Testiramo da li transfer traje do 24 sata
+- Testiramo da li sistem sprečava transfere manje od 100 dinara
+- Proveravamo kod da li je ispravno implementiran
+- Radimo preglede koda da li je kod čitljiv i dobro dizajniran
+
+**Validacija** - Proveravamo da li aplikacija zadovoljava korisničke potrebe:
+- Pitamo korisnike: “Da li ova aplikacija čini onaj što vam trebate?”
+- Pitamo: “Koliko lako vam je da izvršite transfer novca?”
+- Pitamo: “Da li se osećate bezbedno koristeći ovu aplikaciju?”
+- Tražimo od stvarnih korisnika da koriste aplikaciju u stvarnom okruženju
+- Kako se osećaju kad čekaju do 24 sata na transfer?
+- Može li se tražiti da transfer bude brži?
+
+### Primer 2: Video igra
+
+**Specifikacija kaže**:
+- Igra treba da ima 10 nivoa
+- Svaki nivo treba da se završi za 5-10 minuta
+- Grafika treba da se učitava u roku od 2 sekunde
+
+**Verifikacija**:
+- Testiramo da li postoji 10 nivoa
+- Merimo vremenske rezultate i tražimo da li se zaista codeexecute 5-10 minuta
+- Merimo vreme učitavanja grafike
+- Proveravamo kod da li je ispravno implementiran
+- Testiramo sve mogućne komande i akcije
+
+**Validacija**:
+- Puštamo igru stvarnim igračima
+- Pitamo ih: “Da li vam je igra zabavna?”
+- Pitamo: “Likovi su li dobri? Istorija je li zanimljiva?”
+- Pitamo: “Koliko sati ste spoljno?” (Trebalo bi da bude dugačka 30-50 sati)
+- Pitamo: “Ćete li igru ponovo da igrarate?”
+- Ako igračima nije zabavna, nije validna čak i ako je sve u skladu sa specifikacijom
+
+### Kada se vrši verifikacija i validacija
+
+|  | Verifikacija | Validacija |
+| --- | --- | --- |
+| Kada | Tokom razvoja, pre lansiranja | Posle razvoja, sa korisnicima |
+| Ko | Razvodni tim, testeri, inženjeri | Krajnji korisnici, prihvatna komisija |
+| Šta | Specifikacija, dizajn, kod | Finalni proizvod, iskustvo korisnika |
+| Kako | Testiranje, pregledi, analiza | UAT, beta testiranje, evaluacija |
+| Rezultat | “Izvršili smo to kako je trebalo” | “To je ono što trebaju korisnici” |
+
+### Primeri iz stvarnog sveta
+
+### Primer - Apple Maps (loša validacija)
+
+- **Verifikacija**: Softver je prošao sve interne testove. Specifikacija je bila zadovoljena. Aplikacija je radila prema specificiranom dizajnu.
+- **Validacija NIJE**: Korisnici su koristili aplikaciju i otkrivali da su lokacije pogrešne. Mape nisu bile tačne. Putanje za vožnju su bile greške. Korisnici nisu bili zadovoljni.
+- **Rezultat**: Greška u validaciji je označila neuspešnost proizvoda.
+
+### Primer - Tesla autopilot
+
+- **Verifikacija**: Softver je prošao sve testove specifikacije. Sistem funkcioniše kako je dizajniran.
+- **Validacija**: Korisnici koriste Tesla-u sa autopilotom u stvarnom saobraćaju. Pitanja:
+    - Koliko je bezbedno?
+    - Koliko se vozač oseca sigurno?
+    - Koje su greške koje autopilot pravi?
+    - Kako se autopilot ponasa u nepredviđenim situacijama?
+
+---
+
+## Pitanje 1.9: Tehnike verifikacije softvera. Osnovna podela. Mogućnosti dinamičkog i statičkog pristupa verifikaciji softvera.
+
+### Osnovna podela tehnika verifikacije
+
+Tehnike verifikacije softvera mogu se podeliti u dve glavne kategorije:
+
+1. **Dinamička verifikacija** (Testiranje)
+2. **Statička verifikacija** (Analiza bez izvršavanja)
+3. **Formalne metode** (Matematički dokazi)
+
+```
+TEHNIKE VERIFIKACIJE SOFTVERA
+      │
+      ├─ DINAMIČKA VERIFIKACIJA
+      │     └─ Testiranje
+      │        ├─ Unit testiranje
+      │        ├─ Integraciono testiranje
+      │        ├─ Sistemsko testiranje
+      │        └─ Prihvatno testiranje
+      │
+      ├─ STATIČKA VERIFIKACIJA
+      │     ├─ Pregledi koda
+      │     ├─ Statička analiza
+      │     └─ Inspekcie
+      │
+      └─ FORMALNE METODE
+            ├─ Model checking
+            ├─ Theorem proving
+            └─ Simboličko izvršavanje
+```
+
+### 1. DINAMIČKA VERIFIKACIJA
+
+### Definicija
+
+Dinamička verifikacija je proces izvršavanja softvera sa različitim ulazima i posmatranja rezultata. Testira se stvarno ponašanje softvera tokom izvršavanja.
+
+### Karakteristike:
+
+- **Izvršava se kod** – Potreban je izvršivi kod (binarni ili interpretiran)
+- **Realni ulazi** – Softver se testira sa stvarnim ili simuliranim ulazima
+- **Direktno posmatranje** – Vidi se kako softver funkcioniše u stvarnosti
+- **Detekcija runtime grešaka** – Greške koje se dešavaju tokom izvršavanja
+- **Zavisna od ulaza** – Rezultati zavise od odabranih test slučajeva
+
+### Mogućnosti dinamičke verifikacije:
+
+**Prednosti**:
+1. **Detektuje greške tokom izvršavanja** – Ako kod ima runtime grešku, dinamičko testiranje će je pronaći
+2. **Testira realnih ponašanje** – Vidimo kako softver zaista radi, ne samo šta teorijski trebalo da radi
+3. **Pronalazi greške sa stvarnim podacima** – Ako test slučajevi koriste realne podatke, mogu se pronaći greške specifične za te podatke
+4. **Lako se razume** – Jednostavno je razumeti šta testiranje radi (upisujemo ulaz, čitamo izlaz)
+5. **Česta upotreba** – Obavezna u razvoju softvera
+
+**Nedostaci**:
+1. **Ne pronalazi sve greške** – Testiranje sa ograničenim brojem ulaza ne može da ispita sve mogućnosti
+2. **Troškovno** – Potrebno je pisati test slučajeve, održavati ih, i izvršavati
+3. **Kasno otkrivanje** – Greške se otkrivaju tek nakon što se kod napiše
+4. **Zavisan od odabira test slučajeva** – Ako test slučajevi nisu dobro odabrani, greške mogu biti propuštene
+5. **Zavisnost od okruženja** – Greške mogu biti specifične za određeno okruženje i ne vidljive drugde
+
+### Primeri dinamičke verifikacije:
+
+- **Unit testiranje**: Testiranje pojedinačnih funkcija sa različitim ulazima
+    
+    ```
+    funkcija: sabiranje(a, b)
+    test: sabiranje(2, 3) → očekivano 5
+    test: sabiranje(-1, 1) → očekivano 0
+    test: sabiranje(0, 0) → očekivano 0
+    ```
+    
+- **Integracijsko testiranje**: Testiranje kako se moduli međusobno ponašaju
+    - Testiranje komunikacije između baze podataka i interfejsa
+    - Vidimo da li podaci ispravno teku kroz sistem
+- **Sistemsko testiranje**: Testiranje celog sistema sa realnim scenarima
+    - Testiranje bankarske aplikacije sa stvarnim transakcijama
+    - Vidimo kako se aplikacija ponaša u stvarnoj upotrebi
+
+### 2. STATIČKA VERIFIKACIJA
+
+### Definicija
+
+Statička verifikacija je analiza koda bez njegovog izvršavanja. Kod se analizira kao tekst ili kao međureprezentacija da se pronađe greške.
+
+### Karakteristike:
+
+- **Ne izvršava se kod** – Analiza se vrši bez pokretanja programa
+- **Analiza koda** – Kođ se čita i analizira
+- **Rana detekcija** – Greške se mogu pronaći pre nego što se kod izvrši
+- **Pronalaženje određenih tipova grešaka** – Statička analiza je dobra za pronalaženje određenih tipova grešaka
+
+### Mogućnosti statičke verifikacije:
+
+**Prednosti**:
+1. **Rana detekcija** – Greške se pronalaze tokom razvoja, čak i pre nego što je kod kompletan
+2. **Pronalaženje logičke greške** – Mogu se pronaći greške kao što su:
+- Nepotrebne varijable
+- Nedostajući slučajevi u if-else labirinthima
+- Potencijalne null pointer greške
+3. **Pronalaženje sigurnosnih problema** – Statička analiza može identificirati SQL injekcije, buffer overflow, itd.
+4. **Malo skupo** – Samo analiziranje koda je jeftinije od testiranja
+5. **Formalnost** – Može se formalnije definisati šta se traži
+
+**Nedostaci**:
+1. **Ne pronalazi sve greške** – Mnoge greške se ne vide iz koda
+2. **False positives** – Alati često prijavljuju “greške” koje nisu zapravo greške
+3. **Zavisnost od alata** – Kvalitet zavisi od dobrog alata
+4. **Teško za pronalaženje runtime grešaka** – Greške kao što su problemi sa performansama, greške sa memorijom, itd., su teško vidljive
+5. **Potrebni su alati i poznavanje** – Potrebni su specijalizirani alati i znanje kako ih koristiti
+
+### Primeri statičke verifikacije:
+
+- **Pregledi koda**: Čitanje koda od strane drugog inženjera
+    - Pronalaženje logičke greške
+    - Pronalaženje sigurnosne greške
+    - Pronalaženje kodnog stil-a koji nije pogodan
+- **Statička analiza**: Korišćenje alata koji analiziraju kod
+    - SonarQube
+    - Checkstyle
+    - PMD
+    - FindBugs
+    - Pronalaženje potencijalnih null pointer grešaka
+    - Pronalaženje nepotrebnih varijabli
+    - Pronalaženje sigurnosnih problema
+- **Inspekcie**: Formalni pregled koda
+    - Više inženjera čita kod
+    - Diskusija o kodu
+    - Pronalaženje grešaka kroz kolaboraciju
+
+### 3. FORMALNE METODE
+
+### Definicija
+
+Formalne metode su matematički-bazirana tehnika za verifikaciju softvera. Koriste matematičke dokaze da se osigura da softver zadovoljava specifikaciju.
+
+### Karakteristike:
+
+- **Matematički dokazi** – Koriste se matematički dokazi umesto testiranja
+- **Garantovana ispravnost** – Ako je dokaz ispravan, onda je softver garantovano ispravan
+- **Kompletna analiza** – Sve moguće putanje izvršavanja se analiziraju
+
+### Mogućnosti formalnih metoda:
+
+**Prednosti**:
+1. **Garantovana ispravnost** – Ako je formalni dokaz ispravan, onda je softver sigurno ispravan
+2. **Pronalaženje svih grešaka** – Sve moguće greške se mogu pronaći
+3. **Prikladne za kritične sisteme** – Posebno važne za sisteme gde su greške neprihvatljive (letilice, medicinski sistemi)
+
+**Nedostaci**:
+1. **Veoma skupo** – Formalне metode zahtevaju specijalizovane inženjere
+2. **Vremenski zahtevno** – Pisanje formalnih dokaza je dugotraјno
+3. **Komplekséno** – Teško za razumevanje i primenu
+4. **Malo se koristi** – Uglavnom se koristi samo za kritične sisteme
+
+### Primeri formalnih metoda:
+
+- **Model checking**: Provera da li model sistema zadovoljava specifikaciju
+- **Theorem proving**: Matematički dokaz da je kod ispravan
+- **Simboličko izvršavanje**: Simbolička analiza svih mogućih putanja
+
+### Poređenje dinamičke i statičke verifikacije
+
+| Aspekt | Dinamička | Statička |
+| --- | --- | --- |
+| **Izvršavanje koda** | DA - Kod se izvršava | NE - Kod se ne izvršava |
+| **Vreme detektovanja** | Tokom testiranja | Tokom razvoja |
+| **Troškovi** | Viši - Testiranje je skupo | Niži - Analiza je jeftinija |
+| **Pokrivanje** | Parcijalno - Samo testirani slučajevi | Potencijalno kompletniji - Ceo kod se analizira |
+| **Tipovi grešaka** | Runtime greške | Logičke i sigurnosne greške |
+| **Pouzdanost** | Zavisi od test slučajeva | Zavisi od alata |
+| **Primena** | Obavezna | Preporučena |
+
+### Kombinovani pristup
+
+U praksi, **kombinovanje dinamičke i statičke verifikacije daje najbolje rezultate**:
+
+1. **Statička analiza prvo** – Pronalaženje očiglednih grešaka
+2. **Pregledi koda** – Čitanje koda od strane drugih
+3. **Unit testiranje** – Testiranje malih delova
+4. **Integracijsko testiranje** – Testiranje kako se delovi međusobno uklapa
+5. **Sistemsko testiranje** – Testiranje celog sistema
+6. **Prihvatno testiranje** – Testiranje sa korisnicima
+
+### Primer - Bankarska aplikacija
+
+**Statička verifikacija**:
+- Pregled koda za pronalaženje sigurnosnih problema
+- Statička analiza za pronalaženje null pointer grešaka
+- Inspekcie koda
+
+**Dinamička verifikacija**:
+- Unit testiranje svake funkcije (npr. funkcija za transfer novca)
+- Integracijsko testiranje (npr. kako se baza podataka i interfejs međusobno uklapa)
+- Sistemsko testiranje sa stvarnim transakcijama
+- Prihvatno testiranje sa stvarnim korisnicima
+
+---
+
+# Zaključak
+
+Verifikacija i validacija softvera su ključne aktivnosti u osiguranju kvaliteta. Kombinovanje različitih tehnika – od statičke analize do dinamičkog testiranja – omogućava pronalaženje i ispravljanje grešaka na vreme, što smanjuje troškove i poboljšava ukupan kvalitet proizvoda

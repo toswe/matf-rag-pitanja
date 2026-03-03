@@ -1,0 +1,1364 @@
+# Verifikacija 45-52
+
+## **Pitanje 1.45. Profajliranje. Instrumentaciono profajliranje. Profajliranje putanja, grana i blokova.**
+
+### Instrumentaciono profajliranje
+
+**Instrumentaciono profajliranje** je pristup gde se program modifikuje dodavanjem instrukcija koje prikupljaju podatke tokom izvršavanja. Za razliku od profajliranja uzimanjem uzoraka, instrumentaciono profajliranje je veoma precizno i prikuplja tačne podatke o svim izvršavanjima.[1](about:blank#fn1)
+
+### Kako funkcioniše
+
+**Proces**:[2](about:blank#fn2)
+
+1. Kod se modifikuje dodavanjem instrukcija za brojanje
+2. Te instrukcije se izvršavaju svaki put kada se deo koda izvršava
+3. Prikupljaju se tačni brojevi izvršavanja
+4. Generisu se detaljni izveštaji o ponašanju programa
+
+### Profajliranje putanja (Path profiling)
+
+**Putanja** je niz blokova koda koji se izvršavaju sekvencijalno bez grananja, ili kompletan sled instrukcija od ulaska u funkciju do izlaska iz nje.[3](about:blank#fn3)
+
+**Profajliranje putanja**:[4](about:blank#fn4)
+
+- Prati koje kombinacije grana se izvršavaju zajedno
+- Omogućava analizu realnog toka podataka kroz program
+- Može otkriti retke putanje koje se retko izvršavaju
+- Koristi se za optimizaciju strukture programa
+
+**Primer**: U funkciji sa dve if-naredbe, mogu postojati različite kombinacije:
+
+- Oba uslova istinita
+- Samo prvi uslov istinit
+- Samo drugi uslov istinit
+- Oba uslova lažna
+
+Profajliranje putanja meri učestalost svake kombinacije.[5](about:blank#fn5)
+
+### Profajliranje grana (Branch profiling)
+
+**Grana** je odluka u kodu (if-else naredba, switch-case, petlje).[6](about:blank#fn6)
+
+**Profajliranje grana**:[7](about:blank#fn7)
+
+- Meri koliko puta se svaka grana izvršava
+- Pokazuje koji se deo if-else bloka izvršava češće
+- Kritično za identifikaciju “vrućih” putanja kroz kod
+- Omogućava optimizaciju kako kompajlera tako i programera
+
+**Podaci koji se prikupljaju**:[8](about:blank#fn8)
+
+- Broj izvršavanja svake grane
+- Procenat izvršavanja svake grane
+- Histogrami distribucije vrednosti u granama
+
+**Primer**: Za kod:
+
+```c
+if (x > 10) {
+    // Then grana
+} else {
+    // Else grana
+}
+```
+
+Profajler meri koliko puta je `x > 10` bio istinit nasuprot koliko puta je bio lažan.[9](about:blank#fn9)
+
+### Profajliranje blokova (Basic Block Profiling)
+
+**Osnovni blok** (basic block) je niz instrukcija bez grananja, sa jednom tačkom ulaza i jednom tačkom izlaza.[10](about:blank#fn10)
+
+**Profajliranje blokova**:[11](about:blank#fn11)
+
+- Broji koliko puta se svaki blok izvršava
+- Najmanja granularnost profajliranja
+- Omogućava detaljnu analizu koje instrukcije se izvršavaju često
+- Koristi se za optimizaciju na nivou mašinskog koda
+
+**Primer**:
+
+```c
+int calculate(int a, int b) {        // Blok 1
+    int sum = a + b;                  // Blok 1
+    if (sum > 20) {                   // Blok 1 (grana)
+        return sum * 2;               // Blok 2
+    }                                 //
+    return sum;                       // Blok 3
+}
+```
+
+Kod ima tri bloka. Profajler broji:
+
+- Koliko puta se Blok 1 izvršava (svaki poziv)
+- Koliko puta se Blok 2 izvršava (kada je `sum > 20`)
+- Koliko puta se Blok 3 izvršava (kada je `sum <= 20`)[12](about:blank#fn12)
+
+### Odnosi između pokrivenosti
+
+**Hijerarhija**:[13](about:blank#fn13)
+
+```
+Putanje > Grane > Blokovi > Instrukcije
+```
+
+**Pokrivanje**:[14](about:blank#fn14)
+
+- **Pokrivanje putanja** je najstrože - obuhvata sve moguće kombinacije grana
+- **Pokrivanje grana** - svaka grana mora biti izvršena bar jednom
+- **Pokrivanje blokova** - svaki blok mora biti izvršen bar jednom
+- **Pokrivanje instrukcija** - svaka instrukcija mora biti izvršena bar jednom
+
+Ako su sve putanje pokrivene, onda su sigurno i sve grane, blokovi i instrukcije pokriveni, ali obrnuto nije tačno.[15](about:blank#fn15)
+
+### Primeri
+
+**Primer 1: GCC sa profiliranjem grana**
+
+```bash
+gcc -fprofile-arcs -ftest-coverage program.c -o program
+./program < test_input.txt
+gcov program.c
+```
+
+Generiše `.gcov` fajl sa informacijama o broju izvršavanja svake linije.[16](about:blank#fn16)
+
+**Primer 2: Instrumentaciono profajliranje sa gdb-om i brojačima**
+
+```bash
+gcc -O2 -g program.c -o program
+gdb ./program
+(gdb) set logging on
+(gdb) run
+(gdb) info program
+```
+
+**Primer 3: LLVM profajliranje**
+
+```bash
+clang -fprofile-instr-generate -fcoverage-mapping program.cpp -o program
+./program
+llvm-profdata merge -o default.profdata default.profraw
+llvm-cov show ./program -instr-profile=default.profdata
+```
+
+Pokazuje linijsku pokrivenost sa broju izvršavanja.[17](about:blank#fn17)
+
+---
+
+## **Pitanje 1.46. Profajliranje. Instrumentaciono profajliranje. Smanjivanje troškova instrumentacije.**
+
+### Problem sa instrumentacijom
+
+**Troškovi instrumentacije**:[18](about:blank#fn18)
+
+- Dodavanje instrukcija značajno usporava program
+- Usporenje može biti 5-100 puta
+- Za neke aplikacije to je neprihvatljivo
+
+**Primeri problema**:[19](about:blank#fn19)
+
+- Real-time sistemi ne tolerišu usporavanje
+- Proizvodni sistemi sa strogim vremenskim ograničenjima
+- Dugo trajuće aplikacije postaju praktično neupotrebljive
+
+### Tehnike smanjivanja troškova
+
+### 1. Selektivna instrumentacija
+
+**Princip**: Instrumentovati samo deo programa umesto celog programa.[20](about:blank#fn20)
+
+**Načini**:[21](about:blank#fn21)
+
+- Instrumentovati samo funkcije od interesa
+- Instrumentovati samo vruće delove koda
+- Isključiti instrumentaciju iz brzo izvršenih funkcija
+- Fokusirati se na funkcije sa većim prosečnim vremenom izvršavanja
+
+**Implementacija**:[22](about:blank#fn22)
+
+```bash
+gcc -finstrument-functions -DINSTRUMENT_ONLY_HOT_CODE program.c
+```
+
+Samo specifične funkcije se instrumentuju.[23](about:blank#fn23)
+
+### 2. Stohastičko uzorkovanje (Adaptive sampling)
+
+**Princip**: Umesto instrumentovanja svih izvršavanja, instrumenuje se samo uzorak izvršavanja.[24](about:blank#fn24)
+
+**Metoda**:[25](about:blank#fn25)
+
+- Instrukcije se dodaju tako da se izvršavaju samo u određenom procentu slučajeva
+- Npr. brojač se ažurira samo u 1 od 100 izvršavanja
+- Rezultati se statistički ekstrapoliraju
+- Mnogo manje usporavanje sa razumnom tačnošću
+
+**Tradeoff**: Preciznost se žrtvuje za performanse[26](about:blank#fn26)
+
+### 3. Prikupljanje minimalnog seta podataka
+
+**Princip**: Prikupljati samo apsolutno potrebne podatke.[27](about:blank#fn27)
+
+**Šta je dovoljno**:[28](about:blank#fn28)
+
+- Broj poziva funkcije umesto vremenske statistike
+- Samo vrh steka umesto celog steka
+- Samo tačka u vremenu umesto detaljnog vremenskog niza
+- Agregirani podaci umesto individualni zapisi
+
+**Primer**: Umesto da prati sve vrednosti, prati samo broj izvršavanja:[29](about:blank#fn29)
+
+```c
+// Bez: prikupljanje svih vrednosti
+int values[^10000];
+int idx = 0;
+
+// Sa minimalizacijom: samo brojač
+int execution_count = 0;
+```
+
+### 4. Lokalni BufferI za prikupljanje
+
+**Princip**: Prikupljanje podataka u lokalnom bufferu pre nego što se ispiše u globalnu datoteku.[30](about:blank#fn30)
+
+**Benefit**:[31](about:blank#fn31)
+
+- Izbegavanje čestih operacija pisanja na disk
+- Operacije pisanja su skupo, a u memoriji su brze
+- Smanjenje sinhronizacije između niti
+
+**Implementacija**:[32](about:blank#fn32)
+
+```c
+thread_local int local_buffer[^1024];
+thread_local int buffer_idx = 0;
+
+void record_event(int event) {
+    local_buffer[buffer_idx++] = event;
+    if (buffer_idx >= 1024) {
+        flush_to_disk(local_buffer);
+        buffer_idx = 0;
+    }
+}
+```
+
+### 5. Instrumentacija u fazi linkovanja (Link-time instrumentation)
+
+**Princip**: Instrumentacija se vrši tokom linkovanja umesto kompilacije.[33](about:blank#fn33)
+
+**Prednosti**:[34](about:blank#fn34)
+
+- Selektivna - može se instrumentovati samo glavni program
+- Biblioteke ostaju neinstrumentovane
+- Fleksibilnost - različite konfiguracije za različite build-ove
+- Bržа kompilacija (bez ponovno prevođenja)
+
+**Implementacija**:[35](about:blank#fn35)
+
+```bash
+gcc -c program.c -o program.o
+gcc -c library.c -o library.o  # Nije instrumentovana
+gcc -Wl,--instrument-functions program.o library.o
+```
+
+### 6. JIT instrumentacija
+
+**Princip**: Instrumentacija samo deo programa koji se često izvršava (Just-In-Time).[36](about:blank#fn36)
+
+**Primena**:[37](about:blank#fn37)
+
+- Java sa JIT kompilerom
+- JavaScript motori
+- Dinamički jezici
+
+**Proces**:[38](about:blank#fn38)
+
+1. Kod se prvo interpretira bez instrumentacije
+2. Vrući delovi se detektuju
+3. Ti delovi se instrumentuju i/ili kompiluju
+4. Ostatak programa ostaje neoptimizovan
+
+### 7. Kompresija podataka
+
+**Princip**: Smanjiti veličinu prikupljenih podataka pre nego što se sačuva.[39](about:blank#fn39)
+
+**Metode**:[40](about:blank#fn40)
+
+- Delta encoding - čuvanje razlike od prethodne vrednosti
+- Tehnike kompresije (LZ4, ZSTD)
+- Uklanjanje redundantnih podataka
+- Agregiranje podataka po vremenskim intervalima
+
+### Primeri
+
+**Primer 1: GCC - selektivna instrumentacija**
+
+```c
+__attribute__((no_instrument_function))
+int fast_function() {
+    // Ova funkcija se neće instrumentovati
+    return 42;
+}
+
+int slow_function() {
+    // Ova funkcija će biti instrumentovana
+    return compute_something();
+}
+```
+
+**Primer 2: Dinamička instrumentacija - Valgrind**
+
+```bash
+valgrind --instr-atstart=no \
+         --start-instrumented=my_hot_function \
+         ./program
+```
+
+Instrumentacija počinje samo kada se dođe do označene funkcije.[41](about:blank#fn41)
+
+**Primer 3: LLVM sa stohastičkim uzorkovanjem**
+
+```bash
+clang -fprofile-sample-accurate -fprofile-generate=profdata program.cpp
+./program
+llvm-profdata merge profdata -o profdata.prof
+clang -fprofile-use=profdata.prof program.cpp
+```
+
+---
+
+## **Pitanje 1.47. Profajliranje. Instrumentaciono profajliranje. Instrumentacija u fazi izvršavanja. Valgrind i faze transformacije koda.**
+
+### Instrumentacija u fazi izvršavanja
+
+**Definicija**: Instrumentacija koda se vrši **tokom izvršavanja programa** umesto tokom kompilacije ili linkovanja.[42](about:blank#fn42)
+
+**Karakteristike**:[43](about:blank#fn43)
+
+- Dinamička instrumentacija
+- Program se može profajlirati bez ponovno prevođenja
+- Fleksibilnost - instrumentaciju se može uključiti/isključiti tokom rada
+- Koristi se od strane dinamičkih instrumentacijskih alata
+
+### Valgrind platforma
+
+**Valgrind** je platforma koja omogućava izvršavanje programa, njegovu dinamičku instrumentaciju i prikupljanje detaljnih informacija o njegovom izvršavanju.[44](about:blank#fn44)
+
+**Karakteristike Valgrind-a**:[45](about:blank#fn45)
+
+- **Dinamička binarна instrumentacija (DBI)** - instrumentacija izvršivog koda tokom izvršavanja
+- **Nezavisnost od operativnog sistema** - razvijen za Linux i macOS
+- **Podrška za više arhitektura** - x86, x86-64, ARM, PowerPC
+- **Plagin arhitektura** - omogućava dodatne alate (Memcheck, Massif, Helgrind, DRD, Cachegrind, Callgrind)
+
+### Faze transformacije koda u Valgrind-u
+
+Valgrind transformiše kod kroz nekoliko faza kako bi ga instrumentovao:[46](about:blank#fn46)
+
+**Faza 1: Disasembliranje (Disassembly)**[47](about:blank#fn47)
+
+- Valgrind preuzima mašinski kod programa
+- Konvertuje ga u internu međureprezentaciju (IR - Intermediate Representation)
+- Ova reprezentacija je nezavisna od arhitekture procesora
+- Omogućava analizu i transformaciju koda
+
+**Faza 2: Optimizacija 1 (First optimization pass)**[48](about:blank#fn48)
+
+- Uklanjanje redundantnog koda
+- Eliminacija zajedničkih podizraza (Common Subexpression Elimination)
+- Procena izraza koji se mogu izračunati u compile-time
+
+**Faza 3: Instrumentacija (Instrumentation)**[49](about:blank#fn49)
+
+- Dodavanje novog međukoda koji prikuplja podatke
+- Ovaj kod se izvršava u svakom relevantnom trenutku
+- Specifičan je za alat koji se koristi (npr. Memcheck dodaje proveravanje memorije)
+
+**Faza 4: Optimizacija 2 (Second optimization pass)**[50](about:blank#fn50)
+
+- Jednostavnija optimizacija nakon instrumentacije
+- Izračunavanje izraza koji su sada izračunljivi
+- Uklanjanje mrtvog koda (dead code elimination)
+
+**Faza 5: Izbor instrukcija i izgradnja stabla (Tree building)**[51](about:blank#fn51)
+
+- Valgrind generiše izbor instrukcija za ciljnu arhitekturu
+- Koriste se virtuelni registri
+- Gradi se stablo za lakšu manipulaciju kodom
+
+**Faza 6: Alokacija registara (Register allocation)**[52](about:blank#fn52)
+
+- Virtuelni registri se mapiraju na fizičke registre procesora
+- Koriste se algoritmi bojenja grafa za efikasnu alokaciju
+- Minimiziraju se pristupe memoriji
+
+**Faza 7: Asembliranje (Code generation)**[53](about:blank#fn53)
+
+- Transformisani kod se prevodi u mašinski kod
+- Mašinski kod se smešta u blok memorije
+- Sprema se za izvršavanje
+
+**Faza 8: Izvršavanje (Execution)**[54](about:blank#fn54)
+
+- Transformisani kod se izvršava na procesoru
+- Instrumentovani kod prikuplja podatke
+- Originalni kod se ponaša isto kao originalno
+
+### Dijagram toka
+
+```
+Mašinski kod programa
+        ↓
+    Disasembliranje
+        ↓
+  Međureprezentacija (IR)
+        ↓
+   Optimizacija 1
+        ↓
+  Instrumentacija
+        ↓
+   Optimizacija 2
+        ↓
+  Izbor instrukcija
+        ↓
+ Alokacija registara
+        ↓
+   Asembliranje
+        ↓
+Mašinski kod (instrumentovan)
+```
+
+### Prednosti Valgrind pristupa
+
+**Fleksibilnost**:[55](about:blank#fn55)
+
+- Nema potrebe za ponovno prevođenjem
+- Isti izvršivi fajl se može analizirati na različite načine
+- Različiti alati mogu biti kombinovani
+
+**Preciznost**:[56](about:blank#fn56)
+
+- Instrumentacija se vrši tačno gde je potrebna
+- Mogu se pratiti sve instrukcije
+
+**Portabilnost**:[57](about:blank#fn57)
+
+- Isti kod za različite arhitekture
+- Apstraktna međureprezentacija omogućava podršku za više platformi
+
+### Nedostaci
+
+**Usporavanje**:[58](about:blank#fn58)
+
+- Transformacija koda i instrumentacija ima cenu
+- Valgrind može usporiti program 5-100 puta
+- Zavisi od alata
+
+**Memorija**:[59](about:blank#fn59)
+
+- Dodatna memorija za transformisani kod
+- Problematično za aplikacije sa velikom memorijskom potrošnjom
+
+### Primeri
+
+**Primer 1: Memcheck (analiza memorije)**
+
+```bash
+valgrind --tool=memcheck ./myprogram
+```
+
+Detektuje greške u pristupu memoriji.[60](about:blank#fn60)
+
+**Primer 2: Cachegrind (analiza keša)**
+
+```bash
+valgrind --tool=cachegrind ./myprogram
+```
+
+Analizira pristupe keš memoriji.[61](about:blank#fn61)
+
+**Primer 3: Callgrind (analiza poziva)**
+
+```bash
+valgrind --tool=callgrind --dump-instr=yes ./myprogram
+```
+
+Prikuplja informacije o pozivima funkcija.[62](about:blank#fn62)
+
+---
+
+## **Pitanje 1.48. Profajliranje. Instrumentaciono profajliranje. Valgrind i najpoznatiji Valgrind alati. Cachegrind i Callgrind.**
+
+### Cachegrind
+
+**Cachegrind** je Valgrind alat koji simulira keš memoriju procesora i meri kako program koristi keš.[63](about:blank#fn63)
+
+### Kako funkcioniše Cachegrind
+
+**Simulacija**:[64](about:blank#fn64)
+
+- Simulira cache hijerarhiju modernog procesora
+- Obično simulira L1 i L2/L3 keš memoriju
+- Prati sve pristupe memoriji izvršavanjem programa
+- Simulira hiperalelne (out-of-order) procesore
+
+### Šta Cachegrind meri
+
+**Metrike**:[65](about:blank#fn65)
+
+- **Broj pristupa memoriji** - koliko puta je memorija pristupljena
+- **Cache hits** - koliko puta je podatak pronađen u kešu
+- **Cache misses** - koliko puta je keš morao da učitava iz glavne memorije
+- **Branch misses** - greške u predviđanju grana
+
+**Output**:[66](about:blank#fn66)
+
+```
+I   cache read 4 misses
+L1D cache read 8 misses
+LL cache read 2 misses
+```
+
+### Prednosti
+
+**Identifikacija problema sa kešom**:[67](about:blank#fn67)
+
+- Pronalaženje pristupa koji nisu cache-friendly
+- Identifikacija lokaliteta pristupa memoriji
+
+**Optimizacija performansi**:[68](about:blank#fn68)
+
+- Poboljšanje cache locality-a
+- Reorganizacija podataka u memoriji
+- Promenjena putanja izvršavanja
+
+### Primeri
+
+**Primer 1: Korišćenje Cachegrind-a**
+
+```bash
+valgrind --tool=cachegrind ./myprogram
+```
+
+Generiše `cachegrind.out.XXX` fajl.[69](about:blank#fn69)
+
+**Primer 2: Analiza rezultata**
+
+```bash
+cg_annotate cachegrind.out.12345 program.c
+```
+
+Prikazuje broj cache misses-a po liniji koda.[70](about:blank#fn70)
+
+**Primer 3: Vizuelizacija sa kcachegrind**
+
+```bash
+kcachegrind cachegrind.out.12345
+```
+
+Grafički pregled cache performansi.[71](about:blank#fn71)
+
+---
+
+### Callgrind
+
+**Callgrind** je Valgrind alat koji prikuplja informacije o pozivu funkcija, vremenu izvršavanja i cache performansama.[72](about:blank#fn72)
+
+### Kako funkcioniše Callgrind
+
+**Prikupljanje podataka**:[73](about:blank#fn73)
+
+- Prati sve pozive funkcija
+- Beleži vreme provedeno u svakoj funkciji
+- Prati call graph (grafik poziva)
+- Integrira cache analizu kao Cachegrind
+
+### Šta Callgrind prikuplja
+
+**Podaci**:[74](about:blank#fn74)
+
+- **Broj poziva funkcije** - koliko puta je funkcija pozvana
+- **Vreme izvršavanja** - koliko vremena je utrošeno
+- **Ekskluzivno vreme** - samo u toj funkciji
+- **Inkluzivno vreme** - uključujući pozvane funkcije
+- **Caller i callee informacije** - koja funkcija je pozvala koju
+- **Cache performanse** - L1, L2 misses
+
+### Prednosti
+
+**Detaljna analiza poziva**:[75](about:blank#fn75)
+
+- Pronalaženje funkcija koje se često pozivaju
+- Identifikacija vierinacionalnih poziva
+- Analiza call depth-a
+
+**Optimizacija na osnovu profila**:[76](about:blank#fn76)
+
+- Profile-Guided Optimization
+- Pronalaženje kandidata za inlining
+- Pronalaženje kandidata za paralelizaciju
+
+### Primeri
+
+**Primer 1: Pokretanje Callgrind-a**
+
+```bash
+valgrind --tool=callgrind ./myprogram
+```
+
+Generiše `callgrind.out.XXX` fajl.[77](about:blank#fn77)
+
+**Primer 2: Analiza sa callgrind_annotate**
+
+```bash
+callgrind_annotate callgrind.out.12345
+```
+
+Prikazuje informacije o broju poziva i vremenu po funkciji.[78](about:blank#fn78)
+
+**Primer 3: Vizuelizacija sa kcachegrind**
+
+```bash
+kcachegrind callgrind.out.12345
+```
+
+Grafički prikaz call graph-a i performansi.[79](about:blank#fn79)
+
+**Primer 4: Detaljno profajliranje sa dump instrukcija**
+
+```bash
+valgrind --tool=callgrind --dump-instr=yes ./myprogram
+callgrind_annotate --show=AbEDcfi callgrind.out.12345
+```
+
+Prikazuje performanse na nivou instrukcija.[80](about:blank#fn80)
+
+### Razlika između Cachegrind-a i Callgrind-a
+
+| Aspekt | Cachegrind | Callgrind |
+| --- | --- | --- |
+| Fokus | Cache performanse | Pozivi funkcija |
+| Beleži | Cache misses | Call graph |
+| Vreme | Opšte performanse | Po funkciji |
+| Detalj | Cache hijerarhija | Struktura poziva |
+| Kompleksnost | Srednja | Veća |
+
+[81](about:blank#fn81)
+
+---
+
+## **Pitanje 1.49. Dinamička detekcija grešaka. Sanitajzeri. Adresni i memorijski sanitajzer.**
+
+### Sanitajzeri (Address Sanitizers)
+
+**Sanitajzeri** su alati koji detektuju greške tokom izvršavanja programa automatski.[82](about:blank#fn82)
+
+**Karakteristike**:[83](about:blank#fn83)
+
+- Dinamička detekcija - greške se detektuju dok se program izvršava
+- Automatska - nema potrebe za posebnim zadacima u kodu
+- Laka integracija - jednostavna kompilacijska zastavica
+- Precizna - detektuje tačnu lokaciju greške
+
+### Adresni sanitajzer (AddressSanitizer - ASan)
+
+**Cilj**: Detektovanje grešaka u pristupu memoriji.[84](about:blank#fn84)
+
+### Šta detektuje
+
+**Greške u memoriji**:[85](about:blank#fn85)
+
+1. **Buffer overflow** - pristup memoriji van granica alociranog memorijskog bloka
+2. **Buffer underflow** - pristup memoriji pre početka alociranog bloka
+3. **Use-after-free** - pristup memoriji koja je već oslobođena
+4. **Double-free** - oslobađanje iste memorije dva puta
+5. **Memory leak** - alocirana memorija koja nikada nije oslobođena
+6. **Invalid allocation/deallocation** - deallokacija memorije koja nije bila alocirana
+
+### Princip rada
+
+**Shadow memory**:[86](about:blank#fn86)
+
+- AddressSanitizer koristi “shadow memory” - dodatnu memoriju koja prati status svake bajta originalnog programa
+- Svaki bajt u originalnoj memoriji ima odgovarajući ulazak u shadow memoriji
+- Status ulaza: VALID (na raspolaganju), POISONED (nedozvoljen pristup), FREE (oslobođena), itd.
+
+**Instrumentacija koda**:[87](about:blank#fn87)
+
+- Dodava proverke na svaki pristup memoriji
+- Pre čitanja/pisanja, proverava shadow memoriju
+- Ako je status POISONED, prijavljuje grešku
+
+### Karakteristike
+
+**Memorijska potrošnja**: ~2x veća memorija[88](about:blank#fn88)
+
+**Usporavanje**: ~2x sporije izvršavanje[89](about:blank#fn89)
+
+**Pokrivenost**: Veoma dobar ratio preciznosti i performansi[90](about:blank#fn90)
+
+### Primeri
+
+**Primer 1: Detektovanje buffer overflow-a**
+
+```c
+#include<stdio.h>
+
+int main() {
+    char buf[^10];
+    buf[^20] = 'x';  // Buffer overflow
+    return 0;
+}
+```
+
+**Kompajliranje i pokretanje**:
+
+```bash
+gcc -fsanitize=address -g program.c -o program
+./program
+```
+
+**Output**:
+
+```
+=================================================================
+==12345==ERROR: AddressSanitizer: stack-buffer-overflow on unknown address 0x7fff0001 at pc 0x0000004711ad bp 0x7fff0000 T0
+    #0 0x4711ac in main /path/to/program.c:5
+```
+
+**Primer 2: Detektovanje use-after-free**
+
+```c
+#include<stdlib.h>
+
+int main() {
+    int *p = (int *)malloc(sizeof(int));
+    free(p);
+    *p = 5;  // Use-after-free
+    return 0;
+}
+```
+
+```bash
+gcc -fsanitize=address -g program.c -o program
+./program
+```
+
+**Output**:
+
+```
+==12345==ERROR: AddressSanitizer: heap-use-after-free on unknown address 0x60300000cffc at pc 0x0000004711ad
+```
+
+---
+
+### Memorijski sanitajzer (MemorySanitizer - MSan)
+
+**Cilj**: Detektovanje korišćenja neinicijalizovane memorije.[91](about:blank#fn91)
+
+### Šta detektuje
+
+**Greške**:[92](about:blank#fn92)
+
+1. **Korišćenje neinicijalizovane memorije** - čitanje iz memorije koja nikada nije inicijalizovana
+2. **Implicitna konverzija** - prenošenje neinicijalizovane vrednosti između promenljivih
+
+### Princip rada
+
+**Shadow mapping**:[93](about:blank#fn93)
+
+- Svaki bajt memorije ima odgovarajući “shadow” bajt koji prati da li je inicijalizovan
+- Kada se memorija piše, shadow bajt se označava kao inicijalizovan
+- Kada se memorija čita, proverava se shadow bajt
+- Ako je neinicijalizovano, prijavljuje se greška
+
+### Specifičnosti
+
+**Platform specifičan**: Dostupan samo na Linux-u sa x86_64 arhitekturom[94](about:blank#fn94)
+
+**Sprečavanje lažnih pozitivnih**: MSan prati inaciziranost kroz sve operacije[95](about:blank#fn95)
+
+### Primeri
+
+**Primer 1: Neinicijalizovana promenljiva**
+
+```c
+#include<stdio.h>
+
+int main() {
+    int x;
+    printf("%d\n", x);  // x nije inicijalizovan
+    return 0;
+}
+```
+
+**Kompajliranje**:
+
+```bash
+clang -fsanitize=memory -fPIE -pie -g program.c -o program
+./program
+```
+
+**Output**:
+
+```
+==12345==WARNING: MemorySanitizer: use-of-uninitialized-value
+```
+
+---
+
+## **Pitanje 1.50. Dinamička detekcija grešaka. Sanitajzeri. Sanitajzer niti i nedefinisanog ponašanja.**
+
+### Thread Sanitizer (TSan)
+
+**Thread Sanitizer** detektuje greške u konkurentnom izvršavanju - probleme sa race condition-ima i sinhronizacijom između niti.[96](about:blank#fn96)
+
+### Šta detektuje TSan
+
+**Greške u konkurentnosti**:[97](about:blank#fn97)
+
+1. **Data races** - dve niti istovremeno pristupaju istoj memorijskoj lokaciji, i bar jedna piše
+2. **Lock ordering violations** - narušen redosled zaključavanja (mogućnost za deadlock)
+3. **Signal safety violations** - korišćenje nesigurnih funkcija u signal handler-ima
+4. **Mutex problemi** - logičke greške sa mutexima
+
+### Princip rada
+
+**Dinamička analiza**:[98](about:blank#fn98)
+
+- TSan prati sve pristupe memoriji svake niti
+- Beleži koji mutexes svaka nit drži
+- Beleži redosled zaključavanja
+- Detektuje kada dve niti pristupu istoj memoriji bez sinhronizacije
+
+**Happens-before relacije**:[99](about:blank#fn99)
+
+- Prati redosled operacija između niti
+- Ukoliko dve operacije nema happens-before relacije i pristupaju istoj memoriji, to je race condition
+
+### Karakteristike
+
+**Memorijska potrošnja**: ~5-10x veća[100](about:blank#fn100)
+
+**Usporavanje**: ~5-15x sporije[101](about:blank#fn101)
+
+**Preciznost**: Dobar ratio true positives vs false positives[102](about:blank#fn102)
+
+### Primeri
+
+**Primer 1: Detektovanje data race-a**
+
+```c
+#include<pthread.h>
+#include<stdio.h>
+
+int global = 0;
+
+void* thread1(void* arg) {
+    global = 1;
+    return NULL;
+}
+
+void* thread2(void* arg) {
+    global = 2;
+    return NULL;
+}
+
+int main() {
+    pthread_t t1, t2;
+    pthread_create(&t1, NULL, thread1, NULL);
+    pthread_create(&t2, NULL, thread2, NULL);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    return 0;
+}
+```
+
+**Kompajliranje**:
+
+```bash
+gcc -fsanitize=thread -g program.c -o program -pthread
+./program
+```
+
+**Output**:
+
+```
+WARNING: ThreadSanitizer: data race on unknown address 0x0000006fbe00
+    #0 thread1 /path/to/program.c:8
+    #1 thread2 /path/to/program.c:13
+```
+
+---
+
+### UndefinedBehaviorSanitizer (UBSan)
+
+**UBSan** detektuje greške koje predstavljaju **nedefinisano ponašanje** (undefined behavior) u C i C++ kodima.[103](about:blank#fn103)
+
+### Šta detektuje UBSan
+
+**Vrste grešaka**:[104](about:blank#fn104)
+
+1. **Celobrojni prekoračaji** - overflow ili underflow celobrojnih vrednosti
+2. **Greške deljenja** - deljenje sa nulom
+3. **Nevalidni pokazivači** - null pointeri, nevrovani pokazivači
+4. **Out-of-bounds pristup** - pristup nizu van granica
+5. **Type mismatches** - nepravilna konverzija tipova
+6. **Shift operacije** - shift za broj bita veći od veličine tipa
+7. **Signed integer overflow** - prekoračenje granica celobrojnog tipa
+8. **Signedness mismatch** - problemi sa signed/unsigned konverzijom
+
+### Primeri
+
+**Primer 1: Deljenje sa nulom**
+
+```c
+#include<stdio.h>
+
+int main() {
+    int x = 10;
+    int y = 0;
+    int z = x / y;  // Deljenje sa nulom
+    return 0;
+}
+```
+
+**Kompajliranje**:
+
+```bash
+gcc -fsanitize=undefined -g program.c -o program
+./program
+```
+
+**Output**:
+
+```
+program.c:6:13: runtime error: division by zero
+```
+
+**Primer 2: Signed integer overflow**
+
+```c
+#include<stdio.h>
+#include<limits.h>
+
+int main() {
+    int x = INT_MAX;
+    int y = x + 1;  // Signed integer overflow
+    printf("%d\n", y);
+    return 0;
+}
+```
+
+**Output**:
+
+```
+program.c:7:13: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
+```
+
+**Primer 3: Null pointer dereference**
+
+```c
+#include<stdio.h>
+
+int main() {
+    int *p = NULL;
+    int x = *p;  // Null pointer dereference
+    return 0;
+}
+```
+
+```bash
+gcc -fsanitize=undefined -g program.c -o program
+./program
+```
+
+**Output**:
+
+```
+program.c:6:13: runtime error: member access within null pointer of type 'int'
+```
+
+### Kombinovanje sanitajzera
+
+**Više sanitajzera odjednom**:[105](about:blank#fn105)
+
+```bash
+gcc -fsanitize=address,thread,undefined -g program.c -o program
+```
+
+**Napomena**: Niektore kombinacije nisu moguće (npr. address i thread)[106](about:blank#fn106)
+
+---
+
+## **Pitanje 1.51. Dinamička detekcija grešaka. Valgrind i najpoznatiji Valgrind alati. Memcheck i Massif.**
+
+### Memcheck
+
+**Memcheck** je Valgrind alat koji detektuje greške u upravljanju memorijom.[107](about:blank#fn107)
+
+### Što Memcheck detektuje
+
+**Greške u memoriji**:[108](about:blank#fn108)
+
+1. **Memory leaks** - memorija koja je alocirana ali nikada oslobođena
+2. **Illegal reads/writes** - pristup nevalidnoj memoriji
+3. **Use of uninitialized values** - korišćenje neinicijalizovane memorije
+4. **Invalid pointer operations** - operacije sa nevalidnim pokazivačima
+5. **Memory corruption** - korumpiranje podataka u memoriji
+
+### Kako funkcioniše Memcheck
+
+**Shadow memory system**:[109](about:blank#fn109)
+
+- Za svaki bajt memorije, Memcheck prati dodatne informacije (shadow bajt)
+- Shadow informacije: je li memorija alocirana, inicijalizovana, što je sa njom?
+- Tokom izvršavanja, sve operacije sa memorijom se proveravaju
+
+**Heap allocator tracking**:[110](about:blank#fn110)
+
+- Prati sve malloc/free i nove/delete pozive
+- Zna koja memorija je alocirana i do kada
+- Detektuje double-free i pristupe oslobođenoj memoriji
+
+### Karakteristike
+
+**Preciznost**: Veoma precizna, retko lažne pozitive[111](about:blank#fn111)
+
+**Memorijska potrošnja**: ~10x više memorije[112](about:blank#fn112)
+
+**Usporavanje**: ~20-30x sporije[113](about:blank#fn113)
+
+### Primeri
+
+**Primer 1: Memory leak**
+
+```c
+#include<stdlib.h>
+
+int main() {
+    int *p = (int *)malloc(100 * sizeof(int));
+    // Memorija nije oslobođena - memory leak
+    return 0;
+}
+```
+
+**Pokretanje**:
+
+```bash
+valgrind --tool=memcheck --leak-check=full ./program
+```
+
+**Output**:
+
+```
+==12345== HEAP SUMMARY:
+==12345==     in use at exit: 400 bytes in 1 blocks
+==12345==  total heap alloc+freed: 400 bytes in 1 blocks
+==12345== LEAK SUMMARY:
+==12345==    definitely lost: 400 bytes in 1 blocks
+```
+
+**Primer 2: Illegal read**
+
+```c
+#include<stdlib.h>
+
+int main() {
+    int *p = (int *)malloc(10 * sizeof(int));
+    int x = p[^20];  // Illegal read
+    free(p);
+    return 0;
+}
+```
+
+**Output**:
+
+```
+==12345== Invalid read of size 4
+==12345==    at 0x...: main (program.c:6)
+==12345==  Address 0x... is 0 bytes outside block of size 40
+```
+
+**Primer 3: Use after free**
+
+```c
+#include<stdlib.h>
+
+int main() {
+    int *p = (int *)malloc(sizeof(int));
+    free(p);
+    *p = 5;  // Use after free
+    return 0;
+}
+```
+
+**Output**:
+
+```
+==12345== Invalid write of size 4
+==12345==    at 0x...: main (program.c:7)
+==12345==  Address 0x... is 0 bytes inside a block of size 4 free'd
+```
+
+---
+
+### Massif
+
+**Massif** je Valgrind alat koji profajlira upotrebu heap memorije programa.[114](about:blank#fn114)
+
+### Šta Massif meri
+
+**Metrike**:[115](about:blank#fn115)
+
+1. **Heap memorija** - koliko bajta je alocira na heapu
+2. **Vremenski razvoj** - kako se memorija menja tokom vremena
+3. **Alokacije po lokaciji** - koji delovi koda alociraju memoriju
+4. **Peak usage** - maksimalna memorija
+5. **Snapshot tačke** - detaljni snimci memorije u specifičnim trenucima
+
+### Karakteristike
+
+**Memorijska potrošnja**: Minimalna - samo prikupljanje podataka[116](about:blank#fn116)
+
+**Usporavanje**: ~3-5x sporije[117](about:blank#fn117)
+
+**Output**: Detaljne grafike memorijske potrošnje[118](about:blank#fn118)
+
+### Primeri
+
+**Primer 1: Pokretanje Massif-a**
+
+```bash
+valgrind --tool=massif ./program
+```
+
+Generiše `massif.out.12345` fajl.[119](about:blank#fn119)
+
+**Primer 2: Analiza sa ms_print**
+
+```bash
+ms_print massif.out.12345
+```
+
+**Output (primer)**:
+
+```
+    KB
+100 |                                                    #
+    |                                                   #:
+    |                                                  @:#
+    |                                                @:##
+ 50 |                                              @:###
+    |                                             @:####
+    |@:::::::::::::::::::::::::::::::::::::::::::@::#####
+  0 +-----+-----------+-----------+-----------+-----------
+      0   1.5M        3.0M        4.5M        6.0M  time (ms)
+```
+
+**Primer 3: Detaljnija analiza**
+
+```bash
+valgrind --tool=massif --massif-out-file=massif_output ./program
+ms_print massif_output
+```
+
+Prikazuje stablo alokacija po lokaciji poziva.[120](about:blank#fn120)
+
+---
+
+## **Pitanje 1.52. Dinamička detekcija grešaka. Valgrind i najpoznatiji Valgrind alati. Helgrind i DRD.**
+
+### Helgrind
+
+**Helgrind** je Valgrind alat koji detektuje greške u konkurentnom programiranju - probleme sa sinhronizacijom između niti.[121](about:blank#fn121)
+
+### Šta Helgrind detektuje
+
+**Greške u konkurentnosti**:[122](about:blank#fn122)
+
+1. **Data races** - nepotrebne situacije gde dve niti pristupe istoj memoriji bez zaštite
+2. **Lock order violations** - mogućnost za deadlock zbog narušenog redosleda zaključavanja
+3. **Mismatched lock/unlock** - mutex koji je zaključan ali ne otključan ili obrnuto
+4. **Barrier synchronization problems** - problemi sa barijerama
+5. **Semaphore problems** - problemi sa semaforima
+
+### Princip rada
+
+**Lock tracking**:[123](about:blank#fn123)
+
+- Prati sve mutexes i njihov redosled zaključavanja
+- Detektuje sve pristupe memoriji
+- Proverava da li je memorija zaštićena mutexom
+
+**Happens-before graf**:[124](about:blank#fn124)
+
+- Gradi graf redosleda izvršavanja operacija
+- Proverava konzistentnost
+- Detektuje race conditions
+
+### Karakteristike
+
+**Preciznost**: Dobar odnos detektovanih problema i lažnih pozitivnih[125](about:blank#fn125)
+
+**Memorijska potrošnja**: ~20x veća[126](about:blank#fn126)
+
+**Usporavanje**: ~50-100x sporije[127](about:blank#fn127)
+
+### Primeri
+
+**Primer 1: Data race**
+
+```c
+#include<pthread.h>
+#include<stdio.h>
+
+int counter = 0;
+
+void* thread_func(void* arg) {
+    counter++;  // Data race - bez zaštite
+    return NULL;
+}
+
+int main() {
+    pthread_t t1, t2;
+    pthread_create(&t1, NULL, thread_func, NULL);
+    pthread_create(&t2, NULL, thread_func, NULL);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    printf("Counter:%d\n", counter);
+    return 0;
+}
+```
+
+**Pokretanje**:
+
+```bash
+valgrind --tool=helgrind ./program
+```
+
+**Output**:
+
+```
+==12345== WARNING: ThreadSanitizer: data race on variable counter at 0x...
+==12345==    Writer at 0x...: thread_func (program.c:9)
+==12345==    Reader at 0x...: thread_func (program.c:9)
+```
+
+**Primer 2: Lock order violation (Deadlock detection)**
+
+```c
+#include<pthread.h>
+
+pthread_mutex_t mutex1 = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mutex2 = PTHREAD_MUTEX_INITIALIZER;
+
+void* thread1(void* arg) {
+    pthread_mutex_lock(&mutex1);
+    pthread_mutex_lock(&mutex2);  // Lock order: mutex1 -> mutex2
+    pthread_mutex_unlock(&mutex2);
+    pthread_mutex_unlock(&mutex1);
+    return NULL;
+}
+
+void* thread2(void* arg) {
+    pthread_mutex_lock(&mutex2);
+    pthread_mutex_lock(&mutex1);  // Lock order: mutex2 -> mutex1 - Problem!
+    pthread_mutex_unlock(&mutex1);
+    pthread_mutex_unlock(&mutex2);
+    return NULL;
+}
+
+int main() {
+    pthread_t t1, t2;
+    pthread_create(&t1, NULL, thread1, NULL);
+    pthread_create(&t2, NULL, thread2, NULL);
+    pthread_join(t1, NULL);
+    pthread_join(t2, NULL);
+    return 0;
+}
+```
+
+**Output**:
+
+```
+==12345== ERROR: FATAL: Inconsistent lock acquisition order
+```
+
+---
+
+### DRD (Dynamic Race Detector)
+
+**DRD** je alternativni Valgrind alat za detekciju race condition-a, sličan Helgrind-u ali sa drugačijom implementacijom.[128](about:blank#fn128)
+
+### Razlika između DRD-a i Helgrind-a
+
+| Aspekt | Helgrind | DRD |
+| --- | --- | --- |
+| Algoritam | Happens-before | Lock set (signal handler) |
+| Brzina | Sporiji | Malo brži |
+| Memorija | Veća | Manja |
+| Lažne pozitive | Manje | Mogu biti veće |
+| Lock tracking | Detaljno | Osnovano |
+| Deadlock detection | DA | NE |
+
+[129](about:blank#fn129)
+
+### Princip rada DRD-a
+
+**Lock set algoritam**:[130](about:blank#fn130)
+
+- Za svaku memorijsku lokaciju, prati set mutexes koji je štite
+- Ako dve operacije imaju praznu presek lock setova, to je race condition
+- Brže od Helgrind-a jer koristi jednostavniji algoritam
+
+### Karakteristike
+
+**Brzina**: Brži od Helgrind-a - ~20-30x usporavanje[131](about:blank#fn131)
+
+**Memorija**: Manja potrošnja nego Helgrind[132](about:blank#fn132)
+
+**Preciznost**: Može imati više lažnih pozitivnih[133](about:blank#fn133)
+
+### Primeri
+
+**Primer 1: Pokretanje DRD-a**
+
+```bash
+valgrind --tool=drd ./program
+```
+
+- *Primer 2: Sa trace-om[134](about:blank#fn134)
+
+```bash
+valgrind --tool=drd --trace-mutex=all ./program
+```
+
+Prikazuje detaljne informacije o mutexima.[135](about:blank#fn135)
+
+**Primer 3: Samo检查određene zastavice**
+
+```bash
+valgrind --tool=drd --check-stack-var=yes --var-info=yes ./program
+```
+
+Samo proverava stack promenljive sa detaljnim informacijama.[136](about:blank#fn136)
+
+---
+
+### Poređenje svih sanitajzera i Valgrind alata
+
+| Alat | Greške | Brzina | Memorija | Primena |
+| --- | --- | --- | --- | --- |
+| AddressSanitizer | Buffer overflow, use-after-free | 2x | 2x | Memorijske greške |
+| MemorySanitizer | Neinicijalizovana memorija | 3x | 3x | Neinicijalizovani podaci |
+| ThreadSanitizer | Data races | 5-15x | 5-10x | Race conditions |
+| UBSan | Undefined behavior | 2x | 1x | Logičke greške |
+| Memcheck | Memory leaks, illegal access | 20-30x | 10x | Detaljne memorijske greške |
+| Massif | Heap memory usage | 3-5x | min | Profajliranje memorije |
+| Helgrind | Deadlock, race conditions | 50-100x | 20x | Kompleksne konkurentne greške |
+| DRD | Data races | 20-30x | 10x | Race conditions |
+| Cachegrind | Cache misses | 20-30x | high | Cache optimizacija |
+| Callgrind | Call graph, performance | 10-20x | med | Performance analiza |
+
+[137](about:blank#fn137)

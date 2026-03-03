@@ -1,0 +1,1020 @@
+# Verifikacija 32-45
+
+## **Pitanje 1.32. Debagovanje. Veza izvršivog koda i debagera. Režim prevođenja za upotrebu. Primeri.**
+
+### Veza izvršivog koda i debagera
+
+Debager je sistemski alat koji se koristi za praćenje izvršavanja programa u kojem je potrebno identifikovati greške. Rad debagera se oslanja na operativni sistem, hardver i kompajler. Da bi debager mogao da radi, izvršivi kod mora sadržati određene dodatne informacije koje omogućavaju mapiranje između izvršivog koda i izvornog koda programa.
+
+### Režim prevođenja za upotrebu (Release režim)
+
+**Režim prevođenja za upotrebu** (release, production build) je način kompajliranja programa koji je optimizovan za izvršavanje i namenjen krajnjim korisnicima. Karakteristike ovog režima:[1](about:blank#fn1)
+
+**Optimizacije**: Kompajler primenjuje različite optimizacije koda radi postizanja maksimalnih performansi (brzina izvršavanja, potrošnja memorije, veličina izvršnog fajla).[2](about:blank#fn2)
+
+**Bez pomoćnih informacija**: Ne generiše ili minimalno generiše dodatne pomoćne informacije za debagovanje. Ovo znači da izvršivi kod ne sadži simboličke informacije koje povezuju mašinski kod sa izvornim kodom.[3](about:blank#fn3)
+
+**Manja veličina**: Izvršni fajl je manjih dimenzija jer ne sadži debag simbole i dodatne metapodatke.[4](about:blank#fn4)
+
+**Teže debagovanje**: Kada program pada u produkciji, vrlo je teško otkriti uzrok problema jer nema dovoljno informacija za analizu.[5](about:blank#fn5)
+
+### Primeri
+
+**Primer 1: GCC/Clang kompajleri (C/C++)**
+
+```bash
+gcc -O2 program.c -o program
+```
+
+Opcija `-O2` omogućava optimizacije nivoa 2. Izvršni fajl nema debag simbole i optimizovan je za brzinu.[6](about:blank#fn6)
+
+**Primer 2: Java**
+
+```bash
+javac -g:none MyProgram.java
+```
+
+Opcija `-g:none` iskljčuje generisanje svih debag informacija.[7](about:blank#fn7)
+
+**Primer 3: Python**
+Python kod se izvršava interpretacijom, ali se može kompajlirati u bytecode. Za proizvodnju:
+
+```bash
+python -O script.py
+```
+
+Opcija `-O` uklanja assert naredbe i optimizuje bytecode.[8](about:blank#fn8)
+
+---
+
+### Druga verzija odgovora
+
+
+**DEBAGOVANJE (Debugging)**
+
+**Karakteristike:**
+
+- Proces **pronalaženja i ispravljanja grešaka** u kodu
+- Koristi se **debager** - poseban alat koji omogućava praćenje izvršavanja
+- Tester/programer **korak po korak** prati izvršavanje koda
+- Može se videti vrednost svake varijable
+
+---
+
+**VEZA IZVRŠIVOG KODA I DEBAGERA**
+
+Debager se povezuje sa izvršivim kodom kroz **debug informacije** koje se generišu tokom kompajliranja.
+
+```
+Izvorni kod (.c, .py, .java)
+         ↓
+    KOMPAJLER
+         ↓
+Izvršivi kod (.exe, .jar) + DEBUG INFORMACIJE (simboli, redovi koda)
+         ↓
+    DEBAGER (može sada povezati redove koda sa mašinskim instrukcijama)
+```
+
+---
+
+**REŽIMI PREVOĐENJA (Compilation Modes)**
+
+Kod se može kompajlirati u različitim režimima:
+
+**1. REŽIM ZA UPOTREBU (Release Mode)**
+
+```bash
+gcc -O3 test.c -o test
+# ili
+gcc -O3 -DNDEBUG test.c -o test  # -O3 = optimizacija, NDEBUG = nema debug informacija
+```
+
+**Karakteristike:**
+
+- ✓ **Brži kod** - Kompajler optimizuje kod
+- ✓ **Manji fajl** - Debug informacije nisu uključene
+- ✗ **Teško debagovanje** - Simboli nisu dostupni
+- ✗ **Nečitljivi stack trace** - Redovi koda se ne vide jasno
+- Koristi se za **proizvodnju (production)**
+
+**Primer - Optimizovani kod:**
+
+```c
+#include<stdio.h>
+
+void foo(int x) {
+    int y = x * 2;
+    printf("y =%d\n", y);
+}
+
+int main() {
+    foo(5);
+    return 0;
+}
+```
+
+Kompajliranje za produkciju:
+
+```bash
+gcc -O3 test.c -o test
+./test
+# y = 10
+
+# Ako se desi greška:
+# Segmentation fault
+# Stack trace nije informativan
+```
+
+---
+
+**2. REŽIM ZA PRONALAŽENJE GREŠAKA (Debug Mode)**
+
+```bash
+gcc -g test.c -o test
+# ili
+gcc -g -O0 test.c -o test  # -g = uključi debug informacije, -O0 = nema optimizacije
+```
+
+**Karakteristike:**
+
+- ✓ **Moguće debagovanje** - Debug informacije su dostupne
+- ✓ **Jasni stack trace** - Redovi koda se jasno vide
+- ✗ **Sporiji kod** - Nema optimizacije
+- ✗ **Veći fajl** - Debug informacije zauzimaju mesto
+- Koristi se za **razvoj (development)**
+
+**Primer - Debug modu:**
+
+```bash
+gcc -g test.c -o test
+gdb ./test
+(gdb) break main       # Postavi prekidnu tačku
+(gdb) run              # Pokreni program
+(gdb) print x          # Ispis varijable x
+(gdb) next             # Sledeci redak
+(gdb) step             # Ulazak u funkciju
+```
+
+---
+
+**PRIMERI PROBLEMA - RELEASE vs DEBUG:**
+
+**Primer 1 - Buffer Overflow**
+
+```c
+#include<stdio.h>
+#include<string.h>
+
+void foo(char *str) {
+    char buffer[^10];
+    strcpy(buffer, str);  // GREŠKA! Buffer overflow!
+    printf("Buffer:%s\n", buffer);
+}
+
+int main() {
+    foo("Ovo je很是dugi string koji proveruje buffer");
+    return 0;
+}
+```
+
+**RELEASE MODE:**
+
+```bash
+gcc -O3 test.c -o test_release
+./test_release
+# Segmentation fault
+# Nema informacije koje redak je greška!
+```
+
+**DEBUG MODE:**
+
+```bash
+gcc -g test.c -o test_debug
+gdb ./test_debug
+(gdb) run
+# Program received signal SIGSEGV, Segmentation fault.
+# 0x00401040 in foo (str=0x60ac20) at test.c:8
+# 8     strcpy(buffer, str);
+# ← Tačno vidim redak koji je problem!
+```
+
+---
+
+**Primer 2 - Null Pointer**
+
+```c
+#include<stdio.h>
+
+typedef struct {
+    char *name;
+    int age;
+} Person;
+
+void print_person(Person *p) {
+    printf("Name:%s\n", p->name);  // GREŠKA: p je NULL!
+}
+
+int main() {
+    Person *p = NULL;
+    print_person(p);
+    return 0;
+}
+```
+
+**RELEASE MODE:**
+
+```bash
+gcc -O3 test.c -o test_release
+./test_release
+# Segmentation fault
+# Koja linija? Gde je greška? Nema pojma!
+```
+
+**DEBUG MODE:**
+
+```bash
+gcc -g test.c -o test_debug
+gdb ./test_debug
+(gdb) run
+# Program received signal SIGSEGV...
+# 0x00401050 in print_person (p=0x0) at test.c:10
+# 10    printf("Name: %s\n", p->name);
+# ← Vidim da je `p` NULL! Vidim tacan redak!
+```
+
+---
+
+**Primer 3 - Python Debugging**
+
+Python ne pravi razliku između debug i release, ali editor ima funkcije debagovanja.
+
+```python
+def podeliis(a, b):
+    rezultat = a / b  # Greška ako je b=0!
+    return rezultat
+
+# Debug mode (sa breakpoint-om):
+x = podeliis(10, 0)
+# ZeroDivisionError: division by zero
+#   Linija 3, u `podeli`
+#   rezultat = a / b
+```
+
+Sa debagerom:
+
+```python
+import pdb
+
+def podeli(a, b):
+    pdb.set_trace()  # Postavi breakpoint
+    rezultat = a / b
+    return rezultat
+
+# Pokreni:
+podeli(10, 2)
+# (Pdb) p a
+# 10
+# (Pdb) p b
+# 2
+# (Pdb) n (next)
+```
+
+---
+
+**KAKO SE KORISTI DEBAGER:**
+┌─────────────────────────────┐
+│     DEBAGER FUNKCIJE:       │
+├─────────────────────────────┤
+│ Breakpoints:                │
+│ - Postavi tačku gde se kod  │
+│   može zaustaviti           │
+│ Watch Points:               │
+│ - Posmatraj promenu         │
+│   varijable                 │
+│ Step Over (next):           │
+│ - Sledeći redak             │
+│ Step Into (step):           │
+│ - Ulazak u funkciju         │
+│ Step Out (finish):          │
+│ - Izlazak iz funkcije       │
+│ Print (p):                  │
+│ - Ispis vrednosti           │
+│ Stack:                      │
+│ - Pregled poziva funkcija   │
+└─────────────────────────────┘
+
+
+## **Pitanje 1.33. Debagovanje. Veza izvršivog koda i debagera. Režim prevođenja za pronalaženje grešaka. Formati za predstavljanje pomoćnih informacija. Primeri.**
+
+### Režim prevođenja za pronalaženje grešaka (Debug režim)
+
+**Režim prevođenja za pronalaženje grešaka** (debug build) je način kompajliranja programa koji omogućava efikasno debagovanje. Karakteristike:[9](about:blank#fn9)
+
+**Bez optimizacija ili minimalne optimizacije**: Kod se prevodi sa minimalnim ili bez optimizacija kako bi se sačuvala struktura izvornog koda.[10](about:blank#fn10)
+
+**Pomoćne informacije**: Generiše se velika količina dodatnih informacija koje omogućavaju mapiranje izvršnog koda na izvorni kod.[11](about:blank#fn11)
+
+**Veća veličina**: Izvršni fajl je znatno veći zbog dodatnih informacija.[12](about:blank#fn12)
+
+**Sporije izvršavanje**: Performanse su lošije jer nema optimizacija.[13](about:blank#fn13)
+
+### Formati za predstavljanje pomoćnih informacija
+
+**DWARF (Debugging With Attributed Record Formats)**[14](about:blank#fn14)
+
+- Najrasprostranjeniji format na Unix/Linux sistemima
+- Koristi ga GCC i Clang kompajleri
+- Čuva informacije o tipovima podataka, promenljivim, funkcijama, linijama izvornog koda
+
+**PDB (Program Database)**[15](about:blank#fn15)
+
+- Microsoft format korišćen u Visual Studio okruženju
+- Čuva simboličke informacije odvojeno od izvršnog fajla (.pdb fajlovi)
+- Sadrži informacije o funkcijama, promenljivim, tipovima, izvornom kodu
+
+**STABS (Symbol TABle Strings)**[16](about:blank#fn16)
+
+- Stariji format, uglavnom zamenjen sa DWARF
+- Korišćen na starijim Unix sistemima
+
+### Primeri
+
+**Primer 1: GCC sa DWARF formatom**
+
+```bash
+gcc -g -O0 program.c -o program
+```
+
+- `g` generiše debag informacije u DWARF formatu
+- `O0` isključuje sve optimizacije[17](about:blank#fn17)
+
+**Primer 2: Visual Studio sa PDB formatom**
+
+```bash
+cl /Zi /Od program.cpp
+```
+
+- `/Zi` generiše potpune debag informacije u .pdb fajlu
+- `/Od` isključuje optimizacije[18](about:blank#fn18)
+
+**Primer 3: Rust sa debug režimom**
+
+```bash
+cargo build
+```
+
+Podrazumevano kreira debug verziju sa debag simbolima.[19](about:blank#fn19)
+
+---
+
+## **Pitanje 1.34. Debagovanje. Veza izvršivog koda i debagera. Kombinovani režimi prevođenja. Primeri.**
+
+### Kombinovani režimi prevođenja
+
+**Kombinovani režimi** predstavljaju kompromis između release i debug režima. Cilj je omogućiti razumno debagovanje uz prihvatljive performanse.[20](about:blank#fn20)
+
+**Release sa debug informacijama (RelWithDebInfo)**:[21](about:blank#fn21)
+
+- Primenjuju se optimizacije za poboljšanje performansi
+- Generiuju se debag simboli
+- Omogućava profilisanje i analizu performansi
+- Koristi se kada je potrebno debagovati probleme koji se javljaju samo sa optimizovanim kodom
+
+**Debug sa minimalnim optimizacijama (MinSizeRel)**:[22](about:blank#fn22)
+
+- Minimalne optimizacije za smanjenje veličine
+- Zadržavaju se debag informacije
+- Koristan za embedded sisteme sa ograničenom memorijom
+
+### Karakteristike kombinovanih režima
+
+- **Delimično debagovanje**: Neke promenljive mogu biti optimizovane i neće biti dostupne u debageru[23](about:blank#fn23)
+- **Kod se može “skakati”**: Zbog optimizacija, izvršavanje ne prati uvek tačan redosled linija u izvornom kodu[24](about:blank#fn24)
+- **Inline funkcije**: Funkcije mogu biti inline-ovane, što otežava postavljanje breakpoint-a[25](about:blank#fn25)
+
+### Primeri
+
+**Primer 1: CMake - RelWithDebInfo**
+
+```
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
+```
+
+Generiše optimizovan kod sa debag simbolima.[26](about:blank#fn26)
+
+**Primer 2: GCC kombinovani režim**
+
+```bash
+gcc -g -O2 program.c -o program
+```
+
+- `g` dodaje debag simbole
+- `O2` primenjuje optimizacije nivoa 2
+- Dobar kompromis za profiliranje[27](about:blank#fn27)
+
+**Primer 3: Visual Studio - Debug optimized**
+
+```bash
+cl /Zi /O1 program.cpp
+```
+
+- `/Zi` generiše debag informacije
+- `/O1` minimizuje veličinu uz optimizacije[28](about:blank#fn28)
+
+**Primer 4: Rust - release sa debug simbolima**
+
+```toml
+[profile.release]
+debug = true
+```
+
+U `Cargo.toml` fajlu dodaje debag simbole u release build.[29](about:blank#fn29)
+
+---
+
+## **Pitanje 1.35. Debagovanje. Veza izvršivog koda i debagera. Anti-debagovanje.**
+
+### Anti-debagovanje
+
+**Anti-debagovanje** su tehnike koje se koriste radi ometanja ili otežavanja procesa debagovanja. Ove tehnike primenjuju se u različite svrhe:[30](about:blank#fn30)
+
+### Razlozi za korišćenje anti-debagovanja
+
+**Zaštita intelektualne svojine**: Sprečavanje reverse engineering-a i krađe algoritama[31](about:blank#fn31)
+
+**Zaštita od modifikacija**: Sprečavanje neovlašćenih izmena softvera (npr. uklanjanje zaštite, kreking)[32](about:blank#fn32)
+
+**Bezbednost**: Otežavanje analize malicioznog softvera[33](about:blank#fn33)
+
+**Zaštita od varanja**: U video igrama, sprečavanje korišćenja cheat-ova[34](about:blank#fn34)
+
+### Tehnike anti-debagovanja
+
+**Detekcija prisustva debagera**:[35](about:blank#fn35)
+
+- Provera da li je proces pokrenut pod debagerom (npr. `IsDebuggerPresent()` u Windows API)
+- Provera specifičnih sistemskih flagova ili registara
+- Detekcija postojanja debag porta
+
+**Timing provere**:[36](about:blank#fn36)
+
+- Merenje vremena izvršavanja kritičnih delova koda
+- Ako je izvršavanje značajno sporije, verovatno je aktivan debager
+- Debageri obično usporavaju izvršavanje
+
+**Code obfuscation (zamračavanje koda)**:[37](about:blank#fn37)
+
+- Dodavanje besmislenog koda koji komplikuje analizu
+- Šifrovanje ili pakovanje izvršnog koda
+- Upotreba kompleksnih kontrolnih tokova
+
+**Izmena izvršavanja pri detekciji**:[38](about:blank#fn38)
+
+- Program menja ponašanje ili se gasi ako detektuje debager
+- Namerno proizvodi pogrešne rezultate
+- Može prikriti stvarni kod ili grešku
+
+**Hardverske provere**:[39](about:blank#fn39)
+
+- Korišćenje hardverskih breakpoint-a za detekciju
+- Provera debug registara procesora
+
+### Primeri
+
+**Primer 1: Detekcija debagera u Windows-u**
+
+```c
+#include<windows.h>
+
+if (IsDebuggerPresent()) {
+    // Debager je detektovan
+    printf("Debager je prisutan!\n");
+    exit(1);
+}
+```
+
+Funkcija `IsDebuggerPresent()` vraća `TRUE` ako je proces pokrenut pod debagerom.[40](about:blank#fn40)
+
+**Primer 2: Timing provera**
+
+```c
+#include<time.h>
+
+clock_t start = clock();
+// Kritični kod
+clock_t end = clock();
+
+double elapsed = (double)(end - start) / CLOCKS_PER_SEC;
+if (elapsed > 0.5) {
+    printf("Verovatno je debager aktivan!\n");
+    exit(1);
+}
+```
+
+Ako izvršavanje traje predugo, to može ukazivati na prisustvo debagera.[41](about:blank#fn41)
+
+**Primer 3: Linux - provera `/proc/self/status`**
+
+```c
+FILE *f = fopen("/proc/self/status", "r");
+char line[^256];
+while (fgets(line, sizeof(line), f)) {
+    if (strncmp(line, "TracerPid:", 10) == 0) {
+        int pid = atoi(line + 10);
+        if (pid != 0) {
+            printf("Debager detektovan!\n");
+            exit(1);
+        }
+    }
+}
+fclose(f);
+```
+
+Ako je `TracerPid` različit od 0, proces je pod debagerom.[42](about:blank#fn42)
+
+---
+
+## **Pitanje 1.36. Debagovanje. Vrste debagovanja. Interaktivno debagovanje. Implementacija interaktivnog debagovanja, tačaka prekida i tačaka posmatranja. Primeri.**
+
+### Interaktivno debagovanje
+
+**Interaktivno debagovanje** je osnovni pristup debagavanju koji omogućava programeru da interaktivno kontroliše izvršavanje programa, postavlja uslove zaustavljanja i inspektuje stanje programa.[43](about:blank#fn43)
+
+### Osnovne funkcionalnosti
+
+**Postavljanje tačaka prekida (breakpoints)**: Određivanje mesta u kodu gde će se izvršavanje pauzirati[44](about:blank#fn44)
+
+**Koračanje kroz kod (stepping)**:[45](about:blank#fn45)
+
+- Step over - izvršava trenutnu liniju i zaustavlja se na sledećoj
+- Step into - ulazi u funkciju koja se poziva
+- Step out - izvršava ostatak funkcije i zaustavlja se nakon povratka
+
+**Inspekcija stanja**: Pregledanje vrednosti promenljivih, steka poziva, registara[46](about:blank#fn46)
+
+**Evaluacija izraza**: Izvršavanje proizvoljnih izraza u trenutnom kontekstu[47](about:blank#fn47)
+
+### Implementacija tačaka prekida
+
+**Softverske tačke prekida**:[48](about:blank#fn48)
+
+- Kompajler/debager zamenjuje instrukciju na željenoj lokaciji sa specijalnom instrukcijom (npr. INT 3 na x86)
+- Kada procesor dođe do te instrukcije, generiše se softverski prekid
+- Operativni sistem zaustavlja proces i obaveštava debager
+- Debager vraća originalnu instrukciju nakon što korisnik nastavi izvršavanje
+
+**Hardverske tačke prekida**:[49](about:blank#fn49)
+
+- Koriste se specijalni debug registri procesora (npr. DR0-DR7 na x86)
+- Omogućavaju postavljanje ograničenog broja breakpoint-a (obično 4)
+- Ne menjaju kod programa
+- Mogu se koristiti za praćenje pristupa memoriji
+
+### Implementacija tačaka posmatranja (watchpoints)
+
+**Tačke posmatranja** prate pristupe određenim memorijskim lokacijama i zaustavljaju izvršavanje kada se vrednost promeni ili kada se pristupi toj lokaciji.[50](about:blank#fn50)
+
+**Hardverski watchpoint-i**: Koriste debug registre procesora za praćenje pristupa memoriji[51](about:blank#fn51)
+
+**Softverski watchpoint-i**: Koriste memory protection mehanizme operativnog sistema (npr. mprotect na Linux-u)[52](about:blank#fn52)
+
+### Primeri
+
+**Primer 1: GDB - postavljanje breakpoint-a**
+
+```bash
+(gdb) break main           # Prekid na početku funkcije main
+(gdb) break file.c:42      # Prekid na liniji 42 u fajlu file.c
+(gdb) break func if x > 10 # Uslovni breakpoint
+```
+
+**Primer 2: GDB - koračanje kroz kod**
+
+```bash
+(gdb) run              # Pokreće program
+(gdb) next             # Step over
+(gdb) step             # Step into
+(gdb) finish           # Step out
+(gdb) continue         # Nastavlja izvršavanje
+```
+
+**Primer 3: GDB - inspekcija stanja**
+
+```bash
+(gdb) print x          # Prikazuje vrednost promenljive x
+(gdb) info locals      # Prikazuje sve lokalne promenljive
+(gdb) backtrace        # Prikazuje stek poziva
+(gdb) info registers   # Prikazuje sadržaj registara
+```
+
+**Primer 4: GDB - watchpoint**
+
+```bash
+(gdb) watch my_variable  # Zaustavlja kada se my_variable promeni
+(gdb) rwatch my_var      # Zaustavlja pri čitanju
+(gdb) awatch my_var      # Zaustavlja pri čitanju ili pisanju
+```
+
+**Primer 5: Visual Studio Debugger**
+U Visual Studio okruženju, korisnički interfejs omogućava:
+
+- Klik na levu ivicu editora za postavljanje breakpoint-a
+- F10 za step over, F11 za step into
+- Hover preko promenljivih za prikaz vrednosti
+- Watch prozor za praćenje promenljivih[53](about:blank#fn53)
+
+---
+
+## **Pitanje 1.37. Debagovanje. Vrste debagovanja. Udaljeno debagovanje. Debagovanje nakon prekida izvršavanja programa. Primeri.**
+
+### Udaljeno debagovanje
+
+**Udaljeno debagovanje** (remote debugging) podrazumeva interaktivno debagovanje pri čemu se aplikacija koja se debaguje izvršava na jednom, a debager na drugom sistemu.[54](about:blank#fn54)
+
+### Karakteristike udaljenog debagovanja
+
+**Razdvojeni sistemi**: Debager i aplikacija koja se debaguje izvršavaju se na različitim sistemima[55](about:blank#fn55)
+
+**Komunikacija preko mreže**: Debager komunicira sa udaljenim programom preko TCP/IP protokola[56](about:blank#fn56)
+
+**Slučajevi upotrebe**:[57](about:blank#fn57)
+
+- Debagovanje embedded sistema
+- Debagovanje na proizvodnim serverima
+- Debagovanje aplikacija u kontejnerima ili virtuelnim mašinama
+- Debagovanje mobilnih aplikacija
+
+### Arhitektura udaljenog debagovanja
+
+Tipično se sastoji od dva dela:[58](about:blank#fn58)
+
+- **Debug server (stub)**: Radi na sistemu gde se izvršava aplikacija i omogućava kontrolu procesa
+- **Debug client**: Radi na mašini programera i pruža korisnički interfejs
+
+### Debagovanje nakon prekida izvršavanja programa
+
+**Post-mortem debagovanje** omogućava uvid u stanje memorije nakon prekida izvršavanja programa (crash) u situacijama kada se greške moraju analizirati bez direktnog ponovnog izvršavanja programa u identičnim uslovima.[59](about:blank#fn59)
+
+### Core dump (memory dump)
+
+Kada program padne, operativni sistem može generisati **core dump** fajl koji sadrži snimak kompletnog stanja memorije procesa u momentu pada:[60](about:blank#fn60)
+
+- Sadržaj registara procesora
+- Sadržaj steka i hipa
+- Status svih niti
+- Otvoreni fajl deskriptori
+
+**Analiza core dump-a**:[61](about:blank#fn61)
+
+- Može se učitati u debager radi inspekcije
+- Omogućava pregledanje steka poziva, promenljivih i memorije
+- Ne omogućava izvršavanje programa
+
+### Primeri
+
+**Primer 1: GDB remote debugging**
+
+Na ciljanom sistemu (embedded device ili server):
+
+```bash
+gdbserver :1234 ./myprogram
+```
+
+GDB server se pokreće i čeka konekciju na portu 1234.[62](about:blank#fn62)
+
+Na razvojnoj mašini:
+
+```bash
+gdb ./myprogram
+(gdb) target remote 192.168.1.100:1234
+(gdb) break main
+(gdb) continue
+```
+
+GDB se povezuje sa udaljenim serverom i debaguje program.[63](about:blank#fn63)
+
+**Primer 2: Visual Studio remote debugging**
+
+Visual Studio Remote Debugger se instalira na ciljani sistem. Iz Visual Studio IDE-a:
+
+- Debug → Attach to Process
+- Connection Type: Remote (no authentication)
+- Connection Target: IP adresa udaljenog sistema
+- Bira se proces koji se debaguje[64](about:blank#fn64)
+
+**Primer 3: Core dump na Linux-u**
+
+Generisanje core dump-a:
+
+```bash
+ulimit -c unlimited   # Omogućava generisanje core dump-a
+./myprogram           # Program pada
+```
+
+Generiše se `core` fajl.[65](about:blank#fn65)
+
+Analiza core dump-a:
+
+```bash
+gdb ./myprogram core
+(gdb) backtrace       # Prikazuje stek poziva u momentu pada
+(gdb) info registers  # Prikazuje registre
+(gdb) print variable  # Prikazuje vrednosti promenljivih
+```
+
+**Primer 4: Windows - .dmp fajlovi**
+
+Kada aplikacija padne u Windows-u, može se generisati minidump ili full dump. Analiza:
+
+```
+WinDbg myapp.exe mydump.dmp
+```
+
+WinDbg učitava dump fajl i omogućava post-mortem analizu.[66](about:blank#fn66)
+
+---
+
+## **Pitanje 1.38. Debagovanje. Primeri debagera.**
+
+### Najpoznatiji debageri
+
+**GDB (GNU Debugger)**[67](about:blank#fn67)
+
+- Najpoznatiji debager za Linux/Unix sisteme
+- Podržava jezike: C, C++, Rust, Go, Fortran, Ada
+- Command-line interfejs, ali postoje i GUI frontend-ovi (DDD, Eclipse, VS Code)
+- Podržava remote debugging i cross-debugging
+- Open source
+
+**LLDB**[68](about:blank#fn68)
+
+- Debager LLVM kompajlerske infrastrukture
+- Naslednik GDB-a, modernija arhitektura
+- Podržava: C, C++, Objective-C, Swift
+- Koristi se kao podrazumevani debager u Xcode-u na macOS
+- Open source
+
+**Visual Studio Debugger**[69](about:blank#fn69)
+
+- Integrisani debager u Microsoft Visual Studio IDE-u
+- Podržava: C++, C#, F#, Visual Basic, Python, JavaScript
+- Bogat grafički interfejs
+- Izvrsne mogućnosti za debugging .NET aplikacija
+- Komercijalni, ali postoji i Community verzija
+
+**WinDbg**[70](about:blank#fn70)
+
+- Windows Debugger, deo Windows SDK-a
+- Moćan low-level debager za Windows platformu
+- Koristi se za kernel debugging i analizu crash dump-ova
+- Command-line i grafički interfejs (WinDbg Preview)
+- Besplatan
+
+**Delve** (za Go)[71](about:blank#fn71)
+
+- Specijalizovani debager za programski jezik Go
+- Integriše se sa Visual Studio Code i GoLand
+- Podržava debugging Go-rutina (goroutines)
+- Open source
+
+**pdb** (Python Debugger)[72](about:blank#fn72)
+
+- Standardni modul za debagovanje Python programa
+- Ugrađen u Python standardnu biblioteku
+- Command-line interfejs
+- Omogućava postavljanje breakpoint-a i inspekciju stanja
+
+**GHCi Debugger** (za Haskell)[73](about:blank#fn73)
+
+- Debager za Haskell programe
+- Deo Glasgow Haskell Compiler-a (GHC)
+- Prilagođen funkcionalnoj prirodi i lazy evaluation-u Haskell-a
+- Omogućava praćenje evaluacije izraza
+
+**Browser DevTools**[74](about:blank#fn74)
+
+- Ugrađeni debageri u moderne veb pregledače (Chrome, Firefox, Edge, Safari)
+- Za JavaScript, HTML, CSS
+- Bogat grafički interfejs sa Network tab-om, Console-om, Performance profiler-om
+
+### Primeri korišćenja
+
+**Primer 1: GDB**
+
+```bash
+$ gdb ./myprogram
+(gdb) run
+(gdb) break function_name
+(gdb) continue
+(gdb) print variable
+```
+
+**Primer 2: LLDB**
+
+```bash
+$ lldb ./myprogram
+(lldb) breakpoint set --name main
+(lldb) run
+(lldb) frame variable
+```
+
+**Primer 3: Python pdb**
+
+```python
+import pdb
+
+def buggy_function(x):
+    pdb.set_trace()  # Debager se zaustavlja ovde
+    result = x / 0
+    return result
+```
+
+---
+
+## **Pitanje 1.39. Debagovanje. Otvoreni problemi.**
+
+### Ograničenja debagovanja
+
+Iako je debagovanje ključna tehnika za analizu izvršavanja programa, primenljivost debagera je ograničena u određenim situacijama:[75](about:blank#fn75)
+
+### Višenitne aplikacije
+
+**Problemi**:[76](about:blank#fn76)
+
+- Greške često zavise od redosleda izvršavanja koji se teško reprodukuje
+- Debageri često ne uspevaju da precizno upravljaju svim nitima istovremeno
+- Samo pokretanje aplikacije u debageru može promeniti ponašanje programa i redosled izvršavanja niti
+- Prikriva probleme poput trke za resursima (race conditions) i međusobnog blokiranja (deadlock)
+
+**Pristup rešavanju**: Kombinovanje debagovanja sa drugim tehnikama - logovanje, profajliranje, specijalizovani sanitajzeri za otkrivanje konkurentnih grešaka, statička analiza (proveravanje modela).[77](about:blank#fn77)
+
+### Distribuirane aplikacije
+
+**Problemi**:[78](about:blank#fn78)
+
+- Izvršavanje uključuje više nezavisnih komponenti na različitim fizičkim mašinama
+- Tradicionalni debageri nisu dizajnirani za takav kontekst
+- Ne omogućavaju jedinstveno praćenje toka izvršavanja u svim delovima sistema
+
+### Sistemi sa ugrađenim računarom i real-time aplikacije
+
+**Problemi**:[79](about:blank#fn79)
+
+- Ograničenja resursa (memorija, procesor)
+- Strogi vremenski zahtevi ne dozvoljavaju pauziranje programa
+- Umetanje dodatnog koda za analizu može narušiti funkcionalnost sistema
+- Debager može biti nedostupan na ciljnoj platformi
+
+### Optimizovan kod (release build)
+
+**Problemi**:[80](about:blank#fn80)
+
+- Optimizacije koje vrši kompajler menjaju strukturu izvršivog koda
+- Uklanjaju se delovi koda, funkcije se spajaju ili reorganizuju
+- Narušava se mogućnost jasnog povezivanja sa izvornim kodom
+- Debagovanje postaje značajno otežano
+
+### Veliki i kompleksni sistemi
+
+**Problemi**:[81](about:blank#fn81)
+
+- Količina podataka i broj međusobno povezanih komponenti često prevazilaze mogućnosti praćenja putem debagera
+- Debagovanje postaje sporo, nepregledeno i nedovoljno skalabilno
+
+### Zaključak
+
+Zbog svih navedenih ograničenja, debagovanje se u praksi često kombinuje sa drugim tehnikama:[82](about:blank#fn82)
+
+- Logovanje
+- Automatsko testiranje
+- Statička analiza
+- Specijalizovani alati za otkrivanje specifičnih vrsta grešaka
+
+Razumevanje ograničenja debagovanja je ključno kako bi se odabrala odgovarajuća strategija za ispitivanje i ispravljanje softverskih problema.[83](about:blank#fn83)
+
+---
+
+## **Pitanje 1.40. Debagovanje. Štampanje umesto debagera. Primeri.**
+
+### Štampanje umesto debagera (Print debugging)
+
+**Štampanje vrednosti promenljivih** pomoću funkcije `print` (ili funkcije koja vrši štampanje) predstavlja jednu od prvih tehnika debagovanja koju većina programera usvaja.[84](about:blank#fn84)
+
+### Karakteristike pristupa
+
+**Jednostavnost**:[85](about:blank#fn85)
+
+- Intuitivna tehnika
+- Lako primenljiva
+- Ne zahteva poznavanje dodatnih alata
+
+**Upotreba**:[86](about:blank#fn86)
+
+- Umetanje naredbe za štampanje u ključne delove programa
+- Prikazivanje trenutnih vrednosti promenljivih
+- Praćenje kontrole toka (ulazak u funkciju, izvršavanje grana, izlazak iz petlji)
+- Uočavanje neočekivanih rezultata tokom izvršavanja
+
+### Zašto se još uvek koristi
+
+Uprkos dostupnosti savremenih i veoma moćnih alata za debagovanje, upotreba štampanja za praćenje toka izvršavanja programa i dalje je široko rasprostranjena.[87](about:blank#fn87)
+
+**Razlozi**:[88](about:blank#fn88)
+
+- Jednostavnost umetanja funkcije `print`
+- Nepoznavanje upotrebe alata za debagovanje
+- Brzo testiranje hipoteze
+- Dostupnost u svim okruženjima
+
+### Nedostaci pristupa
+
+Oslanjanje na štampanje kao zamenu za debager danas se smatra prevazilaženim pristupom iz više razloga:[89](about:blank#fn89)
+
+**Ponovno prevođenje**: Svaka izmena zahteva ponovno prevođenje programa, što je kod većih projekata vremenski zahtevno.[90](about:blank#fn90)
+
+**Uticaj na ponašanje**: Umetanje poziva funkcije za štampanje može promeniti raspored memorije programa i time prikriti ili izmeniti ponašanje greške.[91](about:blank#fn91)
+
+**Ograničen uvid**: Štampanjem se ne mogu lako ispratiti svi relevantni aspekti stanja programa (sadržaji registara, vrednosti pokazivača, stanje steka).[92](about:blank#fn92)
+
+**Nema interaktivnosti**: Štampanje ne omogućava zaustavljanje programa niti interaktivno ispitivanje stanja promenljivih.[93](about:blank#fn93)
+
+### Opravdani razlozi za korišćenje
+
+Štampanje ostaje važna dopunska tehnika jer mogu postojati opravdani razlozi za upotrebu štampanja umesto debagera:[94](about:blank#fn94)
+
+- **Nepostojanje debagera** za određenu platformu ili arhitekturu
+- **Heisenbug**: Slučajevi kada i sam debager svojim prisustvom menja ponašanje programa i time otežava detekciju greške
+- **Logovanje u produkciji**: Praćenje ponašanja programa u produkcijskom okruženju
+
+### Citati poznatih programera
+
+**Brian W. Kernighan** (koautor knjige “Programski jezik C”):[95](about:blank#fn95)
+> “The most effective debugging tool is still careful thought, coupled with judiciously placed print statements.”
+
+**Guido van Rossum** (autor programskog jezika Python):[96](about:blank#fn96)
+> Koristi poziv funkcije print za 90% svog debagovanja.
+
+### Primeri
+
+**Primer 1: Praćenje toka izvršavanja u C-u**
+
+```c
+int suma_niza(int niz[], int duzina) {
+    int suma = 0;
+    for (int i = 0; i < duzina; i++) {
+        printf("niz[%d]=%d, suma=%d\n", i, niz[i], suma);
+        suma += niz[i];
+    }
+    return suma;
+}
+```
+
+Poziv funkcije `printf` unutar petlje pomaže da se uoče greške (npr. ako petlja ide van granica).[97](about:blank#fn97)
+
+**Primer 2: Python**
+
+```python
+def process_data(data):
+    print(f"DEBUG: Processing{len(data)} items")
+    result = []
+    for item in data:
+        print(f"DEBUG: Current item:{item}")
+        processed = transform(item)
+        print(f"DEBUG: Transformed to:{processed}")
+        result.append(processed)
+    return result
+```
+
+**Primer 3: Haskell - trace funkcija**
+
+```haskell
+import Debug.Trace
+
+factorial n = trace ("factorial " ++ show n) $
+    if n == 0
+    then 1
+    else n * factorial (n - 1)
+```
+
+Funkcija `trace` iz paketa `Debug.Trace` omogućava praćenje evaluacije izraza.[98](about:blank#fn98)
+
+**Primer 4: JavaScript**
+
+```jsx
+function calculateTotal(items) {
+    console.log("DEBUG: Items:", items);
+    let total = 0;
+    items.forEach(item => {
+        console.log("DEBUG: Adding", item.price);
+        total += item.price;
+    });
+    console.log("DEBUG: Total:", total);
+    return total;
+}
+```
+
+### Zaključak
+
+Iako korisna, tehnika štampanja ne može zameniti funkcionalnosti modernih debagera i trebalo bi je koristiti kao dopunu, odnosno kao pragmatičnu i ponekad neizbežnu pomoćnu tehniku, ali nikako kao osnovnu metodu za analizu ponašanja programa.[99](about:blank#fn99)
+
+---

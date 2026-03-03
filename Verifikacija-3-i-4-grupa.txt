@@ -1,0 +1,1724 @@
+Pitanje 3.1 Semantika programskih jezika. Uloga i značaj. Formalno i neformalno zadavanje semantike.
+
+Semantika programskih jezika pridružuje značenje ispravnim izrazima
+napisanim na nekom programskom jeziku. Ona odreduje šta se dešava
+kada se program izvršava. Semantika se može zadavati na različite, manje
+ili više, formalne načine.
+Semantika služi za učenje novih programskih jezika, kada želimo da imamo
+opšte zanje o njemu, ali i za kreiranje kompilatora za taj progeamski jezik.
+Neformalno zadavanje semantike se obavlja pomoću prirodnih jezika
+i ima za cilj da programeru objasni kako će se program ponašati pre nego
+što se on izvrši. Problemi sa neformalnim opisima su: dvosmislenost, nekonzistentnost i nedorečenost. Nekonzistentnosti u neformalnoj semantici
+se teško pronalaze jer je dokumentacija jako obimna i teško je ispratiti u
+kom delu je kako nešto definisano. Ovi nedostaci čestko bivaju ostavljeni
+programeru kompilatora da ih razreši, pa je na njemu da odluči kako će
+tumačiti neko objašnjenje. Zbog ove slobode u interpretaciji se može desiti
+da za jedan programski jezik imamo kompilatore koji isti kod prevode na
+različit način.
+Primer 1.
+Značenje naredbe if(a<b) a++, neformalno zadato, je ”ako je vrednost
+promenljive a manja od vrednosti promenljive b onda uvećaj vrednost
+promenljive a za jedan”.
+Formalna semantika precizno definiše ponašanje sintaksno ispravnog
+programa. Može se reći da je precizna semantika nekog jezika zadata implementacijom njegovog kompajlera. Medutim, ova semantika nije upotrebljiva jer se samostalnom upotrebom ne može razumeti jezik niti se mogu
+doneti zaključci o ekvivalentnosti dva koda. Formalna semantika, ipak,
+programerima, dizajnerima programskog jezika i programerima kompajlera daje okvir za zaključivanje o osobinama programa. Ona daje mogućnost
+ispitivanja različitih uslova ispravnosti/korektnosti programa.
+
+Pitanje 3.2 Semantika programskih jezika. Operaciona semantika. Prirodna semantika.
+
+Operaciona semantika opisuje kako se izračunavanje izvršava. Najčešće
+se koristi za opis i zaključivanje o imperativnim jezicima jer pojedinačni
+koraci izračunavanja opisuju prelaze izmadu stanja. U okviru nje postoji
+prirodna operaciona semantika i strukturna operaciona semantika.
+
+1
+
+Prirodna semantika opisuje ukupne rezultate izračunavanja. U njoj se
+koristi konstrukcija ⟨S, s⟩ → s′ koja znači da će izvršavanje programa
+S koje počinje stanjem s biti završeno i rezultovaće stanjem s′ . Pravilo
+⟨S1 ,s1 ⟩→s′1 ,...,⟨Sn ,sn ⟩→s′n
+U,
+generalno ima formu:
+⟨S,s⟩→s′
+gde su S1 , ..., Sn neposredni kontinuenti programa S. Pravilo se sastoji
+od premisa (iznad linije) i jednog zaključka (ispod linije), a može imati i
+uslove koji moraju biti ispunjeni kako bi se primenilo pravilo (desno od
+linije). Ukoliko pravilo nema premise, ono se naziva aksioma.
+Primer 2.
+Neke aksiome se mogu zadati na sledeći način:
+• ⟨x := a, s⟩ → s[x → A[[a]]s] - naredba dodele aritmetičkog
+izraza a promenljivoj x transformiše stanje s u stanje s u kome
+se promenljivoj x dodeljuje evaluacija aritmetičkog izraza a u
+stanju s
+• ⟨skip, s⟩ → s - naredba skip ne menja ništa, tj ostajemo u stanju
+s.
+Semantika nekih složenih izraza:
+′
+
+• ⟨if b then⟨SS11,s⟩→s
+else S2 ,s⟩→s′ if B[[b]s] = tt - ako znamo da će program
+S1 sa početnim stanjem s uspešno završiti u stanju s′ , onda će se
+izvršiti if-then-else uspešno sa početnim stanjem s i završnim
+stanjem s′ ako je istinitosna vrednost logičkog izraza b = tt
+tj tačna - formalna specifikacija naredbe if-then-else kada je b
+tačno
+′
+
+• ⟨if b then⟨SS21,s⟩→s
+else S2 ,s⟩→s′ if B[[b]s] = f f - formalna specifikacija naredbe if-then-else kada b nije tačno
+• ⟨while b do S, s⟩ → s if B[[b]s] - formalna specifikacija while
+naredbe
+Ovako opisana pravila se mogu kombinovati kako bi se opisao program. Sa
+tako kreiranim opisom možemo automatizovati proces provere zadovoljenja nekog svojstva pronalaženjem primera koji ne zadovoljava to svojstvo.
+Dokazivanje ekvivalencije dva izraza se svodi dokazivanje ⟨S1 , s⟩ → s′ ⇔
+⟨S2 , s⟩ → s′ . Ovo se postiže kreiranjem stabala izvodenja za jedan izraz i
+postavljanja njega kao premise za izvršavanje drugog programa.
+
+Pitanje 3.3 Semantika programskih jezika. Operaciona semantika. Strukturna semantika.
+
+Strukrurna semantika opisuje pojedinačne korake izračunavanja. Ona
+koristi tranzicione relacije oblika ⟨S, s⟩ =⇒ γ. gde γ može biti:
+
+2
+
+• γ = ⟨S ′ , s′ ⟩ - izvršavanje programa S sa početnim stanjem s nije završeno i ostatak izračunavanja će biti izraženo konfiguracijom
+⟨S ′ , s′ ⟩
+• γ = s′ - izvršavanje programa S sa početnim stanjem s se završava
+satanjem s′
+Primer 3.
+Primer pravila:
+• ⟨x := a, s⟩ =⇒ s[x → A[[a]s]] - naredba dodele aritmetičkog
+izraza a promenljivoj x
+• ⟨if b then S1 else S2 , s⟩ =⇒ ⟨S1 , s⟩if B[[b]s] = tt - opis naredbe
+if-then-else ako je b tačno
+• ⟨if b then S1 else S2 , s⟩ =⇒ ⟨S2 , s⟩if B[[b]s] = f f - opis naredbe
+if-then-else ako je b netačno
+• ⟨while b do S, s⟩ =⇒ ⟨if b then(S; while b doS) else skip, s⟩ naredba while
+Dokazi važenja nekih svojstava se izvode indukcijom po dužini izvodenja
+(prvo se pokaže za izvodenje dužine 0, pa za konačnu dužinu k i onda za
+k + 1)
+
+Pitanje 3.4 Semantika programskih jezika. Denotaciona semantika.
+
+Denotaciona semantika definiše značenje jednog jezika prevodenjem u
+drugi jezik za koji se pretpostavlja da ima poznatu semantiku, najčešće
+neki matematički formalizam. Ovo obično podrazumeva povezivanje delova programskog jezika sa matematičkim objektima (broj ili funkcija).
+Najčešće se koristi za opisivanje semantike funkcionalnih jezika. Semantika jedne programske celine je definisana semantikama njehih delova i ova
+osobina se nazima kompozitivnost.
+Primer 4.
+Funkcije A i B definisane na sledeći način imaju svojstvo kompozitivnosti.
+
+3
+
+A[n]s = N [n]
+A[x]s = sx
+A[a1 + a2 ]s = A[a1 ]s + A[a2 ]s
+...
+(
+tt, if A[a1 ]s = A[a2 ]s
+B[a1 = a2 ]s =
+f f, if A[a1 ]s ̸= A[a2 ]s
+(
+tt, if A[a1 ]s ≤ A[a2 ]s
+B[a1 ≤ a2 ]s =
+f f, if A[a1 ]s > A[a2 ]s
+(
+tt, if B[¬b]s = f f
+B[b]s =
+f f, if B[b]s = tt
+...
+Za sintaksni domen programskog jezika se definišu matematički objekti
+koji će predstaviti semantičke vrednosti. Ti objekti se nazivaju semantički domeni. Zatim se definišu funkcije značenja koje daju značenje
+uvedenim sintaksim definicijama.
+Primer 5.
+Sintaksni domen:
+• N: Numeral, Numeral :== Cifra |NumeralCifra
+• C: Cifra, Cifra :== 0|1|2|3|4|5|6|7|8|9
+• I: Izraz, Izraz :== Numeral | Izraz plus Izraz | Izraz puta Izraz
+Semantički domen je skup prirodnih brojeva.
+Funkcije značenja:
+• povezicn: C → N - povezuje cifru sa prirodnim brojem, gde je
+povezicn[[0]] = 0,...
+• povezinn: N → N - povezuje numeral sa prirodnim brojem, gde
+je povezinn[[C]] = povezicn[[C]] ili povezi[[NC]] = plus(puta(10,
+povezinn[[N]]), povezinn[[C]])
+• semantika: I → N - povezuje izraz sa prirodnim brojem,
+gde je semantika[[N]] = povezinn[[N]], semantika[[i1 + i2 ]] =
+plus(semantika[[i1 ]], semantika[[i2 ]])
+• plus - sabiranje, a puta je množenje prirodnih brojeva
+Da bi se opisale sintaksne definicije programskih jezika, koriste se pravila:
+
+4
+
+• S[x := a]s = s[x → A[a]s]
+• S[skip]s = id
+• kompozicija naredbi:
+S[S1 ; S2 ]s = (S[S1 ] ◦ S[S2 ])s
+
+′′
+
+∃s′ (S[S1 ]s = s′ ∧ S[S2 ]s′ = s′′ )
+s ,
+= undef, S[S1 ]s = undef∨
+
+
+(∃s′ S[S1 ]s = s′ ∧ S[S2 ]s′ = undef)
+• funkcija cond:
+cond(B[b], S[S1 ], S[S2 ])s =
+
+
+s′ ,
+(B[b]s = tt ∧ S[S1 ]s = s′ )∨
+
+
+
+
+
+(B[b]s = ff ∧ S[S2 ]s = s′ )
+
+
+undefined,
+
+
+
+
+
+(B[b]s = tt ∧ S[S1 ]s = undefined)∨
+(B[b]s = ff ∧ S[S2 ]s = undefined)
+
+• funkcija FIX za opis naredbe while
+
+Pitanje 3.5 Semantika programskih jezika. Aksiomatska semantika.
+
+Aksionatska semantika omogućava viši nivo apstrakcije i udaljavanje
+od konkretne semantike programa. Njen cilj je da omogući proveravanje
+važenja nekih svojstava pre nego da opiše semantiku jezika. Ona se zasniva
+na Horovoj logici.
+Def. 1:
+Horova trojka {P} S {Q}, gde se {P} naziva preduslov, S program,
+a {Q} postuslov, opisuje kako izvršavanje dela koda menja stanje.
+Drugim rečima, ako važi {P} i ako se program S završava za dato
+stanje, onda će {Q} da važi u stanju u kome se S završilo.
+Primer 6.
+{x=n} y:= 1; while ¬ (x=1) do (y:=y*x; x:=x-1){y=n! ∧ n>0}
+x=n je preduslov, a y=n! ∧ n>0 je postuslov, dok je sve ostalo program.
+
+Promenljiva n je logička promenljiva i ona se ne pojavljuje u naredbama već služi za povezivanje pred i post uslova, pa su im vrednosti
+konstantne.
+Preduslovi se mogu definisati na:
+• intenzionalni način - uvodi se novi eksplicitni jezik koji se koristi
+za opisivanje uslova
+5
+
+• ekstenzioni način - uslovi se opisuju kao predikati, tj. funkcije
+State → T, gde T = {true, f alse}
+Primer 7.
+Neka pravila za neke sintaksne konstrukte:
+• {P [x → A[a]]} x := a {P } - ako stanje s u kome se x postavlja
+na A[a] zadovoljava P , tada ono važi i nakon dodele
+• {P } skip {P } - ako svojstvo P važi pre operacije skip, važi i
+posle
+}S1 {Q},{¬B[b]∧P }S2 {Q}
+• {B[b]∧P
+- naredba if (iznad linije se navode
+{P } if b then S1 else S2 {Q}
+uslovi koji treba da važe, a ispod naredba koja će se desiti)
+
+Pitanje 3.6 Simboličko izvršavanje. Istorija, alati, stablo izvršavanja.
+
+Simboličko izvršavanje je tehnika izvršavanja programa gde se prate
+simbolička, a ne konkretna stanja. Simultano se izvršava puno putanja
+simulirajući veliki broj testova. Kada se dode do grananja, kreiraju se
+nove putanje i nastavlja se na njima sa simboličkim promenljivama.
+Tehika je nastala još 70-ih godina 20.veka i razvijala se narednih 30 godina
+da bi 2005. i 2006.gidine dobila praktičnu uoptrebu. Tada su se pojavila 2
+alata DART i EXE koji su prebrodili osnovne probleme koji su kočili ovu
+tehniku.
+Neki alati su KLEE, SAGE, Pex symbolic execution, Cloud9, CUTE, Java
+Path Finder,...
+Def. 2:
+Stablo izvršavanja je struktura koja opistuje uslove prelaska iz stanja u stanje prilikom simboličkog izvršavanja. Ono sadrži sve putanje
+programa.
+Def. 3:
+Uslov putanje programa je formula, bez kvantifikatora, nad simboličkim ulazima koja opisuje sve odluke koje su donete na toj putanji.
+Def. 4:
+Simboličko stanje je uredena trojka (stmt, σ, π), gde je stmt naredna naredba koju treba evaluirati, σ je simbolička memorija, tj
+preslikavanje koje simboličkoj promenljivoj dodeljuje neki izraz koji je opisuje i π je uslov putanje. U zavisnosti od stmt, simboličko
+
+6
+
+izvršavanje se nastavlja na jedan od sledećih načina:
+• ako je u pitanju naredba dodele x = e, onda se simboličko skladište σ kome odgovara x ažurira na simbolički izraz es koji se
+dobija simboličkom evaluacijom izraza e
+• ako je u pitanju if e then s1 else s2 , ond se kreiraju dva nova
+stanja sa ograničenjima π∧es i π∧¬es . Ovo nam daje mogućnost
+definisanja i petlji.
+• assert(e) - proverava ispunjenost izraza e:
+– ako je ¬e ∧ π nezadovoljiva, onda je assert uvek tačan
+– ako je ¬e ∧ π zadovoljiva, onda je naden ulaz za koji assert
+pada
+
+Pitanje 3.7 Simboličko izvršavanje. Primene.
+
+Primene:
+• pronalaženje grešaka je moguće kreiranjem formule putanje izvršavanja i njenom proverom
+• generisanje test primera - kako svakoj putanji izvršavanja odgovara jedna formula, kada se nadu vrednosti promenljivih koje zadovoljavaju formulu našli smo i test primer koji prolazi baš tom putanjom
+• otkrivanje nedostižnih putanja - ako se pokaže da je neka od
+formula nezadovoljiva, onda ona opisuje nedostižnu putanju
+• generisanje invarijanti programa
+• generisanje automatskih ispravki koda
+• ...
+
+Pitanje 3.8 Simboličko izvršavanje. Izazovi.
+
+Teorijski, simboličkim izvršavanjem je moguće generisati sve moguće putanje kroz koje bi program mogao da prode. Ovo e najčešće neizvodljivo
+u praksi .
+Izazovi simboličkog izvršavanja su:
+• modelovanje memorije - kada se radi sa pokazivačima ili se iz
+drugih razloga zahteva pristup adresama kreiraju se jako kompleksni
+problemi kada su one opisane simboličkim izrazima
+• modelovanje okoline - kada se koriste bibliotičke funkcije, njihov kod nije dostupan, pa se on ne može modelovati simbolički.
+Sličan problem se javlja pri radu sa spoljim datotekama ili sadržajem
+okruženja ili sa izvršavanjem binarnog koda
+
+7
+
+• ekspolozija broja stanja i putanja - nastaje usled upotreba petlji
+i grananja, pa je pretraga svih stanja nemoguća u razumnom vremenu
+(3 if naredbe kreiraju 23 putanja )
+• rešavanje formula putanja je zahtevno jer one često imaju jako
+mnogo uslova u sebi. SMT rešavači uspevaju dobro da rade sa velikim
+formulama, ali problem nastaje kada ograničenja sadrže nelinearnu
+aritmetiku
+
+Pitanje 3.9 Simboličko izvršavanje. Konkoličko izvršavanje.
+
+Online izvršavanje podrazumeva kloniranje stanja na svakom mestu
+gde može da dode do grananja kako bi se izbeglo ponovno izvršavanje
+instrukcija.
+Offline izvršavanje započinje izvršavanje svaki put od početka nad konkretnim podacima, a zatim se vrši simboličko izvršavanje izvršenih instrukcija.
+Konkolički izvršavanje je tehnika koja spaja konkretno i simboličko izvršavanje. Ona je kreirana kako bi se rešili problemi eksponencijalnog rasta
+broja stanja prilikom pretraživanja putanja poziva bibliotečkih funkcija i
+prečestog pozivanja rešavača u toku analize. Postoje 2 vrste konkoličkog
+izvršavanja: dinamičko i selektivno.
+Dinamičko izvršavanje podrazumeva istovremeno izvršavanje konkretno i simbolički, pa se pored uslova putanje i simbolikog skladišta čuva i
+konkretno skladište. Tokom izvršavanja se simultano ažuriraju oba skladišta, a simboličko izvršavanje se nastavlja onom putanjom kojom ide
+konkretno. Posledica ovog pristupa je da se rešavač ne poziva za proveravanje dostupnosti putanje jer znamo, na osnovu konkretnog izvršavanja,
+da je putanaja dostupna. Da bi se istražile druge putanje, SMT rešavaču
+se prosleduje negacija nekog uslova grananja na putanji koji je dobijen
+kako bi se dobio novi ulaz koji će definisati novu putanju.
+Odabir ulaznih parametara za vodenje konkretnog izvršavanja i uslova
+koje treba negirati da bi se dobili novi ulazni parametri kreira eksploziju prostora pretrage. Različiti alati koriste različite heuristike za vodenje
+prestrage.
+Selektivno izvršavanje podrazumeva smenu konkretnog i simboličkog
+izvršavanja. Kada se naide na deo koda koji nije značajan za analizu,
+prelazi se na konkretno izvršavanje, a onda se prelazi na simboličko izvršavanje. Kada želimo da izvršimo neki deo potpuno simbolički jer nam
+je značajan, on se paralelno izvršava i konkretno kako bi se u nastavku
+moglo vršiti konkretno izvršavanje.
+Prelazak iz konkretnog u simboličkog izvršavanje može da utiče na saglasnost (nema lažno negativnih rezulatata) i kompletnost (nema lažno
+pozitivnih rezultata). Zato se ograničenja markiraju kao soft ograničenja.
+Ako se neka putanja označi kao nedostižna zbog soft ograničenja radi se
+backtracking kako bi se odabrali drugi argumenti.
+8
+
+Pitanje 3.10. Simboličko izvršavanje. Strategije obilaska puteva. Pretraga u dubinu, širinu i odabir slučajnog puta.
+
+Strategije obilaska puteva služe za navodenje pretrage putanja u stablu
+simboličkog izvršavanja jer je iscrpna pretraga preskupa ili memorijski/vremenski nedostižna. Različite heuristike služe za ostvarivanje različitih
+ciljeva.
+Pretraga u dubinu je korisna ako je memorija ograničena i želimo da
+ispitamo neku putanju do kraja. Problem nastaje ako na nekoj putanji
+imamo petlju ili rekurzivni poziv i ostajemo zaglavljeni na tim instrukcijama.
+Pretraga u širinu prati sve putanje paralelno zbog čega se brzo pronalaze interesantna stanja. Medutim, ova tehnika zahteva dosta memorije i
+vremena za ispitivanje putanja do kraja.
+Nasumična strategija se može sprovoditi na različite načine: nasumičnim
+izborom narednem putanje, nasumičnom metodom se resetuje stanje ako
+se u programu ništa novo ne dešava već neko vreme ili ako postoje putanje istih prioriteta nasumično odabrati jednu od njih. Problem s ovim
+metodama može biti reprodukcija, pa se mora čuvati seed.
+
+Pitanje 3.11 Simboličko izvršavanje. Strategije obilaska puteva. Izvršavanje vodeno pokrivenošću koda. Simboličko izvršavanje najkraćeg rastojanja.
+
+Ukoliko nam je cilj testiranje, želimo da generišemo ulazne parametre koji
+povećavaju pokrivenost koda, tj navode izvršavanje na putanje koje sadrže
+instrukcije koje se nisu izvršile do sada. Izvršavanje vodeno pokrivenošću nam omogućava ovu osobinu, što je jako korisno jer se greške često
+javljaju na putanjama koje se retko izvršavaju.
+Prilikom ovakvog izvršavanja se mogu dodeljivati težine stanjima i putanjama koja se koristi prilikom nasumičnog odabira stanja. Težina stanja
+se odreduje razmatranjem udaljenosti instrukcije koja nije pokrivena, da
+li je iz trenutnog stanja otkriven novi kod relativno skoro i iz kojih stanja
+se došlo do datog.
+Pretraga vodena pod-putanjama pokušava da istraži putanje koje su se
+izvršile mali broj puta. Pod-putanja je sekvenca stanja dužine n, gde od
+vrednosti n zavisi kvalitet heuristike.
+Izvršavanje vodeno najkraćim rastojanjem služi za pronalaženje ulaznih parametara koji če dovesti do izvršavanja ciljane tačke u programu.
+Rastojanje se računa kao dužina najkraće putanje u grafu kontrole toka.
+
+Pitanje 3.12 Simboličko izvršavanje. Strategije obilaska puteva. Generacijska pretraga. Kombinovana strategija.
+
+Generacijska pretraga je hibrid pretrage u dubinu i izvršavaja vodenog
+pokrivenošću koda. Ideja je da se izvrši neka putanja do kraja, a da se
+
+u narednoj generaciji negira jedan uslov koji dovodi do nove putanje izvršavanja. U svakoj narednoj generaciji se bira uslov iz putanje predhodne
+generacije.
+Kombinovana pretraga podrazumeva pokretanja nekoliko algoritama
+nad istim kodom istovremeno ili alternirajući izmedu njih.
+
+Pitanje 3.13 Simboličko izvršavanje. Strategije obilaska puteva. Tehnike izvršavanja unazad.
+
+Simboličko izvršavanje unazad je tehnika simboličkog izvršavanja kod
+koje izvršavanje počinje od ciljane tačke prema tački ulaza. Osnovi cilj
+je kreiranje test primera koji uzrokuje specifično ponašanje (pr. grešku),
+ali je korisno i za testiranje. Proces podrazumeva izvršavaje više putanja
+istovremeno pokušavajući da se dode do ulaznog stanja.
+Call-chain backward symbolic execution (CCBSE) je tehnika koja kombinuje simboličko izvršavanje unazad i unapred. Prvo se utvrduje
+validna putanja do ciljane linije koda unutar funkcije f1 u kojoj se ona
+nalazi. Zatim se izvršavanje pomera na funciju f2 koja poziva f1 i u njoj
+se pronalazi validna putanja do ulaza u funkciju f1 . Proces se ponavlja
+sve dok se ne stigne u početno stanje.
+Da bi ove tehnike mogle da se sprovedu, neophodno je da postoji graf
+kontrole toka za ceo program. Konstruisanje ovog grafa je jako složeno,
+a sam graf kompleksan.
+
+Pitanje 3.14 Simboličko izvršavanje. Modelovanje memorije. Puna simbolička memorija.
+
+Kako bi se opisali pokazivači i nizovi neophodno je da imamo način modelovanja memorije. To podrazumeva proširivanje memorije tako da je
+omogućeno preslikavanje memorijskih adresa u simboličke izraze ili vrednosti. Simboličko skladiške σ se može posmatrati kao preslikavanje koje
+adresama u memoriji dodeljuje konkretne i simboličke vrednosti. Ovime se
+postiže rad sa običnim promenljivama i nizovima (niz[c] = &niz + c’ → e,
+gde je c konstanta). Problem nastaje kada je indeks neki simbolički izraz
+i ovaj problem se naziva problem simboličkih adresa.
+Najopštiji pristup rešavanju problema simboličkih adresa je potpuno
+simbolička memorija. Postoje dva pristupa kod ove tehnike: pravljenje novih stanja
+i pravljenje if-then-else formula, a kasnije se javila teorija nizova u SMT rešavačima.
+Pravljenje novih stanja podrazumeva kreiranje novih stanja ako operacija čita ili piše na neku adresu, tako da se razmotre sva moguća stanja
+koja mogu biti rezultat te operacije. Uslovi putanja se dopunjavaju za
+svako novokreirano staje. Ova tehnika rezultuje velikim brojem putanja i
+stanja, pa je pretraga značajno neefikasnija.
+if-then-else podrazumeva kreiranje kompleksnijih izraza u uslovima putanja i da se posao pretrage prebaci na rešavač. Ideja je da se neodredene
+vrednosti simboličkih pokazivača modeluju izrazima koji se čuvaju i u
+10
+
+skladštu i u uslovu putanje. U zavisnosti od operacije nad simboličkom
+adresom α izrazi su drugačiji. Neka je α simbolička adresa koja može da
+primi konkretne vrednosti a1 , a2 , ...:
+• ako je operacija čitanje, izraz je ite(α = a1 , σ(a1 ), ite(α = a2 , σ(a2 ), ...))
+- ako α odgovara konkretnoj adresi a1 , onda je rezultat čitanja σ(a1 )
+tj ono što se nalazi na toj adresi
+• ako je operacija pisanje izraza e izraz je σ(ai ) = ite(α = ai , e, σ(ai ))
+Teorija nizova u okviru SMT rešavača omogućava jednostavno izražavanje
+rada sa nizovima. Ona uvodi ternarni funkcijski simbol store i binarni
+funkcijski simbol select. Funkcija store uzima kao argumente niz, indeks
+i vrednost koja se smešta u niz. Term store(a, i, v) označava niz identičan
+nizu a osim što je na poziciju i upisana vrednost v. Fukcija select uzima
+dva argumenta: niz i indeks i term select(a,i) označava vrednost niza a
+na poziviji i.
+Aksiome koje važe u teoriji nizova su:
+• ∀a∀i∀v(select(store(a, i, v), i) = v) - ako upišemo vrednost na poziciju
+i u narednim činjama sa te pozicije ćemo dobiti tu vrednost
+• ∀a∀i∀j∀v(i ̸= j =⇒ select(store(a, i, v), j) = select(a, j)) - upis na
+jednu poziciju ne menja vrednosti na ostalim pozicijama
+• ∀a∀b((∀i(select(a, i) = select(b,i))) =⇒ a = b)
+
+Pitanje 3.15 Simboličko izvršavanje. Modelovanje memorije. Izazovi i rešenja.
+
+U najvećem broju slučajeva, simbolička memorija može da uzima ograničen i relativno mali broj konkretnih vrednosti, pa je broj stanja mali.
+Medutim, u opštem slučaju memorija može da referiše na bilo koju ćeliju
+memorije i zbog toga dolazi do eksplozije broja stanja. Zato su osmišljene
+tehnike koje bolje rukuju teorijom nizova i simboličkom memorijom.
+Konkretizacija simboličkih adresa je jedna tehnika sa savladivanje
+kombinatorne eksplozije. Ona se koristi kada ne možemo ograničiti domen
+simboličke memorije na neki razumno mali broj vrednosti. Njome se može
+smanjiti broj stanja i kompleksnost formula, pa se time može izgubiti saglasnost. Konkretizacija se obično vrši u dva stanja, u NULL pokazivač i u
+konkretnu vrednost koja se dobija izvršavanjem. Ako vršimo konkretizaciju neke strukture podataka, konkretizacija se primenjuje na sva polja
+strukture.
+Parcijalno modelovanje memorije podrazumeva modelovanje adresa
+sa kojih će se čitati simbolički, ako je interval neprekidan i dovoljno malji,
+dok one u koje se upisuje ostaju konkretne. Ova tehnika rezultuje kompleksnijim formulama jer se njima enkodiraju višestruke vrednosti simboličkih
+pokazivača. Parcijalno modelovanje omogućava isključivanje velikog dela memorije iz analize jer je memorija koja se koristi u programu često
+lokalizovana i razumno rasporedena.
+11
+
+Simboličko izvršavanje i analiza su značajno otežane ako se u kodu koriste složene strukture podataka kao što su stabla ili liste. Da bi se analiza olakšala, često se kombinuju tehnike provere modela i simboličkog
+izvršavanja.
+
+Pitanje 3.16 Simboličko izvršavanje. Modelovanje okoline.
+
+Modelovanje okoline se odnosi na modelovanje bibliotečkih funkcija i
+sadržaja datoteka i okoline. Kako je izvorni kod biblioteka nepoznat, kao
+i sadržaj datoteka nije lako modelovati ove stvari.
+Jedan način da se ovo prevazide je konkretno izvršavanje sa konkretnim
+argumentima. Ovo dosta ograničava izražajanost i može da naruši saglasnost, a kod online izvršavanja može da se dode u nekonzistentno stanje.
+Različite putanje mogu da rade različite operacije nad istim fajlovima i
+time kreiraju problem.
+Drugi način je kreiranje potpuno simboličkog fajl sistema za svako
+stanje koje sadrži direktorijum sa n simboličkih falova čiji broj i veličina
+su zadati od strane korisnika. Svaka operacija nad simboličkim fajlovima
+rezultuje kreiranjem n + 1 stanja, po jedno za svaki fajl i još jedno za
+neočekivano ponašanje.
+Naredna tehnika podrazumeva virtualizaciju okruženja i direktno izvršavanje nad tako vitualizovanim elementima. Ne dopušta se direktni rad
+nad operativnim sistemom da se ne bi propagirala nekonzistentna stanja.
+Slična ovoj je tehnika emulacije celog softverskog okvira koja dopušta prevodenje instrukcija i njihovo izvršavanje direktno na emuliranom
+softveru.
+
+Pitanje 3.17 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja.
+
+Kako se simboličkim izvršavanjem mogu pojaviti nova stanja na svakom
+grananju, ukupan broj vrlo lako postaje eksponencijalan po broju grananja, tj nastaje eksplozija broja stanja. Glavni izvori eksplozije broja
+grana su petlje i pozivi kunkcija. Postoje različite tehnike za redukciju stanja, kao što su odsecanje nedostižnih putanja, spajanje stanja, sumiranje
+petlji i ponovno korišćenje uslova.
+
+Pitanje 3.18 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja. Eksploatacija preduslova i ulaznih karakteristika, spajanje stanja.
+
+Eksploatacija preduslova i ulaznih karakteristika je jedna tehnika
+redukcije eksplozije broj putanja. Ona podrazumeva usmeravanje istraživanja
+stanja ka podskupu prostora ulaznih podataka koji zadovoljavaju preduslov. Ideja je da se iskoristi znanje o ulaznim parametima i da se pretraga
+navede na putanje na kojima se može ispoljiti iteresantno svojstvo. Ovom
+tehnikom se rizikuje saglasnost. Umesto da se krene od praznog uslova putanje, postojeći sulov se može proštiriti preduslovom. Ovime se dodatno
+operećuje rešavač.
+12
+
+Spajanje stanja je tehnika redukcije stanja gde se putanje spajaju u
+jedno stanje kreiranjem kompleksinjeg uslova putanje. Uopšteno, stanja
+(stmt, σ1 , π1 ) i (stmt, σ2 , π2 ) se spajaju u stanje (stmt, σ ′ , π1 ∨ π2 ), gde
+se σ ′ kreira sa ite izrazima koji razmatra razlike u skladištu. Ova tehnika
+značajno usložnjava kompleksnost formule koja se prosleduje rešavaču, pa
+treba pažljivo birati kada će se putanje spajati.
+
+Pitanje 3.19 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja. Odsecanje putanja i sumiranje petlji.
+
+Odsecanje nedostižnih putanja je tehnika redukcije broja stanja za
+analizu pozivanjem SMT rešavača kod svakog grananja kako bi se utvrdilo
+da li uslov putanje zadovoljiv ili ne, tj da li je putanja nedostižna ili ne.
+Kako je poziv rešavača jako skup, moguće je pozivati rešavač povremeno,
+tj na mestima na kojima se proverava zadovoljivost nekog svojstva koje
+pratimo.
+Sumiranje petlji je tehnika koja podrazumeva razmotavanje petlje i izvršavanje ograničen broj puta. Ovime se značajno smanjuje broj stanja
+jer su petlje glavni izvor eksplozije broja stanja. Medutim, gubimo saglasnost. Umesto ovoga može da se zada invarijanta petlje kako bi mogla da
+se preskoči njena analiza prilikom simboličkog izvršavanja. Problem kreiranja invarijante petlje je neodlučiv, pa ako se i taj proces automatizuje
+umesto ručnog zadavanja, proces može značajno da traje.
+
+Pitanje 3.20 Simboličko izvršavanje. Efikasna upotreba rešavača. Redukovanje uslova i ponovno korišćenje.
+
+Pozivi rešavača su jako skupi jer obično zahtevaju dosta vremena, pa njihovo prečesto pozivanje može značajno da optereti vreme analize. Poznato
+je da je SAT problem NP težak ali postoje napredci u rešavanju odredenih
+specifičnih problema. Da bi se ovo izbeglo treba pažljivo birati kada će se
+rešavač pozivati.
+Redukovanje uslova je jedna tehnika uštede poziva rešavača koja podrazumeva simplifikaciju izraza u hodu ili podelu ograničenja. Ako se naide
+na izraz koji se može zameniti nekim jednostavnijim, on se njime menja.
+Ovime se smanjuje veličina formule, pa samim tim se smanjuje i vreme
+njenog parsiranja i analize.
+Primer 8.
+Neke simplifikacije koje se mogu izvesti nad formulama:
+• 5 + 4 = 9 - savijanje konstanti
+• 3y + 2y = 5y - simplifikovanje linearnih izraza
+• 3x + y + 2x + y = 5x + 2y
+• redukcija snage ??
+
+13
+
+Nezavisnost ograničenja je optimizacija koja koristi činjenicu da se
+ograničenja često mogu podeliti u više nezavisnih ograničenja. Prilikom
+pozivanja rešavača za odlučivanje o zadovoljivosti uslova se uklanjaju nebitni delo i time se rasterećuje rešavač.
+Ponovna upotreba rešenja je još jedna tehnika smanjenja poziva rešavača
+koja podrazumeva čuvanje vrednosti koje zadovoljavaju uslov formule i njihovu upotrebu prilikom zaključivanja o formuli sa slabijim uslovima. Poseban vid ove tehnike je inkrementalno rešavanje koje koristi činjenicu
+da je putanja nastala nadogradnjom nekog uslova dodatnim uslovom. Ako
+se rešavač pozove za neki poduslov, rezonovanje o naduslovu ne mora da
+krene od nule jer već postoje infrmacije o njenom delu.
+
+Pitanje 3.21 Simboličko izvršavanje. Efikasna upotreba rešavača. Lenji uslovi i konkretizacija.
+
+Lenji uslovi se koriste kada se naide na uslov grananja koji uključuje skupu simboliču operaciju. Tada se uzimaju i tačna i netačna grana i dodaje
+se lenji uslov nad njima kako bi se ta skupa operacija izbegla. Rezonovanje
+o dostižnosti putanje se vrši na osnovu konkretnog izvršavanja.
+Konkretizacija podrazumeva menjanje opštih i komplikovanih uslova
+konkretnim vrednostima. Da bi se ovo efikasno postiglo, preporučuje se
+kombinovana tehnika simboličkog i konkretnog uzvršavanja. Ovime se briše
+potreba za rešavačem koji bi morao da rezonuje o kompleksnom uslovu.
+
+Pitanje 3.22 Selektivno simboličko izvršavanje.
+
+Selektivno izvršavanje podrazumeva smenu konkretnog i simboličkog
+izvršavanja. Kada se naide na deo koda koji nije značajan za analizu,
+prelazi se na konkretno izvršavanje, a onda se prelazi na simboličko izvršavanje. Kada želimo da izvršimo neki deo potpuno simbolički jer nam
+je značajan, on se paralelno izvršava i konkretno kako bi se u nastavku
+moglo vršiti konkretno izvršavanje.
+Prelazak iz konkretnog u simboličkog izvršavanje može da utiče na saglasnost (nema lažno negativnih rezulatata) i kompletnost (nema lažno
+pozitivnih rezultata). Zato se ograničenja markiraju kao soft ograničenja.
+Ako se neka putanja označi kao nedostižna zbog soft ograničenja radi se
+backtracking kako bi se odabrali drugi argumenti.
+
+Pitanje 3.23 Ograničenja koja nameće izvršavanje binarnog koda.
+
+Simboličko izvršavanje je moguće kada nam je poznat graf kontrole toka. U
+slučaju izvršavanja binarnog koda mi nemamo te informacije, pa moramo
+naći način da podignemo program do izvornog koda. Ovo nije lako jer
+se često primenjuju tehnike koje namerno otežavaju proces rekonstrukcije
+programa, što u cilju zaštite intelektualne svojine, što iz bezbednosnih
+razloga.
+
+Pitanje 3.24 Otvorena pitanja i prostori za dalja unapredenja.
+
+NEMA NIČEGA ZA OVO PITANJE.
+
+Pitanje 4.1 Pregledi koda. Ciljevi pregleda koda. Primeri.
+
+Pregledi koda predstavljaju ručnu prveru koda od strane kolega obično
+pre priduživanja promena direktorijumu. Oni služe za otkrivanje propusta i unapredenje kvaliteta softvera, kao i razmenu znanja unutar tima i
+unapredenje komunikacije. Cilj je proveriti da si su ispravno zadovoljene
+funkcionalne specifikacije, da li ima bezbedonosnih propusta, neefikasnih
+rešenja i da li je dizajn dobar.
+Primer 9.
+int x , y , Q , p , A , b , c , D , d ;
+scanf ( " % d % d % d % d " , &x , &y , &p , & d ) ;
+Q = 2*( x + y ) ;
+c = x*y;
+A = 2*( p + b ) ;
+D = p*b;
+
+• nazivi promenljivih nisu konzistentni
+• računanje obima i površine pravougaonika se ponavlja i treba
+ih izdvojiti u posebne funkcije
+• b nije inicijalizovana
+• negde ima nema razmaka oko operatora =
+Primer 10.
+int f ( int a , int b , int c ) {
+if (a > b ) if (b > c ) return a ;
+else if (a > c ) return a ; else return c ;
+else if (b > c ) return b ; else return c ;
+}
+
+• funkcija računa max od 3 elementa, pa je treba preimenovati u
+nešto deskriptivnije
+• preglednost koda nije dobra, pa je preporuka koristiti alate za
+formatiranje i koristiti {} oko if naredbi
+• najbolje bi bilo koristiti ugradene funkcije za računanje max
+max3 = max(a, max(b,c))
+
+Pitanje 4.2 Pregledi koda. Efekti i značaj pregleda koda. Primeri.
+
+Pregled koda je značajan jer ako je odraden kako treba garantuje korist
+u razvoju, doprinosu razmeni znanja u timu što od starijih ka mladim
+15
+
+kolegama, to i u suprotnom smeru. Samo postojanje pregleda koda utiče
+na programere da pišu bolji kod.
+Primer 11.
+u knjizi Best Kept Secrets of Peer Code Review se navodi studija u
+kojoj je softver od oko 10 000 linija koda i 10 programera kreiran bez
+pregleda koda, a zatim sa drugim skupom programera pregledan. Pregled koda je uštedeo polovinu troškova otklanjanja grešaka i pronašao
+stotinak novih grešaka.
+
+Pitanje 4.3 Pregledi koda. Preporuke za efikasan pregled koda. Primeri.
+
+Pregledi koda predstavljaju ručnu prveru koda od strane kolega obično
+pre priduživanja promena direktorijumu. Oni služe za otkrivanje propusta i unapredenje kvaliteta softvera, kao i razmenu znanja unutar tima i
+unapredenje komunikacije. Cilj je proveriti da si su ispravno zadovoljene
+funkcionalne specifikacije, da li ima bezbedonosnih propusta, neefikasnih
+rešenja i da li je dizajn dobar.
+Preporuke:
+• u jednoj sesiji pregledanja, treba pregledati izmedu 200 i 400 linija
+koda (za oo jezike, za ostale paradigme ove granice variraju) kako ne
+bi došlo do zamora i gubljenja fokusa
+• brzina pregleda treba da de od 300 do 500 linija po satu (isto za oo
+jezike) kako se ne bi desio propust usled prebrzog prelaženja preko
+novog, obeleženog koda
+• pre početka valja imati listu po kojoj će se pregled vršiti. Ona može
+biti opšta ili specifična za projekat:
+– dodati kod rešava problem i u API-ju ne postoji kod koji ga može
+rešiti
+– imenovanje promenljivih i formatiranje su odgovarajući
+– nema dupliranja koda
+– sve jedinice su prokomentarisane jasno
+– složeni algoritmi su objašnjeni
+– nedovršen kod je obeležen pravilno - TODO ili FIXME
+– pazi se o bezbednosti proverom pokazivača kako se ne bi dereferencirao null, proverom indeksa nisa kako se ne bi izašlo van
+njih, inicijalizovanje promenljivih pre upotrebe
+– deljene promenljive u višenitnim programima su obezbedene i
+pristupa im se samo kroz mehanizme zaključavanja
+– objekti se kopiraju samo kad je neophodno, algoritmi su odgovarajuće složenosti, a komplikovani algoritmi su dobro objašnjeni i
+dokumentovani
+
+16
+
+Pitanje 4.4 Pregledi koda. Formalni pregledi.
+
+Formalni pregledi podrazumevaju grupne sastanke 3 do 6 osoba na kojima se diskutuje o kvalitetu koda. Kada programer izmeni kod, on zakazuje
+uvodni sastanak na kome prezentuje kod. Zatim pregledači proveravaju
+kod samostalno do glavnog sastanka na kome se diskutuje o kodu. Jedna osoba je zadužena da vodi računa o metrikama (utrošeno vreme, broj
+pronadenih grešaka itd). Ukoliko ima grešaka koje zahtevaju izmene, programer menja kod i zakatuje novi sastanak. Sastanci se dešavaju sve dok
+se svi pregledači ne usagalse da kod ne treba više menjati. Ovo je jako
+intezivan i zahtevan proces za koji kompanije često nemaju resursa, pa se
+on sprovodi samo za kritične delove koda.
+
+Pitanje 4.5 Pregledi koda. Neformalni pregledi. Pregled preko ramena.
+
+Neformalni pregledi mogu biti preko ramena, preko mejla, preko alata
+za pregledanje koda ili programiranje u paru. Pre integracije u repozitorujum, programer samostalno poreće testove, a zatim šalje izmene kolegama,
+a zatim se opsežno proverava kod.
+Pregled preko ramena podrazumeva da programer kolegu sprovodi
+kroz uvedene izmene i obrazlaže zašto ih je uveo uživo. Nije potrebno
+mnogo truda za organizaciju ovakvog pregleda, dovoljno je da se kolege
+medusobno dogovore i zakažu pregled. Ovo je najneformalniji oblig pregleda i nakon njega obično nema dodatnih pregleda, pa se može desiti da
+neki problemi ostanu neprimećeni.
+
+Pitanje 4.6 Pregledi koda. Neformalni pregledi. Pregled putem elektronske pošte.
+
+Pregled putem elektronske pošte podrazumeva slanje izmena koda
+mejlom pregledačima pre ili nakon integracije u repozitorijum. Pregledači
+putem mejla šalju uočene greške i propuste, a programer odgovara na
+njih. Prednosti pregleda pre integracije su mogućnost lake izmene koda,
+dok pregled nakon integracije zahteva veći stepen provere ali daje bržu
+isporuku.
+
+Pitanje 4.7 Pregledi koda. Neformalni pregledi. Pregled korišćenjem specijalizovanih alata.
+
+Specijalizovani alati za pregled koda pružaju mogućnost pregeda dodatog koda po datotekama, komentara od strane pregledača i njihovih
+statusa kao i istorije promena. Unutar njih se odvija ceo proces pregleda. Nakon što programer doda kod, on prepoznaje pregledače i poziva ih
+da pregledaju kod, na osnovu njihovih komentara menja kod dok se svi
+pregledači ne usaglase da nema potrebe za dodatnim proverama.
+
+Pitanje 4.8 Pregledi koda. Neformalni pregledi. Programiranje u paru.
+
+Programiranje u paru podrazumeva da jedan programer aktivno kuca
+kod dok drugi razmišlja o široj slici i ukazuje na greške. Ovako se brzo i lako
+
+
+uočavaju propusti ali je ova metoda jako skupa i zahteva od programera
+da su zajedno. Dodatni problem nastaje ako programeri rade zajedno i
+krenu da razmišljaju na sličan način i počnu da previdaju iste stvari čak
+i kada se smenjuju za tastaturom.
+
+Pitanje 4.9 Proveravanje modela. Osnove i motivacija. Osnovni pojmovi. Primeri: hardver i softver.
+
+Proveravanje modela je metoda formalne verifikacije softvera ili hardvera koja za cilj ima proveru zadovoljenosti svojstva koja su bitna za taj
+sistem.
+Ova tehnika se oslanja na ispitivanje svih putanja izvršavanja nekog programa. Njen razvoj je dug i uključivao je upotrebu matematičke logike,
+teorije formalnih jezika, teorije grafova, Kripke sistema, kreiranje temporalne logike (LTL i CTL) kao i alata za proveru.
+Osnovni pojmovi:
+• Modelovanje - kreiranje apstraktnog modela na osnovu implementacije (obično automatski iz jezika). Apstaktni model je tranzicioni
+sistem i predstavlja skup stanja i relacije prelaska izmedu njih
+• Formalna specifikacija - precizan i nedvosmislen opis uslova koje
+model mora da zadovoljava predstavljen jezikom matematičke logike
+• Proveravač modela - alat koji automatski proverava da li model
+zadovoljava formalnu specifikaciju i ako ne zadovoljava kreira kontra
+primer
+Primer 12.
+Hardver:
+
+Slika 1: trobitni ciklični registar
+Želimo da proverimo da li u svakom trenutku važi da
+je tačno jedan bit uključe. Kreiramo skup stanja S =
+{{0, 0, 0}, {0, 0, 1}, {0, 1, 0}, {0, 1, 1}, {1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}},
+početno stanje: {1, 0, 0} i pravilo prelaza: {p, q, r} → {q, r, p} dobijamo da su dostižna samo stanja u kojima je jedan bit uključen.
+
+18
+
+Primer 13.
+Softver:
+Početne vrednosti su: x = 0, y = 1, z = 1, koje odreduju početno
+stanje. Relacije prelaska se generišu na osnovu koda, a svako naredno
+stanje zavisi od pozicije u kodu i početnih vrednosti. Proveravamo da
+li će važiti y > 0 u iteracijama nakon što je y < 0.
+while ( true )
+{
+x = ( x +1) % 3;
+if ( x == 0)
+y = -y ;
+z = z * y + 1;
+}
+
+Pitanje 4.10 Proveravanje modela. Osnove i motivacija. Primene proveravanja modela. Verifikacija hardvera, konkurentnih sistema, komunikacionih protokola i softvera.
+
+Proveravanje modela je nastalo da bi se verifikovao hardver ali se razvilo
+tako da je upotrebljivo i kod verifikacije softvera, čak i kada on ima jako
+veliki broj stanja.
+Proveravanje modela je originalno nastalo za potrebe verifikacije softvera, ali je kasnije našlo primenu i u verifikaciji softvra. Jako je korisno za
+verifikaciju softvra sa konkurentni izvršavanjem ili bezbednosno kritičkim
+delovima.s
+Verifikacija hardvera se zasniva na emulaciji, simulaciji i fabričkom
+testiranju. Emulacija koristi generički hardver koji se modeluje tako da
+se ponaša kao hardver koji želimo da testiramo. Simulacija koristi jezike
+za opis hardvera i onda se nad takvim modelima vrši testiranje. Fabrička
+testiranja se odnose na fizičke greške u izdradi hardvera.
+Kod konkurentnih sistema greške poput mrtvog i živog blokiranja ili
+izgladnjivanja se teško pronalaze i mogu da kreiraju jako mnogo problema
+u kasnijem radu programa. Proveravanje modela omogućava otkrivanje
+ovakvih grešaka bez obzira na uslove izvršavanja.
+Komunikacioni protokoli su kompleksi jer imaju viok nivo konkurentnosti, pa je testiranje modela jako korisno za ispitivanje postojanja mrtvih
+petlji, garancije napredovanja i dostavljanja paketa i pravilno uspostavljanje i raskidanje veza.
+Verifikacija softvera tehnikom provere modela je postala moguća razvojem metoda za regukciju apstraktnih sistema i porastom snage računara
+tako da je moguće izvesti komplikovana izračunavanja.
+
+Pitanje 4.11 Proveravanje modela. Pravljenje modela. Modelovanje jednostavnih sistema. Primeri.
+
+Def. 5:
+Tranzicioni sistem je uredena šestorka (S, Act, →, I, V, λ), gde je S
+skup stanja, Act skup akcija {α1 , ..., αn }, →∈ S × Act × S je relacija
+α
+prelaska u oznaci si −
+→ sj , I ⊆ S skup početnih stanja, V skup
+predikata i λ : S → P (V) funkcija obeležavanja koja svakom stanju
+pridružuje skup predikata koji važe u tom stanju. Ako akcije nisu
+značajne, one se mogu izostaviti. Može se pretpostaviti da je relacija
+prelaska totalna tj da važi: (∀s ∈ S)(∃s′ ∈ S)s → s′ .
+Def. 6:
+Sistem je detirministički po akcijama ako važi (∀s ∈ S)(∀α ∈
+α
+Act)(∃!s′ ∈ S)a −
+→ s′ i podrazumeva se da ima jedno početno stanje.
+Def. 7:
+Putanja u sistemu T = (S, Act, →, I, V, λ) je besnokonačni niz koji
+αi
+alternira stanja i akcije σ = s1 α1 s2 α2 ..., takav da važi si −→
+si+1 .
+Sa σi obeležavamo i-to stanje te putanje, a sa σ|i obeležavamo rep
+putanje počev od stanja i.
+Def. 8:
+Izvršavanje je putanja T takva da je s0 ∈ I.
+Def. 9:
+Za stanje s kažemo da je dostižno ako postoji izvršavaje σ takvo da
+je s ∈ σ.
+Za modelovanje jednostavnih sistema se može koristiti dijagram stanja za
+vizualizaciju tranzicionog sistema.
+
+20
+
+Primer 14.
+
+Slika 2: Dijagram stanja mašine koja služi vodu ili sok nakon uplate
+Za ovaj tranzicioni sistem je:
+• S = {plati, voda, sok, izaberi},
+• Act = {ubaci novac, uzmi vodu, uzmi sok, τ }, gde je τ nedeterministička akcija,
+• I = {plati}
+ubaci novac
+
+τ
+
+τ
+
+• →: {plati −−−−−−−−→ izaberi, izaberi −
+→ voda, izaberi −
+→
+uzmi vodu
+
+uzmi sok
+
+sok, voda −−−−−−−→ plati, sok −−−−−−→ plati}
+• V = {plaćeno, dobijeno piće} jer želimo da pratimo da li je moguće da se dobije piće ako ono nije plaćeno
+• oznake su: λ(plati) = ∅, λ(izaberi) = {plaćeno}, λ(voda) =
+{plaćeno, dobijeno piće}, λ(sok) = {plaćeno, dobijeno piće}
+Sva stanja su dostižna, pa je ispunjeno da mašina daje piće samo
+ako je ono plaćeno. Jedno izvršavanje je plati ubaci novac izaberi τ
+voda uzmi vodu plati ubaci novac izaberi τ voda - stalno biramo
+vodu, pa je σ|3 = σ
+Primer 15.
+Imamo grad u kome svi žive u parovima u kojima mora uvek da
+radi barem jedan član. Članovi mogu da budu u stanju odmara i radi.
+
+21
+
+h1 := radi ∨ h2 := radi
+
+h1 := odmara
+h1 := radi
+h1 = odmara
+h2 = radi
+
+h1 = radi
+h2 = radi
+h1 := odmara
+h2 := radi
+
+h2 := odmara
+
+h2 := odmara
+
+h1 = odmara
+h2 = odmara
+
+h1 = radi
+h2 = odmara
+
+h1 := odmara
+
+h2 := odmara
+
+• S = {{radi, radi}, {radi, odmara}, {odmara, radi}, {odmara, odmara}}
+• akcije su nebitne
+• I = {radi, radi}
+• V = {h1 , h2 }, gde hi znači da hi radi
+• prelazi su:
+– {radi, radi} → {radi, radi}
+– {radi, radi} → {radi, odmara}
+– {radi, radi} → {odmara, radi}
+– {radi, odmara} → {radi, odmara}
+– {radi, odmara} → {radi, radi}
+– {odmara, radi} → {odmara, radi}
+– {odmara, radi} → {radi, radi}
+– {odmara, odmara} → {odmara, odmara}
+• funkcije pridruživanja su (u stanju s važi da je hi = radi:
+– λ(odmara, odmara) = ∅
+– λ(odmara, radi) = h2
+– λ(radi, odmara) = h1
+– λ(radi, radi) = {h1 , h2 }
+
+22
+
+Pitanje 4.12 Proveravanje modela. Pravljenje modela. Modelovanje hardvera. Primer.
+
+Modelovanje hardvera podrazumeva da su stanja odredena stanjima
+registara i ulaznim vrednostima koje dolaze iz spoljašnosti. Relacija prelaska opisuje ponašanje kola u svakom ciklusu časovnika, skup λ(s) je skup
+bitova koji su jednaki 1, a V odgovara bitovima.
+Primer 16.
+
+Slika 3: Kolo za računanje ¬(u ⊕ r), gde je r = r ∨ u - jednobitne
+brednosti
+• S = {{1, 1}, {1, 0}, {0, 1}, {0, 0}} = {r, u}
+• I = {{0, 0}, {0, 1}}
+• V = {u, i, r}
+
+Slika 4: dijagram kola
+
+Pitanje 4.13 Proveravanje modela. Pravljenje modela. Modelovanje softvera. Primeri.
+
+Da bi se definisao tranzicioni sistem softvera, neophodan je njegov formalni
+model.
+
+23
+
+Def. 10:
+Formalni model programa je uredena
+(V ar, Loc, Cond, P red, Act, →), gde je:
+
+šestorka
+
+P
+
+=
+
+• V ar = {x1 , ..., xi } konačni skup promenljivih za koje važi xi ∈
+Dom(xi )
+• Loc = L0 , ..., Lm skup memorijskih lokacija, gde je L0 ulazna
+tačka programa
+• Cond je skup uslova nad promenljivama
+• P red ⊂ Cond je skup preduslova koji važe na početku izvršavanja
+• Act je skup akcija nad promenljivama
+• → relacija toka programa →⊆ Loc × (Cond ∪ Act) × Loc
+Def. 11:
+Izvršavanje programa P = (V ar, Loc, Cond, P red, Act, →) je definisano sledećim tranzitivnim sistemom:
+(a) skup stanja S je skup koji sadrži sva stanja sistema; stanje sistema s je odredeno lokacijom L ∈ Loc i preslikavanjem koje
+svakoj promenljivoj x ∈ V ar odreduje vrednost iz njenog domena: s : Loc × η, gde je η : V ar → Dom(V ar). Stanje s
+obeležavamo sa (L, η)
+(b) Skup početnih stanja I je skup svih stanja (L0 , η) kod kojih
+vrednosti iz preslikavanja η zadovoljavaju preduslove iz P red
+(c) relacija prelaska se definiše na sledeći način:
+α
+
+• ako u programu važi Li −
+→ Lj , gde je α ∈ Act, tada postoji
+prelaz iz stanja (Li , η) u stranje (Lj , η[α]), gde η[α] svaku
+vrednost x koja se nije promenila slika η[α](x) u η(x), a
+one koje se jesu promenile transformiše na osnovu akcije i
+vrednosti koje definiše η
+c
+
+• ako u programu važi Li →
+− Lj , gde je c ∈ Cond, onda
+postoji prelaz iz stanja (Li , η) u stanje (Lj , η) akko skup
+vrednosti definisan sa η zadovoljava uslove iz c
+(d) skup predikata V je bilo koji konačan podskup od Cond
+(e) obeležavanje λ(Li , η) sadrži sve uslove iz V koji su zadovoljeni
+za vrednosti promenljivih iz η
+
+24
+
+Primer 17.
+Neka je na lokaciji Li funkcija η definisana sa η(x) = η(y) = η(z) = 1
+i neka je uslov c prelaska na lokaciju Lj da je x > 0, tada postoji
+x>0
+
+prelaz Li −−−→ Lj .
+Primer 18.
+while ( true ) {
+L0 : x = ( x +1) % 3;
+L1 : if ( x == 0)
+L2 :
+y = -y ;
+L3 : z = z * y + 1;
+}
+
+Formalni model za ovaj kod je zadat sledećim skupovim:
+• V ar = {x, y, z}, gde je Dom(x) = Dom(y) = Dom(z) = int
+• Loc = {L0 , L1 , L2 , L3 }
+• Cond zavisi od svojstava koja želimo da pratimo, a sadrži i
+uslove grananja, kao što je x = 0 i njegova negacija
+• P red = {x = 0, y = 1, z = 1} je definisan ulaznim stanjem
+• Act :
+– x←
+− (x + 1)%3
+– y←
+− −y
+– z←
+−z∗y+1
+• relacije prelaska:
+x←
+−(x+1)%3
+– L0 −−−−−−−−→ L1
+x=0
+
+– L1 −−→ L2
+x̸=0
+
+– L1 −−→ L3
+y←
+−−y
+– L2 −−−−→ L3
+z←
+−z∗y+1
+– L3 −−−−−−→ L0
+Tranzicioni sistem ovog programa je zadat na sledeći način:
+• stanja sistema su (Li , [xη , yη , zη ]), gde je Li lokacija, a
+[xη , yη , zη ] vrednosti promenljivih
+• početno stanje I = (L0 , [0, 1, 1])
+
+25
+
+• relacije prelaska postaju:
+x←
+−(x+1)%3
+– (L0 , [xη , yη , zη ]) −−−−−−−−→ (L1 , [(xη + 1)%3, yη , zη ])
+x=0
+
+– (L1 , [0, yη , zη ]) −−→ (L2 , [0, yη , zη ]
+x̸=0
+
+– (L1 , [xη , yη , zη ]) −−→ (L3 , [xη , yη , zη ])
+y←
+−−y
+– (L2 , [0, yη , zη ]) −−−−→ (L3 , [0, −yη , zη ])
+z←
+−z∗y+1
+– (L3 , [xη , yη , zη ]) −−−−−−→ (L0 , [xη , yη , zη ∗ yη + 1])
+• skup predikata može da bude V = {y > 0, |z| < 3}
+• obeležavanje može bit λ(L2 , [1, −1, −2]) = |z| < 3
+
+Pitanje 4.14 Proveravanje modela. Formalna specifikacija. Klase svojstava. Primeri.
+
+Formalna specifikacija definiše očekivano ponašanje sistema i kriterijume koje model treba da zadovolji. Ona definiše koja svojstva će biti deo
+verifikacije.
+Klase svojstava:
+• svojstva stanja opisuju uslove koji moraju da važe nad stanjem i ne
+obuhvataju relacije prelaska, pa nisu preterano izražajne. Formalno
+se mogu predstaviti iskaznom formulom nad skupom predikata (pr.
+ustanju si važi uslov x > 0 ∧ (x + z) mod 2 = 0)
+• invarijanta je uslov koji treba da važi u svim dostižnim stanjima
+tranzicionog sistema (pr. x > 0 u svim stanjima)
+• sigurnostno svojstvo izražava nepoželjnu pojavu koja se nikad neće
+desiti (pr. x ne sme biri manje od 0 - ujedno i invarijanta). Kažemo
+da je sigurnosno svojstvo narušeno ako postoji konačni prefiks izvršavanja σ u kome svojstvo ne važi.
+• svojstvo živosti izražava da će se neka pozitivna pojava desiti u
+budučnosti kako bi se pokazalo napredovanje u programu i odsustvo
+blokiranja (pr. kada x postane 1 i y će postati 1 u nekom trenutku)
+• svojstvo pravednosti izražava da će se neka naredba beskonačno
+puta izvršavati, tj da nema izglednjivanja u programu (pr. ako x
+beskonačno puta dostiže 1 i y će beskonačno puta dostići 1)
+
+Pitanje 4.15 Proveravanje modela. Formalna specifikacija. Temporalne logike. Odnos LTL, CTL i CTL*.
+
+Temporalna logika predstavlja klasu logičkih okvira koji omogućavaju
+formalno opisivanje i evaluiranje tvrdenja čija istinitost zavisi od vremenskog trenutka. Operatori koji se najčešće sreću su:
+
+26
+
+Slika 5: Odnos izmedu LTL, CTL i CTL*
+• G (Globaly) - svojstvo važi uvek
+• F (Future) - svojstvo važi u nekon narednom trenutku
+• X (neXt) - svojstvo važi u sledećem trenutku
+• U (Until) - svojstvo važi dok se ne ispuni drugo svojstvo
+• W (Weak until) - svojstvo važi zauvek ili dok se ne ispuni drugo
+svojstvo
+Neke temporalne logike su: LTL (linear temporal logic - linearna temporalna logika), CTL (computational tree logic - logička stabla izračunavanja) i
+CTL* obogaćena logika stabla odlučivanja. Razlike izmedu ova tri modela
+nastaju iz različitih modela vremena i načina kombinovanja temporalnih
+operatora i kvantifikatora putanja. Sa praktične strane se razlike ogledaju
+u algoritamskoj složenosti odlučivanja, gde CTL ima najmanju složenost,
+a LTL je najintuitivnija.
+
+Pitanje 4.16 Proveravanje modela. Formalna specifikacija. LTL. Primeri.
+
+Def. 12:
+Sintaksa LTL formula nad tranzicionim
+(S, I, V, Act, →, λ) se zadaje rekurzivno:
+
+sistemom
+
+P
+
+=
+
+• logičke konstante ⊤ i ⊥ su LTL formule
+• atomičke formule p ∈ V su LTL formule
+• ako je ϕ LTP fomula i ¬ϕ LTL formula
+• ako su ϕ1 i ϕ2 LTL formule i ϕ1 ∨ ϕ2 , ϕ1 ∧ ϕ2 , ϕ1 → ϕ2 su LTL
+formule
+• ako su ϕ1 i ϕ2 LTL formule i ϕ1 U ϕ2 , ϕ1 W ϕ2 su LTL formule
+• ako je ϕ LTP fomula inda su i Xϕ, F ϕ, Gϕ LTL formule
+
+27
+
+Semantika LTL formule se zadaje u kontekstu tranzicionog sistema. Za
+izvršavanje σ važi:
+• Xϕ - ϕ će važiti u sledećem stanju u putanji
+• ϕ1 U ϕ2 - ϕ1 će važiti dok se ne ispuni ϕ2
+• F ϕ - ϕ će sigurno biti ispunjeno u nekom narednom stanju
+• Gϕ - ϕ će biti ispunjeno u svakom stanju
+• ϕ1 W ϕ2 - ϕ1 će važiti dok se ne ispuni ϕ2 , pri čemu ϕ2 ne mora nikad
+da se ispuni
+Def. 13:
+Tvrdnja ϕ je tačna na putanji σ (u oznaci σ |= ϕ) i važi:
+• σ |= ⊤, σ ⊭ ⊥
+• za p ∈ λ(σ0 ) je atomična formula koja važi u početnom uslovu
+putanje važi σ |= p
+• σ |= ¬ϕ ako je ϕ LPL formula za koju važi σ ⊭ ϕ
+• σ |= ϕ1 ∧ ϕ2 ako su ϕ1 i ϕ2 LTL formule za koje važi σ |= ϕ1 i
+σ |= ϕ2
+• σ |= ϕ1 ∨ ϕ2 ako su ϕ1 i ϕ2 LTL formule za koje važi σ |= ϕ1 ili
+σ |= ϕ2
+• σ |= ϕ1 =⇒ ϕ2 ako su ϕ1 i ϕ2 LTL formule za koje važi da ako
+je σ |= ϕ1 onda je i σ |= ϕ2
+• σ |= Xϕ ako σ|1 |= ϕ (ako u sledećem stanju putanje važi ϕ)
+• σ |= ϕ1 U ϕ2 ako su ϕ1 i ϕ2 LTL formule za koje važi (∃j)(σ|j |=
+ϕ2 ∧ ((∀i < j)σ|i |= ϕ1 ))
+• σ |= F ϕ je ekvivalentno sa σ |= ⊤U ϕ
+• σ |= Gϕ je ekvivalentno sa σ |= ¬F ¬ϕ (nikada u budućnosti
+neće važiti negacija od ϕ)
+• σ |= ϕ1 W ϕ2 je ekvivalentno sa σ |= (ϕ1 U ϕ2 ) ∨ Gϕ1
+Primer 19.
+Česte kombinacije operatora:
+• XGϕ - počev od sledećeg trenutka ϕ važi zauvek
+• GF ϕ - za svako stanje važi da postoji stanje u budućnosti kada
+će važiti ϕ
+
+28
+
+• F Gϕ - od nekog trenutka u budućnosti će zauvek važiti ϕ
+• G(ϕ1 =⇒ F ϕ2 ) - kada god u nekom stanju važi ϕ1 u nekom
+budućem stanju će važiti ϕ2
+• G(ϕ =⇒ X¬ϕ) - kada god važi ϕ u narednom koraku ono ne
+važi
+Def. 14:
+Formula ϕ je zadovoljiva u tranzicionom sistemu T ako postoji izvršavaje σ takvo da je σ |= ϕ.
+Def. 15:
+Formula ϕ je valjana u tranzicionom sistemu T ako za svako izvršavanje σ važi σ |= ϕ.
+Svojstva sistema se formulišu kao LTL formule i sistem će ih zadovoljavati
+akko je ta formula valjana u tranzicionom sistemu T koji je model sistema.
+Primer 20.
+Invarijanta: G(x = 0 ∨ y = 0)
+Primer 21.
+Sigurnostno svojstvo:
+G(x = 1 =⇒ (x = 1W y ̸= 0)) - kada x postane 1 ostaće tako dok y
+ne postane različito od 0
+Primer 22.
+Svojstvo živosti:
+G(x = 1 =⇒ F (y = 1)) - kad god x postane 1 i y će u nekom
+trenutku
+Primer 23.
+Svojstvo pravednosti:
+G(F (x = 1)) =⇒ G(F (y = 1)) - ako x postaje 1 beskonačno često i
+y postaje 1 beskonačno često
+
+29
+
+Primer 24.
+Stvari koje se ne mogu iskazati LTL jezikom:
+• Počev od nekog trenutka, ove putanje će imati svojstvo ϕ
+• Iz svakog dostižnog stanja se može stići u neko početno stanje
+
+Pitanje 4.17 Proveravanje modela. Formalna specifikacija. CTL i CTL*. Primeri.
+
+U okviru CTL i CTL* logika se uvode kvantifikatori putanja Aϕ - formula
+ϕ važi na svim putanjama koje kreću iz trenutnog stanja i Eϕ - postoji
+putanja koja kreće iz trenutnog stanja na kojoj važi ϕ. U CTL jeziku se
+kvantifikatori putanja i temporalni operatori ne mogu kombinovati proizvoljno već uvek moraju biti u paru, dok kod CTL* to nije slučaj.
+Primer 25.
+Neki izrazi u CTL i CTL* jeziku
+CTL: AG EX ¬p - u svim putanjama i svim stanjima (AG) postoji
+sledeće stanje u kome p ne važi (neka je p greška)
+CTL*: AF G p - na svakoj putanji postoji trenutak nakon koga će
+uvek važiti p
+CTL*: A G F p - na svakoj putanji u svakom trenutku postoji buduće
+stanje u kome će važiti p
+
+Pitanje 4.18 Proveravanje modela. Algoritmi za proveravanje modela. Obilazak grafa tranzicionog sistema. Primeri.
+
+Algoritmi za proveru modela služe da na osnovu modela i formalne
+specifikacije svojstava provere da li model zadovoljava svojstva i ako ne da
+generišu kontraprimer.
+Obilazak grafa tranzitivnog sistema je najjednostavniji način proveravanja zadovoljivosti invarijante sistema. Počev od početnih tsnja se mogu
+obići sva dostižna stanja geafa i proveriti da li važe uslovi invarijante.
+Primer 26.
+Ostrvo vrednice:
+Imamo 2 invarijante:
+• U svakom trenutku barem jedan partner radi G(h1 ∨h2 ). U svim
+dostižnim stanjima ovo važi jer (sa h1 označavamo da partner
+1 radi):
+(radi, radi) : h1 ∨ h2 = 1
+(radi, odmara) : h1 ∨ h2 = 1
+(odmara, radi) : h1 ∨ h2 = 1
+
+30
+
+• Ne postoji buduće stanje u kome oba partnera odmaraju
+¬F (¬h1 ∧ ¬h2 ). U svakom dostižnosm stanju ovo važi jer:
+(radi, radi) : ¬h1 ∧ ¬h2 = 0
+(radi, odmara) : ¬h1 ∧ ¬h2 = 0
+(odmara, radi) : ¬h1 ∧ ¬h2 = 0
+Najjednostavniji obilasci grafa su:
+• pretraga u dubinu - lako nalazi kontraprimere jer kad dode u stanje
+u kome ne važi svojstvo može da se vrati do početnog unazad
+• pretraga u šitinu - najbrže pronalazi stanje u kome je invarijanta
+narušena
+
+Pitanje 4.19 Proveravanje modela. Algoritmi za proveravanje modela. Provera LTL svojstva putem Bihijevih automata. Primeri.
+
+Bihijevi automati se koriste za verifikaciju opštih LTL svojstava. Izvršavanja u tranzitivnim sistemima se posmatraju kao beskonačna reči
+nad azbukom.
+Def. 16:
+P
+ω -reč nad konačnomPazbukom
+je bilo koji beskonačniPniz ω =
+ω
+a0 a1 ... slova
+azbuke
+.
+Skup
+svih
+ω-reči
+, a ωP
+Pω označavamo sa
+jezik nad
+je bilo koji podskup od
+.
+Def. 17:
+ω-jezik je ω-regularan ako se dobija konačnom primenom pravila:
+• Ako je L neprazan regularan jezik koji ne sadrži praznu reč ϵ
+(prazna reč), tada je Lω = {ω1 ω2 ...|ωi ∈ L} ω-regularan (beskonačna konkatenacija reči)
+• Ako je L1 regularan jezik, a L2 ω-regularan, tada je i L1 L2 ωregularan
+• Ako su L1 i L2 ω-regularni i L1 ∪ L2 ω-regularan
+Primer 27.
+Primer ω-regularnog jezika je (0|1)∗ (10)ω |01ω tj skup svih reči čiji je
+rep oblika 101010... ili reč 011....
+
+31
+
+Def. 18:
+P
+Bihijev automat je uredena
+petorka A = (Q, , Q0 , δ, F ), gde je
+P
+Q konačan skup stanja,
+konačna azbuka, Q0P⊆ Q skup početnih
+stanja, F ⊆ Q skup završnih stanja i δ : Q ×
+→ P(Q) funkcija
+prelaska.
+Izdračunavanje u Bihijevom automatu je bilo koje beskonačno izvodenje
+a2
+a1
+q2 ..., gde je q0 ∈ Q0 i qi+1 ∈ δ(qi , ai+1 ), za svako
+q1 −→
+oblika q0 −→
+i = 0, 1, .... Etiketa tog izračunavanja je ω-reč a1 a2 , ... i ono je uspešno
+ako sadrži beskonačno mnogo završnih stanja.
+Def. 19:
+ω-jezik L(A) definisan automatom A je skup svih ω-reči koje su
+etikete uspečnog izračunavanja automata A.
+Teorema 1:
+ω-jezik L je ω-regularan akko je prepoznat nekim (u opštem slučaju
+nedeterminističkim) Bihijevim automatom.
+Primer 28.
+
+Slika 6: Bihijev automat
+
+32
+
+Primer 29.
+
+Slika 7: Bihijev automat 1
+LTL formula definiše skup putanja koje je zadovoljavaju u tranzicionom
+sistemu T . Svaka putanja je jedna ω-reč nad azbukom stanja S, pa LTL
+formula definiše jedan ω-jezik. Ako se Bihijevim automatom može prepoznati onda je taj jezik ω-regularan.
+Provera LTL svojstva ϕ nad tranzicionim sistemom T se izvodi na
+sledeći način:
+(a) konstruišemo Bihijev automat A za formulu ¬ϕ. Veličina automata
+A eksponencijalna u odnosu na veličinu formule
+(b) napravimo presek automata i tranzicionog sistema (posmatramao samo one ω-reči koje predstavljaju izvršavanja u T ). Ovaj proces je
+proporcionalan proizvodu veličina automata i t.sistema
+(c) proveravamo da li presek prepoznaje prazan jezik, ako je odgovor da
+onda je ϕ valjano u T , inače postoji ω-reč (baš ta koja je prihvaćena
+od strane automata) tj putanja izvršavanja na kojoj ϕ ne važi i baš
+ona je kontraprimer.
+
+Pitanje 4.20 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Apstrakcija predikata. Profinjavanje apstrakcije vodeno kontraprimerima. Primeri.
+
+Eksplozija prostora stanja prilikom proveravanja tranzicionog sistema
+se odnosi na ogroman broj stanja koja često nije moguće predstaviti u
+memoriji. Ovaj problem se u praksi najčešće rešava na sledeće načine:
+• apstrakcijom - stanja se menjaju apstraktnim stanjima koja su definisana skupom predikata koji važe u tom stanju
+• simboličkim proveravanjem modela - skupovi stanja i relacije
+prelaska se predstavljaju simbolički pomoću iskaznih formula i binarnih dijagrama odlučivanja
+33
+
+• ograničenom proverom modela - kontraprimer se traži u prvih k
+koraka, gde se k zadaje unapred
+Apstrakcija predikata je tehnika redukcije prostora pretrage koja se
+zasniva na zameni konkretnih vrednosti promenljivih informacijom da li
+odredeni logički uslovi važe.
+Def. 20:
+Neka je T = (S, →, I, V, λ). Apstrakcija ovog tranzitivnog sistema
+daje sistem T ′ = (S ′ , →′ , I ′ , V ′ , λ′ ), gde je:
+• S ′ = {s′ |s′ = λ(s)} ⊆ P (V ) - jedno astraktno stanje grupiše
+stvarna stanja u kojima važe iste vrednosti predikata
+• relacija prelaska: prelaz s′1 → s′2 postoji akko u T postoji prelaz
+s1 → s2 , tj. ako postoji neko konkretno izvršavanje kojim se
+relazuje odgovarajuća promena istinitost predikata
+• I - apstrakcija skupa početnih stanja
+• V ′ je isto kao V
+• funkcija obeležavanja je identitet λ(s′ ) = s′
+Primer 30.
+while ( true ) {
+L0 : x = ( x +1) % 3;
+L1 : if ( x == 0)
+L2 :
+y = -y ;
+L3 : z = z * y + 1;
+}
+
+Ako su x, y, z tipa int onda imamo preko 4 ∗ 4 000 000 0003 stanja (4
+- lokacije, 4 milijarde vrednosti za svaku promenljivu). Ako posmatramo V = {y > 0, |z| < 3}, apstrakcijom predikata dobijamo skup
+stanja oblika (Li , uv), gde je u istinitosna vrednost predikata y > 0, a
+v predikata |z| < 3, pa imamo 2 ∗ 2 ∗ 4 = 16 stanja (2 mogućnosti za u
+i 2 za u i 4 lokacije). Neka je početno stanje (L0 , 11), tada je relacija
+prelska:
+(L0 , uv) → (L1 , uv)
+(L1 , uv) → (L2 , uv)
+(L1 , uv) → (L3 , uv)
+(L2 , uv) → (L1 , uv)
+(L3 , uv) → (L0 , uv)
+(L3 , uv) → (L0 , uv)
+Ovo je nederministički sistem jer prelazak iz stanja L1 ne zavisi od
+
+34
+
+predikata.
+Nadaproksimacija je pojava kada apstraktni sistem uključuje dodatne
+prelaske u odnosu na tranzicioni.
+Profinjavanje apstrakcije vodeno kontraprimerima (CEGAR) se
+odnosi na upotrebu lažnih kontraprimera koje je apstraktni model kreirao
+kako bi se konstruisalo preciznije apstrhovanje. Lažni kontraprimeri nastaju kada apsrakcija nije dovoljno precizna, pa je moguće dokazati samo
+ograničen skup iskaza.
+
+Pitanje 4.21 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Simboličko proveravanje modela.
+
+Simboličko proveravanje modela je tehnika redukcije broj stanja prilikom verifikacije u kojoj se stanja i prelasci čuvaju simbolički. Skup stanja
+se može, na primer, opisati formulom i time se smanjiti broj stanja. Stanja i prelasci se modeluju pomoću simboličkih struktura kao što su binarni
+dijagrami odlučivanja ili SAT/SMT formule.
+Binarni dijagrami odlučivanja su kompaktne strukture za opisivanje
+iskaznih formula, gde ekivalentne formule imaju iste dijagrame, a operacije
+se vrše direktno nad dijagramom.
+SAT rešavači omogućavaju automatsko rešavanje problema zadovoljivosti iskaznih formula u KNF-u. Oni proveravaju da li za datu iskaznu
+formulu postoji valuacija promenljivih takva da je formula zadovoljena.
+SMT reševači omogućavaju proveru zadovoljivosti SMT formule na nivou iskazne logike, a zatim ispitivanje postojanja interpretacije dobijenog
+iskaznog modela u izabranoj teoriji koja zadovoljava polaznu formu. Postoje mnoge teorije: aritmetička, teorija nizova i rekurentnih struktura
+podataka, teorija bit-vektora i druge.
+
+Pitanje 4.22 Proveravanje modela. Pristupi kombinatornoj eksploziji stanja. Ograničena provera modela. SAT kodiranje. Primeri.
+
+Ograničena provera modela podrazumeva traženja kontraprimera u
+prvih k koraka izvršavanja, gde je k unapred zadato. Zbog ograničavanja
+pretrage na deo grafa tranzicionog sistema, neke greške se mogu prevideti,
+tj ne mogu se naći svi kontraprimeri. U okviru ove vrste provera se koristi
+ograničena semantika LTL operatora.
+Def. 21:
+Neka je σ putanja tranzicionog sistema i σ|i njen rep. Ograničena
+semantika osnovnih LTL operatora se definiše na sledeći način:
+• σ|i |= Xϕ ako važi σ|i+1 |= ϕ za i < k, dok je za i ≥ k formula
+važi trivijalno
+
+35
+
+• σ|i |= F ϕ važi za svako σ i svako i jer bi kontra primer za
+formulu F ϕ zahevao beskonačnu putanju koju nemamo
+V
+• σ|i |= Gϕ ako važi j=i,...k (σ|j |= ϕ) za svako i < k, dok za
+i ≥ k formula uvek važi
+• σ
+V|i |= ϕ1 U ϕ2 ako postoji j tdj i ≤ j ≤ k za koji važi σ|j |= ϕ2 i
+l=i,...,j−1 (σ|l |= ϕ1 ), za i ≥ k formula važi trivijalno
+V
+• σ|i |= ϕ1 W ϕ2 ako važi σ|i |= ϕ1 U ϕ2 ili l=i,...,k (σ|l |= ϕ1 ), za
+i ≥ k formula važi trivijalno
+SAT kodiranje tranzicionog sis je transformacija opisa izvršavanja sis
+i provere svojstava u oblik iskazne formule kako bi se provera modela svela
+na rešavanje SAT problema. Transformacija:
+• za skup predikata V = p1 , ..., pn se uvode iskazne promenljive
+pi1 , ..., pin koje odgovaraju vrednostima predikata u stanju si za i =
+1, ..., k
+• početno stanje se opisuje iskaznom formulom I(s0 )
+• prelasci iz si u si+1 se opisuju iskaznom formulom T (si , si+1 )
+• izvršavanje prvih k koraka se opisuje formulom: I(s0 )∧T (s0 , s1 )∧
+... ∧ T (sk−1 , sk )
+• važenje formule σ |= ϕ na prvih k koraka se formalizuje iskaznom
+formulom Φ
+• provera da li svojstvo ϕ važi u prvih k koraka se proverava ispitivanjem valjanosti formule: I(s0 ) ∧ T (s0 , s1 ) ∧ ... ∧ T (sk−1 , sk ) =⇒
+Φ tj SAT rešavaču prosledujemo formulu I(s0 ) ∧ T (s0 , s1 ) ∧ ... ∧
+T (sk−1 , sk ) ∧ ¬Φ
+Primer 31.
+
+Slika 8: Trobitni ciklicni registar
+• neka su p, q, r predikati koji odgovaraju bitovima
+• neka je I(s0 ) ≡ (p0 ∧ ¬q 0 ∧ ¬r0 ) tj početno stanje je 100
+• T (si , si+1 ) ≡ (pi+1 ⇔ ri ) ∧ (q i+1 ⇔ pi ) ∧ (ri+1 ⇔ q i )
+
+36
+
+• za k = 3 rad kola je opisan formulom: I(s0 ) ∧ T (s0 , s1 ) ∧
+T (s1 , s2 ) ∧ T (s2 , s3 )
+SAT kodiranje LTL formula:
+i+1
+• σ|i |= X(ϕ(p1 , ..., pn )) se kodira sa ϕ(pi+1
+1 , ..., pn ) za i < k ili sa ⊤
+za k ≥ k
+• σ|i |= F (ϕ(p1 , ..., pn )) se kodira sa ⊤
+V
+• σ|i |= G(ϕ(p1 , ..., pn )) se kodira sa j=i,...,k ϕ(pj1 , ..., pjn ) za i < k ili
+sa ⊤ za i ≥ k
+
+Primer 32.
+formula σ |= G(p =⇒ Xq) se predstavlja formulom
+q i+1 )
+
+V
+
+i=0,...,k (p
+
+i
+
+=⇒
+
+Primer 33.
+Nastavak trobitnog registra:
+• svojstvo: u svakom trenutku je tačno jedan bit uključen se
+modeluje formulom Φ ≡ Φ0 ∧ Φ1 ∧ Φ2 ∧ Φ3 , gde je Φi ≡
+(pi ∨ q i ∨ ri ) ∧ (¬pi ∨ ¬q i ) ∧ (¬pi ∨ ¬ri ) ∧ (¬q i ∨ ¬ri )
+• ispituje se zadovoljivost formule I(s0 ) ∧ T (s0 , s1 ) ∧ T (s1 , s2 ) ∧
+T (s2 , s3 ) ∧ ¬Φ
+
+Pitanje 4.23 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Ograničena provera modela. SMT kodiranje. Primeri.
+
+SMT kodiranje nam daje mogućost modelovanja softvera i predikata
+koji izražavaju aritmetička i relacijska svojstva. Programske promenljive
+se predstavljaju promenljivama odgovarajuće teorije (promenljiva tipa int
+se predstavlja promenljivom tipa Int u SMT f-li). Lokacije izvršavanja se
+predstavljaju celobrojnim promenljivama koje označavaju trenutnu tačku
+u programu. Za niz stanja s0 , ..., sk kreiramo kopije promenljivih tako da
+je xi promeljiva x u stanju si . Prelasci se kodiraju višestrukim if-else-if
+konstrukcijama.
+Primer 34.
+Neka je na lokaciji p naredba x = x-1 i li promenljiva koja čuva redni
+broj lokacije u i-tom stanju, a xi vrednost promenljive x u stanju si .
+Relacija prelaska se zadaje na sledeći način:
+if li = p
+
+37
+
+V
+then xi+1 = xi − 1 y̸=x (yi+1 = yi ) ∧ li+1 = p + 1
+else R
+gde R razmatra ostale lokacije. Ova formula kaže: na lokaciji p umanjujemo x za 1 dok ostale promeljive (označene sa y) ostaju nepromenjene i prelazimo na naredbu na sledećoj lokaciji.
+
+Pitanje 4.24 Apstraktna interpretacija. Konkretan i apstraktan domen. Primeri: parnost broja, znak broja, intervali.
+
+Apstraktna interpretacija je teorijski okvir za formalizovanje apstrakcije u analizi programa u kojoj se konkretna semantika aproksimira apstraktnom semantikom koja čuva osobine ali je jednostavnija za rasudivanje.
+Apstraktna semantika se definiše nad apstraktnim domenom koji je nadskup stanja originalnog sistema, pa je moguće dobijati lažna upozorenja.
+Apstraktna interpretacija obezbeduje da svojstva koja su dokazana u apstraktnoj semantici važe i u konkretnoj.
+Def. 22:
+Stanje s programa B je preslikavanje koje svakoj promenljivoj programa dodeljuje skup njenih mogućih vrednosti.
+Def. 23:
+Konkretan domen C je skup svih mogućih stanja programa.
+Semantika se može opisati konkretnim domenom i relacijama nad njim
+koje odgovaraju relacijama prelaska izmedu stanja.
+Def. 24:
+Putanja σ = [s0 , s1 , ...] programa B je niz uzastopnih stanja programa
+koja odgovaraju nekom izvršavanju počev od početnog stanja s0 .
+Def. 25:
+Apstraktni domen A je apstrakcija konkretnog domena C. Elemente
+ovog domena nazivamo apstraktna stanja s# .
+Primer 35.
+Parnost broja
+Konkretan domen je skup stanja s : V → P (Z), a apstraktni domen je
+skup stanja s# : V → P ({0, 1, ..., 9}) tj slika vrednosti u njihovu poslednju cifru. Apstrakcija stranja si : {x → Z, y → Z, y → {10, 20}}
+
+38
+
+je stanje s#
+i : {x → {0, 1, ..., 9}, y → {0, 1, ..., 9}, z → {0}}. Ovo
+apstraktno stanje odgovara i konkretnom ali i drugima, npr stanju
+si : {x → Z, y → Z, y → {10, 20, 30, 40, 50}}
+Primer 36.
+Znak broja
+Konkretan domen je skup stanja s : V → P (Z), a apstraktni domen
+je skup stanja s# : V → P ({a− , a+ , a0 }), gde je {a− } skup svih
+konkretnih vrednosi koje su manje od 0, {a+ } skup svih konkretnih
+vrednosi koje su veće od 0 i {a0 } skup svih konkretnih vrednosi koje
+su jednake 0. Apstrakcija stanja si : {x → Z, y → Z, y → {10, 20}}
+je stanje s#
+i : {x → {a− , a+ , a0 }, y → {a− , a+ , a0 }, z → {a+ }}. Ovo
+apstraktno stanje odgovara i konkretnom ali i drugima, npr stanju
+si : {x → Z, y → Z, y → {10, 20, 30, 40, 50}}
+Primer 37.
+Intervali
+Za aproksimaciju vrednosti celobrojnih promenljivih se mogu koristiti
+apstraktna stanja s# : V → {[a, b]|a, b ∈ Z ∪ {−∞, +∞}, a < b}.
+Apstrakcija stanja si : {x → Z, y → Z, y → {10, 20}} je stanje s#
+i :
+{x → {−∞, +∞}, y → {−∞, +∞}, z → [10, 20]}. Ovo apstraktno
+stanje odgovara i konkretnom ali i drugima, npr stanju si : {x →
+Z, y → Z, y → {10, 15, 20}}
+
+Pitanje 4.25 Apstraktna interpretacija. Konkretno izvršavanje i apstraktna
+
+interpretacija kroz primere. Parnost broja, znak broja, intervali.
+Kokretno izvršavanje opisuje ponašanje programa kroz stanja i vrednosti do kojih se dolazi.
+Apstraktna interpretacija posmatra aproksimaciju skupa mogućih izvršavanja korišćenjem apstraktnih domena.
+Primer 38.
+Parnost broja:
+x = 1234567;
+x = x + 12345;
+x = x * 123;
+
+Konkretnim izvršavanjem ovog probrama bi se dobile vrednosti
+za promeljivu x : 1234567 → 1246912 → 153370176, pa je na kraju x
+parno.
+
+39
+
+Apstraktna interpretacija bi koristila apstraktni domen koji predstavlja skup poslednjih cifara broja. Zbog toga će apstraktna stanja
+ovog programa biti:
+• s#
+0 (x) = {7}
+• s#
+1 (x) = (7 + 5) mod 10 = 2
+• s#
+2 (x) = (2 ∗ 3) mod 10 = 6 - pa je x paran
+Ako bi se uvelo deljenje u program, izgubila bi se preciznost jer bi ne
+bismo mogli da odredimo poslednju cifru u opštem slučaju.
+Primer 39.
+Znak broja:
+Neka je apstraktni domen A = {a− , a+ , a0 }. Primenom sledećih praila možemo da zaključimo znak promenljive koja nastaje množenjem
+druge dve:
+• {a0 } = {a0 } ∗ {a+ } = {a+ } ∗ {a0 } = {a0 } ∗ {a− } = {a− } ∗ {a0 }
+• {a+ } = {a+ } ∗ {a+ } = {a− } ∗ {a− }
+• {a− } = {a+ } ∗ {a− } = {a− } ∗ {a+ }
+int x = 10;
+while (x >5) {
+x = x -2;
+}
+
+U konkretnom izvršavanju promenljiva x uzima vrednosti 10, 8, 6
+i 4.
+Prilikom apstraktne intepretacije u prvom koraku x postaje a+ ,
+ali već u narednom dobijamo {a+ } − {a+ } = {a}, pri čemu gubimo
+informaciju o znaku broja. U svakom narednom koraku se primenjuje
+pravilo {a} − {a+ } = {a}, pa ne možemo izvući zaključak o znaku
+promenljive x. Da smo imali z = y/x u kodu ne bismo mogli da
+dokažemo njenu bezbednost jer je izgubljena informacija da x ne može
+biti 0.
+Da bismo popravili izražajnost apstraktnog domena, uvodimo sledeća
+pravila:
+• {a0 } = {a0 } + {a0 } = {a0 } − {a0 }
+• {a+ } = {a+ } + {a+ } = {a+ } − {a− }
+= {a+ } + {a0 } = {a0 } + {a+ }
+= {a0 } − {a− }
+
+40
+
+• {a1 } = {a− } + {a− } = {a− } − {a+ }
+= {a0 } + {a− } = {a− } + {a0 }
+= {a0 } − {a+ }
+int x = 0;
+while (x <10) {
+x = x +2;
+}
+
+Za ovaj program, prilikom konkretnog izvršavanja x uzima vrednosti 0, 2, 4, 6, 8 i 10.
+Apstraktna interpretacija nam daje apstraktnu vrednost za x u
+prvoj naredbi {a+ }, a u narednim koracima se primenjuje pravilo
+{a+ } + {a+ } = {a+ }, pa na kraju izvršavanja možemo da zaključimo
+da je x pozitivno. Ovaj zaključak nam garantuje bezbednost u nastavku ako imamo naredbu z = y/x. Medutim, za predhodni kod i
+dalje nemamo način da zaključimo znak broja x na kraju izvršavanja.
+Primer 40.
+Intervali:
+Pravila za kreiranje rezultujućih intervala na osnovu operacija nad
+početnim je data na sledećoj slici:
+
+Slika 9: Pravila kreiranja intervala
+int x = 0;
+while (x <10) {
+x = x +2;
+}
+
+Za ovaj program, prilikom konkretnog izvršavanja x uzima vrednosti 0, 2, 4, 6, 8 i 10.
+
+41
+
+Ako predpostavimo da apstraktni domeni mogu da uzimaju krajeve
+intervala iz skupa {−∞, −10, 0, 10, +∞}, onda x pripada sledećim
+intervalima tokom izvršavanja [0, 0] prilikom dodele, kada joj se doda
+2, namanji interval koji je sadrži je [0, 10], nakon čega se opet dodaje
+interval [2, 2] koji je sadržan u [0, +∞] u kome x ostaje do kraja
+izvršavanja petlje. Kada izade iz petlje znamo da se to desilo jer je
+x ≥ 10, pa je interval koji sadrži x [10, +∞]. Ovaj zaključak nam
+garantuje bezbednost u nastavku ako imamo naredbu z = y/x.
+
+Pitanje 4.26 Apstraktna interpretacija. Formalne osnove apstraktne interpretacije. Apstrakcija, generalizacija, Galoaove veze. Primeri.
+
+Zbog gubitka informacija usled apstrahovanja može doći do lažnih grešaka.
+Da bi se odabrale adekvatne apstrakcije domena koriste se teorije parcijalno uredenih skupova, teorija rešetaka i Galoaove veze.
+Def. 26:
+Parcijalno ureden skup je ureden par (L, ⪯), gde je L neprazan
+skup, a ⪯ binarna relacija definisana na tom skupu za koju važi:
+• refleksivnost: ∀a ∈ L, a ⪯ a
+• anitisimetričnost: ∀a, b ∈ L, a ⪯ b ∧ b ⪯ a =⇒ a = b
+• tranzitivnost: ∀a, b, c, a ⪯ b ∧ b ⪯ c =⇒ a ⪯ c.
+Ova relacija ne mora biti potpuna, tj ne mora važiti za svaka dva elementa
+iz skupa.
+Primer 41.
+Ako važi da je a ⪯ b, onda je a preciznija apstrakcija od b. Na primer,
+interval [2, 3] ⪯ [1, 4], pa je [2, 3] precizniji.
+Def. 27:
+Neka je (L, ⪯) parcijalno ureden skup.
+• Element g ∈ L je gornja granica skupa X ⊆ L ako važi ∀x ∈
+X, x ⪯ g
+• Element d ∈ L je donja granica skupa X ⊆ L ako važi ∀x ∈
+X, d ⪯ x
+• Element s ∈ L je supremum (najmanja donja granica)
+skupa X ⊆ L ako je s gornja granica skupa X i za svaku gornju
+granicu g ∈ L važi s ⪯ g
+
+42
+
+• Element i ∈ L je infimum (najveća gornja granica) skupa
+X ⊆ L ako je i donja granica skupa X i za svaku donju granicu
+d ∈ L važi d ⪯ i
+Za bilo koja dva elemnta a, b ∈ L se supremum obeležava
+sa a ∨ b, V
+infimum
+W
+a ∧ b. Slično, supremum skupa S se označava sa S, a infimum S.
+Def. 28:
+Rešetka Struktura (L, ⪯, ∨, ∧) je rešetka ukoliko je (L, ⪯) parcijalno
+ureden skup takav da za svaka dva el a, b ∈ L postoji supremum a ∨ b
+i infimum a ∧ b. (ovo važi za konačne skupove (indukcija po broju
+članova), ali ne i za beskonačne podskupove od L).
+Def. 29:
+Neka je (L, ⪯) parcijalno ureden skup. W
+L je potpuna rešetka
+V ako za
+svako S ⊆ L postoje njegov supremum W S ∈ L i infimum S ∈ L.
+Tada L sadrži svoj najeći element ⊤ = L i najmanji element ⊥ =
+V
+L.
+Primer 42.
+Partitivni skup P (Z) je potpuna rešetka jer je:
+• ⪯ - operacija podskupa ⊆
+• ∨ - najmanje gornje ograničenje 2 skupa je njihova unija
+• ∨ - najveće donje ograničenje dva skupa je njihov presek
+• ⊤ - najveći element je Z
+• ⊥ - najmanji element je ∅
+Primer 43.
+Skup I = {∅}∪{[a, b]|a ≤ b, a ∈ Z∪{−∞}, b ∈ Z∪{+∞}} je potpuna
+rešetka:
+• ⪯ - operacija podskupa ⊆
+• ∨ - najmanje gornje ograničenje [a1 , b1 ] i [a2 , b2 ] je skup
+[min(a1 , a2 ), max(b1 , b2 )]
+• ∨ - najveće donje ograničenje skupova [a1 , b1 ] i [a2 , b2 ] je skup
+[max(a1 , a2 ), min(b1 , b2 )]
+
+43
+
+• ⊤ - najveći element je (−∞, +∞)
+• ⊥ - najmanji element je ∅
+Funkcija α : I → A je finkcija apstrakcije, a funkcija γ : A → I je funkcija
+konkretizaije.
+Def. 30:
+Neka su (C, ⪯C ) i (A, ⪯A ) parcijalno uredeni skupovi, gde je C konkretni, a A apstraktni domen. Par funkcija (α, γ), gde je α : C → A i
+γ : A → C, formira Galoaovu vezu ako važi (∀c ∈ C)(∀a ∈ A)(α(c) ⪯A
+a) ⇔ c ⪯C γ(a).
+
+Pitanje 4.27 Apstraktna interpretacija. Primer apstrakcije intervalima.
+
+Primer 44.
+Uzmimo program sa 3 celobrojne promenljive x, y, z. Skup predikata
+je tada V = {x, y, z}.
+Konkretni domen je skup stanja s : V → P (Z).
+Apstraktni domen intervala A je skup apstraktnih stanja s# :
+V → C, gde je I potpuna rešetka.
+Funkcija apstrakcije α : P (Z) → C se definiše na sledeći način:
+∀S ∈ P (Z), α(S) = [min(S), max(S)].
+Na primer, stanje s = {x → {5, 6, 7}, y → {10, 15, 20}}, z → {−2} se
+slika u stanje s# = {x → [5, 7], y → [10, 20], z → [−2, −2]}.
+Fukcija generalizacije γ : I → P (Z) se definiše: ∀[a, b] ∈
+I, γ([a, b]) = {z ∈ Z|a ≤ y ≤ b}.
+Na primer, stanje s# = {x → [5, 7], y → [10, 20], z →
+[−2, −2]} se slika u s
+=
+{x
+→
+{5, 6, 7}, y
+→
+{10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}}, z → {−2}
+
+Pitanje 4.28 Apstraktna interpretacija. Primer apstrakcije znakom broja.
+
+Primer 45.
+Znak broja
+Neka je x celobrojna vrednost, tada je konkretni domen skup stanja
+s : V → P (Z) što je potpuna rešetka. Uvedimo apstraktni domen
+kao skup apstraktnih stanja s# : V → P ({a− , a+ , a0 }), što je takode
+potpuna rešetka. Funkcija apstrakcije se definiše na sledeći način:
+• α(∅) = ∅
+• α(0) = {a0 }
+
+44
+
+• α(S) = {a+ }, ako S sadrži samo pozitivne brojeve
+• α(S) = {a− }, ako S sadrži samo negativne brojeve
+• α(S) = {a0 , a+ }, ako S sadrži samo nulu pozitivne brojeve
+• α(S) = {a0 , a− }, ako S sadrži samo nulu negativne brojeve
+• α(S) = {a+ , a− }, ako S sadrži samo pozitivne i negativne brojeve
+• α(S) = {a0 , a− , a+ }, ako S sadrži nulu, pozitivne i negativne
+brojeve
+Fukcija konkretizacije se zadaje sa:
+• γ(∅) = ∅
+• γ({a0 }) = {0}
+• γ({a+ }) = (0, +∞)
+• γ({a− }) = (−∞, 0)
+• γ({a0 , a+ }) = [0, +∞)
+• γ({a0 , a− }) = (−∞, 0]
+• γ({a+ , a− }) = (−∞, 0) ∪ (0, +∞)
+• γ({a+ , a− , a0 }) = Z
+
+Pitanje 4.29 Apstraktna interpretacija. Praktične primene.
+
+Na teorisjkim osnovama asptraktne interpretacije su izgradeni alati za
+statičku analizu kao što su Astree (jez C, avio industija), Polyspace
+(dokazivanje odsustva grešaka u C u C++), CodeSonar (bezbednosne
+ranjivosti), Frama-C (verifikacija C programa).
+Apstraktna interpretacija se primenjuje u razvoju bezbedonosno-kritičnih
+sistema kao što su avio, železnička ili automobilska idustrija i medicinska
+oprema. U ovim obastima je odsustvo odredenih klasa grešaka zakonom
+ili standardom propisano.
+
+45
+
+

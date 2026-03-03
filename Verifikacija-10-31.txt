@@ -1,0 +1,3042 @@
+# Verifikacija 10-32
+
+## **ODGOVORI NA ISPITNA PITANJA 10-32**
+
+---
+
+### **Pitanje 2.10. Testiranje u razvoju softvera. Cena greške u kontekstu vremena otkrivanja.**
+
+**Odgovor:**
+
+Cena greške u kontekstu vremena otkrivanja je **kritički koncept** u razvoju softvera koji pokazuje da je ispravljanje grešaka značajno jeftinije kada se otkrivaju u ranim fazama razvoja, a skupnije u kasnijim fazama.
+
+Greške otkrivene u različitim fazama razvoja imaju sledeće troškove:
+
+1. **Faza analize zahteva** - Najniži trošak. Greška zahteva samo reviziju definisanih zahteva i dodatno vreme analitičara.
+2. **Faza dizajna softvera** - Nešto viši trošak. Ispravka podrazumeva izmenu dizajna, što zahteva dodatni rad dizajnera i ažuriranje opisa implementacije.
+3. **Faza implementacije softvera** - Umeren trošak. Greške otkrivene tokom kodiranja obično programer brzo ispravi. Posebno je bitna faza integracije komponenti - greške ovde su teže za otkrivanje jer uključuju više različitih delova sistema. Ispravka zahteva saradnju više članova tima.
+4. **Faza sistemskog testiranja** - Znatno viši trošak. Cena obuhvata rad tima za kvalitet softvera, prijavu greške, komunikaciju sa programerima, ponovljena testiranja i praćenje kroz sistem za praćenje defekata.
+5. **Faza upotrebe (produkcija)** - Najveća cena. Pored tehničke ispravke, dolazi do gubitka poverenja korisnika i potencijalne reputacione štete.
+
+**Zaključak:** Ranija otkrivanja greške znači brže, jednostavnije i jeftinije ispravljanje. To je razlog zašto je **testiranje tokom razvoja neophodna praksa**.
+
+---
+
+### **Pitanje 2.11. Testiranje u razvoju softvera. Uloga testera u razvoju softvera.**
+
+**Odgovor:**
+
+**Tester softvera** je stručnjak koji se bavi planiranjem, izvođenjem i dokumentovanjem aktivnosti testiranja softverskog sistema, sa ciljem da se obezbedi očekivani kvalitet proizvoda. Njegov osnovni zadatak je sistematsko ispitivanje softvera kako bi se identifikovali defekti u funkcionisanju, performansama ili upotrebljivosti.
+
+**Organizacione strukture i raspodela obaveza:**
+
+1. **Programeri kao testeri** - Programeri su istovremeno i testeri i sami proveravaju svoj kod (često u manjim projektima).
+2. **Integrisan pristup** - Programeri i testeri rade zajedno u istom timu, blisko sarađujući.
+3. **Odvojeni timovi** - Programeri i testeri čine potpuno odvojene timove sa jasnim razgraničenjem odgovornosti (često u većim projektima).
+
+**Problemi u saradnji:**
+
+Kada su programeri i testeri u razdvojenim timovima, često postoje problemi u lošoj komunikaciji, međusobnom nerazumevanju i opštoj netrpeljivosti. Ovi problemi su posledica **psihološke reakcije**:
+
+- Za testera - pronalaženje greške znači da je uspešno obavio svoj zadatak
+- Za programera - pronalaženje greške znači da nije uspešno obavio svoj posao
+
+**Znanja i veštine testera:**
+
+Tester mora da poseduje:
+
+- Osnovno razumevanje programiranja i procesa razvoja softvera
+- Detaljno poznavanje procedura i procesa testiranja
+- Znanje o alatima koji se koriste u testiranju
+
+**Zaključak:** Tester je ključan član razvoja softvera čija je primarna odgovornost sistematsko pronalaženje greške pre nego što softver stigne do korisnika.
+
+---
+
+### **Pitanje 2.12. Testiranje u razvoju softvera. Faze testiranja softvera: planiranje, analiza, dizajn i implementacija testova.**
+
+**Odgovor:**
+
+Testiranje softvera se odvija kroz jasno definisane faze:
+
+**1. Faza planiranja (Planning)**
+
+- Definiše se **strategija testiranja** i **plan testiranja**
+- Identifikuju se resursi, vremenski okvir, budžet i alati koji će se koristiti
+- Određuje se **obim testiranja** (koje delove sistema testirati)
+- Definiše se **pristup testiranju** (statičko/dinamičko, manuelno/automatsko, itd.)
+- Postavljaju se **ciljevi testiranja** i kriterijumi za završetak testiranja
+
+**2. Faza analize (Analysis)**
+
+- **Analiza zahteva** - detaljno razumevanje šta softver treba da radi
+- **Analiza specifikacija** - pregled specifikacija sistema
+- **Identifikacija test slučajeva** - određivanje šta treba testirati
+- Identifikovanje rizika i kritičnih delova softvera
+- Prioretizacija test slučajeva prema važnosti
+
+**3. Faza dizajna (Design)**
+
+- **Pisanje test slučajeva** - detaljno opisivanje kako se vrši testiranje
+- Kreianje **test scenarija** - sekvensi testnih koraka
+- Definisanje **očekivanih rezultata** za svaki test slučaj
+- Kreiranje **test podataka** - specifični ulazni podaci za testiranje
+- Organizovanje testova u logične grupe i prioritete
+
+**4. Faza implementacije (Implementation)**
+
+- **Pisanje test skriptova** - automatizovani testovi (ako se koristi automatizacija)
+- Priprema **test okruženja** - instalacija, konfiguracija potrebnih alata i sistema
+- Kreiranje **test okvira** (test framework) - zajedničku infrastrukturu za testove
+- Organizovanje test slučajeva u **test suites** (kompleti testova)
+- Verifikacija da je sve spremi za izvršavanje
+
+**Primer:** Za bankarsku aplikaciju, u fazi planiranja bi se reklo “testiramo transfer sredstava”, u analizi bi se identifikovalo “trebamo testirati transfer između računa u istoj banci”, u dizajnu bi se napisalo “unesite 100 dinara na račun X, očekuje se uspešan transfer”, a u implementaciji bi se automatizovao test korišćenjem alata.
+
+---
+
+### **Pitanje 2.13. Testiranje u razvoju softvera. Faze testiranja softvera: izvršavanje i evaluacija testova. Zatvaranje testiranja.**
+
+**Odgovor:**
+
+Nakon što se testovi dizajniraju i implementiraju, slede faze izvršavanja, evaluacije i zatvaranja.
+
+**1. Faza izvršavanja (Execution)**
+
+- **Pokretanje test slučajeva** - izvršavanje testova prema redosledu iz plana
+- **Prikupljanje rezultata** - beleženje šta se desilo pri izvršenju
+- **Pronalaženje grešaka** - identifikovanje greške kada test ne prođe
+- **Otvaranje prijava grešaka** - formalno evidentiranje svakog pronađenog problema
+- **Praćenje napredovanja** - monitoring do kada je testiranje završeno
+
+**Dva pristupa:**
+
+- **Manuelno testiranje** - tester ručno izvršava svaki test
+- **Automatizovano testiranje** - test skriptovi se izvršavaju automatski
+
+**2. Faza evaluacije (Evaluation)**
+
+- **Analiza rezultata testiranja** - pregled šta je prošlo, a šta nije
+- **Izveštavanje o greškama** - detaljno dokumentovanje svih pronađenih problema
+- **Prioritizacija grešaka** - određivanje redosleda ispravljanja (kritične prvo)
+- **Praćenje ispravki** - verifikacija da su pronađene greške zaista ispravljene
+- **Procena kvaliteta** - određivanje da li je softver spreman za puštanje u rad
+
+**Kriterijumi za završetak testiranja:**
+
+- Svi planiranitest slučajevi su izvršeni
+- Sve kritične greške su ispravljene
+- Postignuta je dovoljna pokrivenost koda (npr. 80%+)
+- Nema Open (neispravljenih) grešaka visokog prioriteta
+- Sve regresione greške su ispravljene
+
+**3. Faza zatvaranja (Closure)**
+
+- **Finalna verifikacija** - poslednja provera da je softver spreman
+- **Dokumentovanje rezultata** - sveobuhvatan izveštaj o testiranju
+- **Prenos znanja** - transfer informacija korisnicima i tim za podršku
+- **Lekције izvučene** - analiza šta je bilo dobro, a šta se može poboljšati
+- **Zatvaranje test artefakata** - čuvanje dokumenata za budućnost
+
+**Primer:** Nakon što se bankarska aplikacija testira (faza izvršavanja), tester pravi izveštaj (evaluacija) da je pronašao 15 grešaka od kojih su 3 kritične. Kada se sve isprave, tester potvrđuje da je softver spreman za puštanje (zatvaranje), a tim naučila je koja je test strategija bila efikasna.
+
+---
+
+### **Pitanje 2.14. Vrste testiranja. Testiranje jedinca koda. Primeri.**
+
+**Odgovor:**
+
+**Testiranje jedinica koda (Unit Testing)** je vrsta testiranja u kojoj se **pojedinačne funkcije, metode ili male komponente koda testiraju u izolaciji**, bez zavisnosti od ostatka sistema.
+
+**Karakteristike:**
+
+- Najjednostavniji nivo testiranja
+- Testira se najmanja moguća jedinica koda (funkcija, metoda, klasa)
+- Obično ga vrši **programer koji je napisao kod**
+- Koristi se **automatizovano testiranje** (test framework)
+- Test je brz i lak za izvršenje
+- Ima **visoku pokrivenost koda**
+- Otkrivaju se greške **najranije**
+
+**Primeri:**
+
+1. **Testiranje funkcije za sabiranje (Python):**
+
+```python
+def saberi(a, b):
+    return a + b
+
+# Test
+assert saberi(2, 3) == 5
+assert saberi(-1, 1) == 0
+assert saberi(0, 0) == 0
+```
+
+1. **Testiranje validacije email adrese:**
+
+```python
+def je_validna_email(email):
+    return "@" in email and "." in email
+
+# Test
+assert je_validna_email("korisnik@gmail.com") == True
+assert je_validna_email("pogresan_email") == False
+```
+
+1. **Testiranje funkcije za računanje kamate (finansijska aplikacija):**
+
+```python
+def izracunaj_kamatu(glavnica, stopa, vreme):
+    return (glavnica * stopa * vreme) / 100
+
+# Test
+assert izracunaj_kamatu(100, 5, 1) == 5
+assert izracunaj_kamatu(1000, 10, 2) == 200
+```
+
+1. **Testiranje metode za proveru da li je broj prost:**
+
+```python
+def je_prost_broj(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+# Test
+assert je_prost_broj(2) == True
+assert je_prost_broj(7) == True
+assert je_prost_broj(10) == False
+```
+
+**Prednosti:**
+
+- Otkrivaju se greške veoma rano
+- Brzo se izvršavaju
+- Lako se pronalaze bugovi u specifičnom kodu
+- Omogućava **refaktoriziranje** bez straha
+
+**Napomena:** Jedinično testiranje se obično sprovodi automatizovano korišćenjem test framework-a kao što su JUnit (Java), pytest (Python), NUnit (C#), itd.
+
+---
+
+### **Pitanje 2.15. Vrste testiranja. Komponentno i integraciono testiranje. Primeri.**
+
+**Odgovor:**
+
+**Komponentno testiranje** i **integraciono testiranje** su nivoi testiranja koji spajaju više jedinica koda.
+
+**KOMPONENTNO TESTIRANJE (Component Testing)**
+
+Testiranje **pojedinačnih komponenti** - većih blokova koda koji se sastoje od više jedinica (klase, moduli, paketi).
+
+**Karakteristike:**
+
+- Testira se komponenta u izolaciji, ali sa više funkcija/metoda
+- Obično ga vrši **tester ili programer**
+- Koristi se **automatizovano testiranje**
+- Testa se interfejs komponente
+- Zanemaruju se zavisnosti od drugih komponenti (koriste se mock objekti)
+
+**Primer - Komponentno testiranje bankarskog modula za transfer:**
+
+```
+Komponenta: TransferModule
+- Funkcija: validacija_iznosa()
+- Funkcija: provera_dostupnosti_sredstava()
+- Funkcija: izvrsavanje_transfera()
+
+Test: Testiramo sve tri funkcije kao celinu, ali bez stvarne baze podataka
+```
+
+---
+
+**INTEGRACIONO TESTIRANJE (Integration Testing)**
+
+Testiranje **interakcije između više komponenti** kada se spajaju u veće celine.
+
+**Karakteristike:**
+
+- Testira kako komponente **funkcionišu zajedno**
+- Pronalazi greške u komunikaciji između komponenti
+- Obično ga vrši **tester**
+- Koristi se **automatizovano ili manuelno testiranje**
+- Otkrivaju se problemi sa integracijama, API-jima, bazama podataka
+
+**Primeri integracionog testiranja:**
+
+**Primer 1 - Bravia paket (iz literature):**
+Komponenta 1: Login modul
+Komponenta 2: Profil korisnika
+Komponenta 3: Notifikacijski sistem
+
+Integraciono testiranje: Kada se korisnik uloguje, da li se profil ispravno učita i da li se notifikacija pravilno prikazuje?
+
+**Primer 2 - Bankarski sistem:**
+
+- **Komponenta 1**: Modul za login
+- **Komponenta 2**: Modul za transfer sredstava
+- **Komponenta 3**: Modul za notifikacije
+
+**Integraciono test:** Korisnik se loguje → izvršava transfer → prima notifikaciju. Testira se da li sve ove komponente rade zajedno.
+
+**Primer 3 - E-commerce sistema:**
+
+- **Komponenta 1**: Shopping Cart
+- **Komponenta 2**: Payment Processing
+- **Komponenta 3**: Inventory Management
+
+**Test:** Korisnik dodaje proizvod u korpu → vrši plaćanje → sistem automatski smanjuje zalihe. Proveravamo da li se sve komponente sinhronizuju.
+
+**Nivoi integracionog testiranja:**
+
+1. **“Big Bang”** - sve komponente se integrišu odjednom (rizično)
+2. **“Top-Down”** - počinje od vrha, gradimo prema dnu
+3. **“Bottom-Up”** - počinje od dna, gradimo prema vrhu (češće)
+4. **“Sandwich”** - kombinacija Top-Down i Bottom-Up
+
+**Razlika između komponentnog i integracionog:**
+
+- Komponento testiranje: Testira se jedan modul sa svim funkcijama
+- Integraciono testiranje: Testira se kako se više modula međusobno podržava
+
+---
+
+### **Pitanje 2.16. Vrste testiranja. Sistemsko testiranje. Funkcionalno sistemsko testiranje. Regresiono testiranje. Primeri.**
+
+**Odgovor:**
+
+**SISTEMSKO TESTIRANJE** je testiranje **kompletnog sistema kao celine**, sa svim komponentama integrisanim.
+
+---
+
+**1. FUNKCIONALNO SISTEMSKO TESTIRANJE**
+
+Testira se da li **sistem obavlja sve funkcionalnosti kako je specificirano**.
+
+**Karakteristike:**
+
+- Testira se **kompletan sistem** iz perspektive korisnika
+- Provera da li sistem **ispunjava sve zahteve**
+- Tester ignoriše internu strukturu koda
+- Koristi se **manuelno i automatizovano testiranje**
+- Testira se kroz **end-to-end scenarije**
+
+**Primeri:**
+
+**Primer 1 - Bankarsko mobilna aplikacija:**
+
+- Test 1: Korisnik se loguje sa email i lozinkom - očekuje uspešnu prijavu
+- Test 2: Korisnik vidi sve svoje račune na početnoj ekranu
+- Test 3: Korisnik može preneti novac sa računa A na račun B - transfer je uspešan
+- Test 4: Korisnik može platiti račun - plaćanje je potvrđeno
+- Test 5: Korisnik može preuzeti izvod - izvod je dostupan kao PDF
+
+**Primer 2 - E-commerce platforma:**
+
+- Test: Korisnik prosledi kroz: pretraga proizvoda → dodavanje u korpu → plaćanje → porudžbina je potvrđena
+- Test: Korisnik može promeniti količinu proizvoda u korpi
+- Test: Sistem prikazuje tačnu cenu sa porezom i dostavljačkom geburi
+
+---
+
+**2. REGRESIONO TESTIRANJE**
+
+Provera da **nove izmene nisu poremetile postojeće funkcionalnosti**.
+
+**Karakteristike:**
+
+- Testira se **stari kod** nakon što se novi kod doda
+- Cilj: Osigurati da nema “bočnih efekata”
+- Izvršavaju se **već postojeći testovi** koji su prethodno bili dobri
+- **Obavezno automatizovano testiranje** (jer se često ponavljaju)
+- Sprečava **regresiju** (vraćanje na starije greške)
+
+**Primeri:**
+
+**Primer 1 - Bankarsko aplikacija:**
+
+- Originalni test: Transfer sredstava između računa funkcioniše
+- Programer dodaje novu funkcionalnost: Mogućnost dodavanja beleške pri transferu
+- Regresiono testiranje: Trebam da ponovo testiram originalni transfer da vidim da li je još uvek funkcioniše (bez beleške)
+
+**Primer 2 - Gmail:**
+
+- Originalno: Korisnik može slati email
+- Nova funkcionalnost: Planiranje slanja email-a (send later)
+- Regresiono testiranje: Trebam da testiram da normalno slanje email-a još radi (bez “send later”)
+
+**Primer 3 - FIFA video igra:**
+
+- Originalno: Igrač može driblovati loptu
+- Nova funkcionalnost: Dodana nova specijalna finta
+- Regresiono testiranje: Trebam da testiram da originalna dribla i sve ostale karakteristike još rade
+
+**Kada se vrši regresiono testiranje:**
+
+- Nakon ispravljanja greške
+- Posle dodavanja nove funkcionalnosti
+- Nakon ažuriranja biblioteke ili zavisnosti
+- Pred svakim verzijama za puštanje
+
+**Strategije regresionog testiranja:**
+
+1. **Re-test all** - ponovi sve testove (skupo, ali pouzdano)
+2. **Regression test selection** - ponovi samo relevantne testove
+3. **Test case prioritization** - prioritizuj važnije testove
+
+---
+
+### **Pitanje 2.17. Vrste testiranja. Sistemsko testiranje. Istraživačko testiranje. Testovi prihvatljivosti. Instalaciono testiranje. Primeri.**
+
+**Odgovor:**
+
+---
+
+**1. ISTRAŽIVAČKO TESTIRANJE (Exploratory Testing)**
+
+**Karakteristike:**
+
+- Tester **istražuje aplikaciju bez detaljnog plana**
+- Nema unapred napisanih test slučajeva
+- Tester kombinuje **testiranje sa učenjem**
+- Akcenat je na **pronalaženju greške kroz eksperimentisanje**
+- Tester koristi svoju intuiciju i iskustvo
+- Odlično za pronalaženje **neočekivanih grešaka**
+- Tipično se vrši **manuelno**
+
+**Primeri:**
+
+**Primer 1 - Testiranje nove mobilne aplikacije:**
+
+- Tester preuzme aplikaciju i počne da je koristi
+- Pokušava da unese karaktere u polje za broj - šta se dešava?
+- Pokušava da ottvori aplikaciju sa loše internetskom vezom
+- Pokušava da instala aplikaciju dva puta - šta se dešava?
+- Pronalazi greške kroz slobodno istraživanje
+
+**Primer 2 - Testiranje Gmail-a:**
+
+- Tester prosledi kroz sve opcije na početnoj ekranu
+- Pokušava da dodeli emejl sa više od 100 prilogama
+- Pokušava da pošalje emejl sebi sa različitih vremenske zone
+- Pronalazi nepredvidive greške kroz eksperimentisanje
+
+---
+
+**2. TESTOVI PRIHVATLJIVOSTI (Acceptance Testing)**
+
+**Karakteristike:**
+
+- Testira se da li **softver zadovoljava poslovne zahteve korisnika**
+- Obavlja je **korisnik ili njegov predstavnik**
+- Provera: **“Mogu li koristiti ovaj softver za svoj posao?”**
+- Obavlja se **PRE nego što se softver pusti u rad**
+- Ako prođe, softver se prihvata (acceptance)
+- Ako ne prođe, softver se vraća na ispravku
+- Koristi se **manuelno testiranje**
+
+**Primeri:**
+
+**Primer 1 - Bankarsko aplikacija:**
+Klijent (banka) testira:
+
+- Mogu li korisnici preneti novac između računa?
+- Mogu li upravljati svoje račune?
+- Kako izgleda izvod?
+- Da li je brz sistem?
+
+Ako klijent rekne “DA, PRIHVATA SE”, aplikacija ide u produkciju.
+
+**Primer 2 - Sistem za prodaju ulaznica:**
+Predstavnik kompanije koja prodaje karte testira:
+
+- Mogu li da kreliram novu event?
+- Mogu li da postavim cenu karata?
+- Mogu li da vidim koliko je karata prodano?
+- Sistem je spreman za upotrebu?
+
+---
+
+**3. INSTALACIONO TESTIRANJE (Installation Testing)**
+
+**Karakteristike:**
+
+- Testira se **proces instalacije softvera**
+- Proverava se da li se softver ispravno instalira na različitim sistemima
+- Testira se **deinstalacija** softvera
+- Proverava se da li su svi potrebni fajlovi instalirani
+- Testira se konfiguracija nakon instalacije
+- Obavlja se **pre puštanja softvera korisnicima**
+- Obavlja se **manuelno ili automatizovano**
+
+**Primeri:**
+
+**Primer 1 - Instalacija antivirus programa:**
+
+- Preuzmi instalacijski program
+- Instaliraj na čistom Windows sistemu
+- Proveri da li se sve datoteke instaliraju
+- Pokušaj deinstalirati
+- Proveri da li su sve datoteke obrisane
+
+**Primer 2 - Instalacija WordPress-a:**
+
+- Preuzmem WordPress sa sajtа
+- Instaliram na server
+- Konfiguiram bazu podataka
+- Proverim da li je sajt dostupan
+
+**Primer 3 - Instalacija aplikacije na Android:**
+
+- Preuzmem aplikaciju sa Google Play-a
+- Instaliram na telefonu
+- Proverm je li sve funkcionisalo pri prvom pokretanju
+- Pokušam da deinstalram
+- Proverm da li je memorija oslobođena
+
+---
+
+### **Pitanje 2.18. Vrste testiranja. Nefunkcionalno testiranje. Testovi performansi. Testovi kompatibilnosti. Testovi pouzdanosti. Primeri.**
+
+**Odgovor:**
+
+**NEFUNKCIONALNO TESTIRANJE** provera kako se sistem **ponaša**, a ne **šta radi**.
+
+---
+
+**1. TESTOVI PERFORMANSI (Performance Testing)**
+
+**Karakteristike:**
+
+- Testira se **brzina, odziv i kapacitet sistema**
+- Provera kako sistem radi pod različitim opterećenjima
+- Merenje: **vreme odziva, protok, korišćenje resursa**
+- Obavlja se **automatizovano** (koriste se posebni alati)
+- Kritično je za sisteme sa visokim saobraćajem
+
+**Primeri:**
+
+**Primer 1 - Kupovina avio karata:**
+
+- Zahtev: Pretraga karata treba da se izvrši za manje od 2 sekunde u 97% slučajeva
+- Test: Simulacija 10.000 korisnika koji istovremeno pretražuju karte
+- Provera: Da li sistem odgovara u roku od 2 sekunde?
+
+**Primer 2 - E-commerce Black Friday:**
+
+- Zahtev: Sistem treba da bude dostupan kada posetilo više od 100.000 korisnika istovremeno
+- Test: Simulacija 100.000 korisnika koji kupuju proizvode
+- Provera: Koliko je korisnika moglo da završi kupovinu bez pada sistema?
+
+**Primer 3 - Video streaming:**
+
+- Zahtev: Vidoe trebaju da se učitavaju bez bufferisanja
+- Test: Simulacija streaming-a sa različitim brzinama interneta (4G, LTE, Wi-Fi)
+- Provera: Kolika je maksimalna rezolucija koju korisnik može da gleda bez prekida?
+
+---
+
+**2. TESTOVI KOMPATIBILNOSTI (Compatibility Testing)**
+
+**Karakteristike:**
+
+- Testira se **kompatibilnost sa različitim sredinama**
+- Provera: Različiti operativni sistemi, pregledači, rezolucije ekrana, verzije biblioteka
+- Obavlja se **manuelno ili automatizovano**
+- Obavezna za web i mobilne aplikacije
+
+**Primeri:**
+
+**Primer 1 - Web sajt:**
+
+- Testiranje u različitim pregledačima: Chrome, Firefox, Safari, Edge
+- Testiranje na različitim rezolucijama: mobilni (320px), tablet (768px), desktop (1920px)
+- Testiranje na različitim operativnim sistemima: Windows, Mac, Linux
+
+**Primer 2 - Mobilna aplikacija:**
+
+- Testiranje na Android 10, 11, 12, 13
+- Testiranje na iPhone sa iOS 14, 15, 16
+- Testiranje na različitim veličinama ekrana: mali (4.7”), srednji (5.5”), veliki (6.7”)
+
+**Primer 3 - Video igra:**
+
+- Testiranje na različitim grafičkim kartama (NVIDIA, AMD)
+- Testiranje na različitim procesorima (Intel, AMD)
+- Testiranje na Windows 10, 11
+
+---
+
+**3. TESTOVI POUZDANOSTI (Reliability Testing)**
+
+**Karakteristike:**
+
+- Testira se **stabilnost sistema tokom dužeg perioda**
+- Provera: Koliko dugo sistem može da radi bez greške ili pada?
+- Obavlja se **automatizovano** kroz duge periode
+- Merenje: **Mean Time Between Failures (MTBF)**
+- Kritično je za sisteme koji moraju biti dostupni 24/7
+
+**Primeri:**
+
+**Primer 1 - Hitna služba (911/112):**
+
+- Zahtev: Sistem mora biti dostupan 99.99% vremena (samo 52 minuta nedostupnosti godišnje)
+- Test: Sistem se pokreće kontinuirano 30 dana
+- Provera: Koliko puta je sistem pao?
+
+**Primer 2 - Banka:**
+
+- Zahtev: Sistem mora biti dostupan 99.95% (manje od 22 minuta mesečne nedostupnosti)
+- Test: Simulacija realnog prometa tokom 1 meseca
+- Provera: Da li je sistem pao?
+
+**Primer 3 - Internet Provider:**
+
+- Zahtev: Interneta dostupnost > 99.9%
+- Test: Praćenje konekcije tokom 3 meseca
+- Provera: Koliko puta je došlo do prekida?
+
+---
+
+### **Pitanje 2.19. Vrste testiranja. Nefunkcionalno testiranje. Testovi upotrebljivosti. Testovi bezbednosti. Testovi sigurnosti. Testovi prenosivosti. Primeri.**
+
+**Odgovor:**
+
+---
+
+**1. TESTOVI UPOTREBLJIVOSTI (Usability Testing)**
+
+**Karakteristike:**
+
+- Testira se **da li je aplikacija laka za korišćenje**
+- Provera: Korisničko iskustvo, interfejs, intuitivnost
+- Obavlja se **sa pravim korisnicima** (user testing)
+- **Manuelno testiranje** sa povratnom informacijom
+- Cilj: “Može li prosečan korisnik da koristi aplikaciju bez teškoća?”
+
+**Primeri:**
+
+**Primer 1 - Bankarska aplikacija:**
+
+- Test: Može li korisnik da prosledi kroz transfer sredstava u manje od 30 sekundi?
+- Test: Da li su svi dugmići vidljivi i jasni?
+- Test: Korisnik sa oštećenjem vida - može li da koristi aplikaciju sa screen reader-om?
+- Povratna informacija: “Trebam da kliknem 5 puta da nađem opciju za transfer - prekomplicirana je!”
+
+**Primer 2 - Google pretraga:**
+
+- Tester koristi Google bez uputstva
+- Proverava se: Jednostavnost, brzinapretraga, jasnost rezultata
+- Google je dobra upotrebljivost: jednostavna pretraga, jedan kutak za unos
+
+**Primer 3 - iPhone interfejs:**
+
+- Tester koji nikada nije koristio iPhone
+- Može li da pronađe sve opcije?
+- Koliko dugo mu treba da nauči?
+
+---
+
+**2. TESTOVI BEZBEDNOSTI (Safety Testing)**
+
+**Karakteristike:**
+
+- Testira se **fizička bezbednost korisnika**
+- Provera: Sistem ne sme da ugrozi zdravlje ili sigurnost
+- Kritično je za sisteme kao što su medicinski uređaji, autonomna vozila
+- Obavlja se prema standardima (ISO 26262 za automobil, IEC 60601 za medicinu)
+
+**Primeri:**
+
+**Primer 1 - Medicinski uređaj (pacemaker):**
+
+- Test: Ako baterija pada, uređaj mora da se prebaci u bezbedan režim
+- Test: Ako dođe do elektromagnetne interferencije, uređaj mora ostati funkcionalan
+- Cilj: Zaštita pacijentovog života
+
+**Primer 2 - Automobilski sistem (kočnice):**
+
+- Test: Ako elektronski sistem kočenja padne, mehaničke kočnice moraju da funkcionišu
+- Test: Ako automobil ne može da napravi manevru, mora da se zaustavi
+- Cilj: Zaštita putnika
+
+**Primer 3 - Industrijska robota:**
+
+- Test: Ako robot prolazi kroz prostor gde su radnici, mora da se zaustavi
+- Test: Robot ne sme da povređuje ljude
+- Zahtev: 1.5 metra zona sigurnosti oko robota
+
+---
+
+**3. TESTOVI SIGURNOSTI (Security Testing)**
+
+**Karakteristike:**
+
+- Testira se **zaštita od neovlašćenog pristupa i napada**
+- Provera: Šifrovanje, autentifikacija, integritet podataka
+- Obavlja se **automatizovano i manuelno**
+- Često se radi kroz “penetration testing” (simulacija napad)
+- Cilj: Pronalaženje sigurnosnih ranjivosti
+
+**Primeri:**
+
+**Primer 1 - Bankarska aplikacija:**
+
+- Test: Pokušaj da pristupim računu drugog korisnika sa mojim korisničkim imenom
+- Test: Pokušaj da šaljem 1 trilion dinara - sistem to dozvolava?
+- Test: Mogu li da provejem lozinku drugog korisnika?
+- Test: Je li šifrovanje podataka aktivno?
+
+**Primer 2 - Facebook:**
+
+- Test: Pokušaj da se lognem sa pogrešnom lozinkom - koliko pokušaja dozvolava?
+- Test: Ima li dvofaktorska autentifikacija?
+- Test: Mogu li da pristupim privatnim profilima?
+- Test: Šta se dešava sa mojim podacima kada izbrišem profil?
+
+**Primer 3 - E-commerce (plaćanje):**
+
+- Test: Je li broj kreditne kartice šifrovan pri slanju?
+- Test: Može li hekerje da otkrije moj broj kartice iz network traffic-a?
+- Test: Postoji li SQL injection ranjivost?
+
+---
+
+**4. TESTOVI PRENOSIVOSTI (Portability Testing)**
+
+**Karakteristike:**
+
+- Testira se **instalacija i korišćenje na različitim platformama**
+- Provera: Različiti OS-i, verzije, arhitekture
+- Obavlja se **manuelno**
+- Cilj: “Može li korisnik sa druge platforme koristiti moj softver?”
+
+**Primeri:**
+
+**Primer 1 - Microsoft Office:**
+
+- Office na Windows 10
+- Office na Windows 11
+- Office na macOS
+- Office na Android
+- Office na iOS
+
+**Primer 2 - Video igra:**
+
+- Igra na PlayStation 5
+- Igra na Xbox Series X
+- Igra na PC
+- Igra na Nintendo Switch
+- Igra na mobilnom telefonu
+
+**Primer 3 - Python aplikacija:**
+
+- Pokretanje na Windows
+- Pokretanje na Linux
+- Pokretanje na macOS
+
+---
+
+### **Pitanje 2.20. Tehnike testiranja. Karakteristike dobrog skupa testova. Pokrivenost testiranjem. Podela na tehnike testiranja.**
+
+**Odgovor:**
+
+---
+
+**KARAKTERISTIKE DOBROG SKUPA TESTOVA**
+
+Dobar skup testova ima sledeće karakteristike:
+
+▶ Visokpotencĳal otkrivanja grešaka.
+▶ Relativno mala veličina.
+▶ Relativno velika brzina izvršavanja.
+▶ Pružavisok stepen poverenja upouzdanost softvera.
+
+‘’ iz skripte’’
+
+---
+
+**1. Kompletnost**
+
+- Pokriva sve moguće scenarije (normalne, granične, pogrešne slučajeve)
+- Svi zahtevi su testirani
+- Nema zaboravljenih test slučajeva
+
+**2. Validnost**
+
+- Testovi proveravaju tačnu funkcionalnost
+- Testovi su tačno napisani
+- Očekivani rezultati su ispravni
+
+**3. Nezavisnost**
+
+- Testovi nisu međusobno zavisni
+- Rezultat jednog testa ne utiče na drugi test
+- Testovi se mogu izvršavati u bilo kojem redosledu
+
+**4. Efikasnost**
+
+- Testovi su brzo izvedivi
+- Nema redundantnih testova (duplikata)
+- Koriste se relevantni test podaci
+
+**5. Jasnoća**
+
+- Test slučajevi su jasno dokumentovani
+- Očekivani rezultati su nedvosmisleni
+- Lako se može razumeti šta se testira
+
+---
+
+**POKRIVENOST TESTIRANJEM (Test Coverage)**
+
+**Definicija:** Procenat koda ili funkcionalnosti koji je obuhvaćen testovima.
+
+Postoji : Pokrivenost zahteva, pokrivenost funkcionalnosti, pokrivenost koda
+
+**Formule:**
+
+- Test Coverage = (Broj pokrivenih redova koda / Ukupan broj redova koda) × 100%
+- Test Coverage = (Broj pokrivenih funkcija / Ukupan broj funkcija) × 100%
+
+**Primeri pokrivenosti:**
+
+**Primer 1 - Python kod:**
+
+```python
+def je_pozitivan(broj):  # Linija 1
+    if broj > 0:         # Linija 2
+        return True      # Linija 3
+    else:
+        return False     # Linija 4
+```
+
+- Test samo sa pozitivnim brojem (5): Pokrivene linije 1,2,3 = 75% pokrivenost
+- Test sa oba slučaja (5 i -5): Pokrivene linije 1,2,3,4 = 100% pokrivenost
+
+Primer 2- Zahtev ≠ Funkcionalnost:
+
+- Postoje zahtevi na specifikaciji
+- Postoje funkcionalnosti koje se ne nalaze na specifikaciji ali su logican sled implementacije (dugme kupi ne radi kad je korpa prazna)
+- U tim slucajevima funkcionalna pokrivenost i zahtevna pokrivenost nisu iste stvari
+
+**Preporučeni nivoi pokrivenosti:**
+
+- Minimalno: 60-70% (osnovna funkcionalnost)
+- Normalno: 75-85% (dobar standard)
+- Visoko: 85-95% (kritični sistemi)
+- Veoma visoko: 95%+ (medicinski, vazduhoplovni sistemi)
+
+---
+
+**PODELA TEHNIKA TESTIRANJA**
+
+Tehnike testiranja se mogu podeliti u tri glavne kategorije:
+
+**1. TESTIRANJE CRNE KUTIJE (Black Box Testing)**
+
+- **Šta se testira:** Ponašanje aplikacije bez znanja o internom kodu
+- **Ko je testira:** Tester
+- **Fokus:** Ulazni i izlazni podaci
+- **Tehnike:**
+    - Isprobavanje svih mogućih ulaza
+    - Metod klasa ekvivalencije
+    - Metod graničnih vrednosti
+    - Tabele odlučivanja
+    - Dijagrami stanja
+
+**Primer:** Testiram banking aplikaciju tako što pokušavam da prenesem različite iznose i vidim da li se transferuje pravilno, bez gledanja kako kod funkcioniše.
+
+---
+
+**2. TESTIRANJE BELE KUTIJE (White Box Testing)**
+
+- **Šta se testira:** Internu strukturu koda, logiku, putanje
+- **Ko je testira:** Programer
+- **Fokus:** Redovi koda, grane, putanje
+- **Tehnike:**
+    - Testiranje putanja
+    - Pokrivenost redova koda
+    - Pokrivenost grana
+    - Pokrivenost iskaza
+
+**Primer:** Testiranje banking aplikacije analizom kako kod obrađuje različite iznose - sve if iskaze, sve petlje.
+
+---
+
+**3. TESTIRANJE SIVE KUTIJE (Gray Box Testing)**
+
+- **Šta se testira:** Kombinacija internog znanja i spoljnog testiranja
+- **Ko je testira:** Tester koji ima osnovno znanje o kodu
+- **Fokus:** Kombinacija logike i ponašanja
+
+**Primer:** Testiram banking aplikaciju sa znanjem kako struktura baze podataka izgleda, ali fokusiram se na funkcionalnost.
+
+---
+
+Problem prorocista postoji kao situacija gde ne znamo sta je izlaz. Odnosno ne mozemo pretpostaviti.
+
+### **Pitanje 2.21. Tehnike testiranja. Testiranje metodama crne kutije. Isprobavanja svih mogućih ulaza. Metod klasa ekvivalencije. Primeri.**
+
+**Odgovor:**
+
+---
+
+**TESTIRANJE CRNE KUTIJE** - Tester ne zna kako kod funkcioniše, samo testira šta sistem radi.
+
+---
+
+**1. ISPROBAVANJA SVIH MOGUĆIH ULAZA (Exhaustive Testing)**
+
+**Karakteristike:**
+
+- Testira se **svi mogući ulazni podaci**
+- Tester proba sve mogućnosti
+- Teorijski: **Savršena pokrivenost**, u praksi: **Nemoguće za velike sisteme**
+- Najjednostavniji pristup, ali nepraktičan
+
+**Primer:**
+
+Funkcija: `je_pozitivan(broj)` - proverava da li je broj pozitivan
+
+Svi mogući ulazi: -∞, -1000, -100, -10, -1, 0, 1, 10, 100, 1000, ∞
+
+Izlazi: True (pozitivan) ili False (nije pozitivan)
+
+```
+Testiranje svih mogućnosti:
+je_pozitivan(-1000) → False ✓
+je_pozitivan(-100)  → False ✓
+je_pozitivan(-1)    → False ✓
+je_pozitivan(0)     → False ✓
+je_pozitivan(1)     → True ✓
+je_pozitivan(100)   → True ✓
+je_pozitivan(1000)  → True ✓
+```
+
+**Problem:** Za broj koji može biti od -∞ do +∞, nemoguće je testirati sve kombinacije!
+
+---
+
+**2. METOD KLASA EKVIVALENCIJE (Equivalence Class Partitioning)**
+
+**Karakteristike:**
+
+- Ulazni podaci se **dele na grupe (klase) sa sličnim ponašanjem**
+- Testira se **jedan predstavnik iz svake klase**
+- Smanjuje broj testova, povećava efikasnost
+- Česti pristup u praksi
+
+**Principi:**
+
+1. Identifikuj klase ekvivalencije
+2. Izaberi jedan test slučaj iz svake klase
+3. Ponovi sve klase sa graničnim vrednostima
+
+---
+
+**PRIMERI:**
+
+**Primer 1 - Funkcija `je_pozitivan(broj)`**
+
+Klase ekvivalencije:
+
+- Klasa 1: Negativni brojevi
+- Klasa 2: Nula
+- Klasa 3: Pozitivni brojevi
+
+Testovi:
+
+```
+je_pozitivan(-5)    → False ✓  (predstavnik klase negativnih)
+je_pozitivan(0)     → False ✓  (predstavnik klase nula)
+je_pozitivan(5)     → True ✓   (predstavnik klase pozitivnih)
+```
+
+---
+
+**Primer 2 - Polje za unos godišta**
+
+Zahtev: “Unesi godinu između 1900 i 2024”
+
+Klase ekvivalencije:
+
+- Klasa 1: Prema mali broj (< 1900)
+- Klasa 2: Validna godina (1900-2024)
+- Klasa 3: Preveliki broj (> 2024)
+
+Testovi:
+
+```
+Unos: 1800  → Greška "Godina premaljena!" ✓
+Unos: 1950  → Prihvaceno ✓
+Unos: 2030  → Greška "Godina premamala!" ✓
+```
+
+---
+
+**Primer 3 - Sistem za kupovinu avio karata**
+
+Zahtev: “Broj putnika: minimalno 1, maksimalno 9”
+
+Klase ekvivalencije:
+
+- Klasa 1: Prema mali (< 1)
+- Klasa 2: Validna (1-9)
+- Klasa 3: Prevelika (> 9)
+
+Testovi:
+
+```
+Unos: 0  → Greška "Minimalno 1 putnik!" ✓
+Unos: 4  → Prihvaceno - 4 putnika ✓
+Unos: 15 → Greška "Maksimalno 9 putnika!" ✓
+```
+
+---
+
+**Primer 4 - Polje email**
+
+Zahtev: “Unesi validnu email adresu”
+
+Klase ekvivalencije:
+
+- Klasa 1: Validan email (sadrži @ i .)
+- Klasa 2: Nevažeći email (nema @)
+- Klasa 3: Nevažeći email (nema .)
+
+Testovi:
+
+```
+Unos: korisnik@gmail.com    → Prihvaceno ✓
+Unos: korisnikgmail.com     → Greška "Nevažeći format!" ✓
+Unos: korisnik@com          → Greška "Nevažeći format!" ✓
+```
+
+---
+
+**Prednosti klasa ekvivalencije:**
+
+- ✓ Smanjuje broj testova
+- ✓ Efikasno otkrivanje grešaka
+- ✓ Jasna organizacija testova
+- ✓ Lakše održavanje
+
+**Nedostaci:**
+
+- ✗ Može se propustiti greška na granicama klasa
+- → To se rešava sa **metodom graničnih vrednosti** (što je sledeće pitanje)
+
+---
+
+### **Pitanje 2.22. Tehnike testiranja. Testiranje metodama crne kutije. Metod klasa ekvivalencije. Metod graničnih vrednosti. Primeri.**
+
+**Odgovor:**
+
+---
+
+**METOD GRANIČNIH VREDNOSTI (Boundary Value Analysis)**
+
+**Karakteristike:**
+
+- Testira se **na granicama klasa ekvivalencije** gde se često javljaju greške
+- Greške se često dešavaju na granama: između “manje od” i “veće od”
+- Testira se **minimalnu i maksimalnu vrednost** svake klase
+- Kombinuje se sa **metodom klasa ekvivalencije**
+
+**Princip:**
+Za interval od A do B, testiraju se vrednosti:
+
+- A - 1 (malo ispod donje granice)
+- A (donja granica)
+- A + 1 (malo iznad donje granice)
+- B - 1 (malo ispod gornje granice)
+- B (gornja granica)
+- B + 1 (malo iznad gornje granice)
+
+---
+
+**PRIMERI:**
+
+**Primer 1 - Polje za unos godišta (1900-2024)**
+
+Klase ekvivalencije:
+
+- Klasa 1: < 1900
+- Klasa 2: 1900-2024 (validna)
+- Klasa 3: > 2024
+
+Granične vrednosti:
+
+```
+Test: 1899  → Greška ✓         (granica - 1)
+Test: 1900  → Prihvaceno ✓    (donja granica - validna)
+Test: 1901  → Prihvaceno ✓    (granica + 1)
+Test: 2023  → Prihvaceno ✓    (granica - 1)
+Test: 2024  → Prihvaceno ✓    (gornja granica - validna)
+Test: 2025  → Greška ✓         (granica + 1)
+```
+
+---
+
+**Primer 2 - Broj putnika u sistemu za kupovinu karata (1-9)**
+
+Klase ekvivalencije:
+
+- Klasa 1: < 1
+- Klasa 2: 1-9 (validno)
+- Klasa 3: > 9
+
+Granične vrednosti:
+
+```
+Test: 0   → Greška ✓       (< 1)
+Test: 1   → Prihvaceno ✓   (minimalna validna vrednost)
+Test: 2   → Prihvaceno ✓   (granica + 1)
+Test: 8   → Prihvaceno ✓   (granica - 1)
+Test: 9   → Prihvaceno ✓   (maksimalna validna vrednost)
+Test: 10  → Greška ✓       (> 9)
+```
+
+---
+
+**Primer 3 - Proveravanje uzrasta za vozačku dozvolu (18-65)**
+
+Klase ekvivalencije:
+
+- Klasa 1: < 18
+- Klasa 2: 18-65 (validno)
+- Klasa 3: > 65
+
+Granične vrednosti:
+
+```
+Test: 17  → Greška "Preminuli ste!" ✓       (< 18)
+Test: 18  → Prihvaceno ✓                     (minimalna validna)
+Test: 19  → Prihvaceno ✓                     (granica + 1)
+Test: 64  → Prihvaceno ✓                     (granica - 1)
+Test: 65  → Prihvaceno ✓                     (maksimalna validna)
+Test: 66  → Greška "Priprenostari!" ✓       (> 65)
+```
+
+---
+
+**Primer 4 - Popust za kupovinu (10% popust za kupovine > 1000 dinara)**
+
+Klase ekvivalencije:
+
+- Klasa 1: <= 1000 dinara (bez popusta)
+- Klasa 2: > 1000 dinara (sa 10% popusta)
+
+Granične vrednosti:
+
+```
+Test: 999  → Cena bez popusta ✓
+Test: 1000 → Cena bez popusta ✓     (granica)
+Test: 1001 → Cena sa 10% popusta ✓  (granica + 1)
+```
+
+---
+
+**Kombinovanje klasa ekvivalencije i graničnih vrednosti:**
+
+**Primer 5 - Skup testova za bankarsku aplikaciju (transfer sredstava)**
+
+Zahtev: “Unesite iznos za transfer: minimalno 10 dinara, maksimalno 100.000 dinara”
+
+```
+Klase ekvivalencije:
+1. Manji od 10 dinara
+2. Od 10 do 100.000 dinara (validno)
+3. Veće od 100.000 dinara
+
+Granične vrednosti - Set testova:
+
+Test 1: 0 dinara         → Greška "Minimalno 10 dinara!" ✓
+Test 2: 9 dinara         → Greška "Minimalno 10 dinara!" ✓
+Test 3: 10 dinara        → Prihvaceno ✓              (donja granica)
+Test 4: 50.000 dinara    → Prihvaceno ✓              (sredina - klasa 2)
+Test 5: 100.000 dinara   → Prihvaceno ✓              (gornja granica)
+Test 6: 100.001 dinara   → Greška "Maksimalno 100.000!" ✓
+Test 7: 1.000.000 dinara → Greška "Maksimalno 100.000!" ✓
+```
+
+---
+
+**Metod sa dve vrednosti:** Testiraju se samo donja i gornja granica:
+
+```
+Test: 10      → Prihvaceno ✓
+Test: 100.000 → Prihvaceno ✓
+```
+
+**Metod sa tri vrednosti:** Testiraju se -1, granična vrednost, i +1:
+
+```
+Test: 9       → Greška ✓
+Test: 10      → Prihvaceno ✓
+Test: 11      → Prihvaceno ✓
+```
+
+**Metod sa pet vrednosti:** Kompletne granice:
+
+```
+Test: 9       → Greška ✓
+Test: 10      → Prihvaceno ✓
+Test: 99.999  → Prihvaceno ✓
+Test: 100.000 → Prihvaceno ✓
+Test: 100.001 → Greška ✓
+```
+
+---
+
+**Prednosti graničnih vrednosti:**
+
+- ✓ Pronalazi greške na granicama
+- ✓ Brzo otkrivanje off-by-one grešaka
+- ✓ Minimalan broj testova
+- ✓ Efikasno u praksi
+
+---
+
+### **Pitanje 2.23. Tehnike testiranja. Karakteristike dobrog skupa testova. Tabele odlučivanja. Primeri.**
+
+**Odgovor:**
+
+---
+
+**TABELE ODLUČIVANJA (Decision Tables)**
+
+**Karakteristike:**
+
+- Koristi se za testiranje **sistema sa složenim logikom i kombinacijama ulaza**
+- Tabela prikazuje **sve kombinacije uslova i očekivane rezultate**
+- Svaki red je **jedan test slučaj**
+- Odličan metod za **pravila i politike**
+
+**Struktura tabele:**
+
+```
+┌─────────────────────────────────────────────────────┐
+│ Uslovi (Conditions)                                 │
+├─────────────────────────────────────────────────────┤
+│ Akcije (Actions)                                    │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+**PRIMERI:**
+
+**Primer 1 - Odobravaju kredita**
+
+Zahtev: “Odobri kredit ako je korisnik star > 21 god I ima dobru kreditnu istoriju I godišnji prihod > 30.000 dinara”
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ Test Case    │ Test 1 │ Test 2 │ Test 3 │ Test 4 │ Test 5  │
+├──────────────────────────────────────────────────────────────┤
+│ Uslovi:      │        │        │        │        │         │
+│ Uzrast > 21  │  DA    │  DA    │  DA    │  NE    │  DA     │
+│ Dobra hist.  │  DA    │  DA    │  NE    │  DA    │  DA     │
+│ Prihod > 30k │  DA    │  NE    │  DA    │  DA    │  DA     │
+├──────────────────────────────────────────────────────────────┤
+│ Akcija:      │        │        │        │        │         │
+│ Odobri       │ ✓      │ ✗      │ ✗      │ ✗      │ ✓       │
+└──────────────────────────────────────────────────────────────┘
+```
+
+Testovi:
+
+```
+Test 1: Uzrast 30, dobra istorija, prihod 50k  → Odobren ✓
+Test 2: Uzrast 30, dobra istorija, prihod 20k  → Odbijen ✓
+Test 3: Uzrast 30, loša istorija, prihod 50k   → Odbijen ✓
+Test 4: Uzrast 18, dobra istorija, prihod 50k  → Odbijen ✓
+Test 5: Uzrast 30, dobra istorija, prihod 50k  → Odobren ✓
+```
+
+---
+
+**Primer 2 - Popust za kupovinu**
+
+Zahtev:
+
+- Ako je kupovina > 5000 dinara, 10% popust
+- Ako je kupac VIP član, dodatnih 5% popusta
+- Ako je praznik, dodatnih 3% popusta
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ Test Case    │ T1  │ T2  │ T3  │ T4  │ T5  │ T6  │ T7  │ T8  │
+├──────────────────────────────────────────────────────────────┤
+│ Iznos > 5000 │ DA  │ DA  │ DA  │ DA  │ NE  │ NE  │ NE  │ NE  │
+│ VIP član     │ DA  │ DA  │ NE  │ NE  │ DA  │ DA  │ NE  │ NE  │
+│ Praznik      │ DA  │ NE  │ DA  │ NE  │ DA  │ NE  │ DA  │ NE  │
+├──────────────────────────────────────────────────────────────┤
+│ Popust %:    │ 18% │ 15% │ 13% │ 10% │ 8%  │ 5%  │ 3%  │ 0%  │
+└──────────────────────────────────────────────────────────────┘
+```
+
+Testovi:
+
+```
+T1: 6000 dinara, VIP, praznik    → 18% popusta (10+5+3) ✓
+T2: 6000 dinara, VIP, obično     → 15% popusta (10+5)    ✓
+T3: 6000 dinara, obično, praznik → 13% popusta (10+3)    ✓
+T4: 6000 dinara, obično, obično  → 10% popusta           ✓
+T5: 3000 dinara, VIP, praznik    → 8% popusta (5+3)      ✓
+T6: 3000 dinara, VIP, obično     → 5% popusta            ✓
+T7: 3000 dinara, obično, praznik → 3% popusta            ✓
+T8: 3000 dinara, obično, obično  → 0% popusta            ✓
+```
+
+---
+
+**Primer 3 - Validacija lozinke**
+
+Zahtev:
+
+- Lozinka mora biti > 8 karaktera
+- Mora sadržati velika slova
+- Mora sadržati brojeve
+- Mora sadržati specijalne znakove
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ Test      │ T1 │ T2 │ T3 │ T4 │ T5 │ T6 │ T7 │ T8 │ T9 │ T10│
+├──────────────────────────────────────────────────────────────┤
+│ > 8 char  │ DA │ DA │ DA │ DA │ NE │ DA │ DA │ DA │ DA │ DA │
+│ Velika    │ DA │ NE │ DA │ DA │ DA │ NE │ DA │ DA │ DA │ DA │
+│ Broj      │ DA │ DA │ NE │ DA │ DA │ DA │ NE │ DA │ DA │ DA │
+│ Spec.     │ DA │ DA │ DA │ NE │ DA │ DA │ DA │ NE │ DA │ DA │
+├──────────────────────────────────────────────────────────────┤
+│ Validna   │ ✓  │ ✗  │ ✗  │ ✗  │ ✗  │ ✗  │ ✗  │ ✗  │ ✓  │ ✓  │
+└──────────────────────────────────────────────────────────────┘
+```
+
+Testovi:
+
+```
+T1:  "Aa123!@#"        → Validna (sve zahteve ima) ✓
+T2:  "aa123!@#"        → Nevažeća (nema velikog slova) ✓
+T3:  "Aa!@#XXX"        → Nevažeća (nema broja) ✓
+T4:  "Aa123XXX"        → Nevažeća (nema spec. znaka) ✓
+...
+T9:  "MyPassword@123"  → Validna ✓
+T10: "SecurePass!2024" → Validna ✓
+```
+
+---
+
+**Prednosti tabela odlučivanja:**
+
+- ✓ Sistematski pokriva sve kombinacije
+- ✓ Pronalazi greške u kombinacijama uslova
+- ✓ Lako se pravi i razume
+- ✓ Idealno za kompleksnu logiku sa više uslova
+
+**Nedostaci:**
+
+- ✗ Broj testova može biti veliki (2^n kombinacija za n uslova)
+- ✗ Ne može se uvek testirati sve kombinacije (praktično ograničenja)
+
+---
+
+### **Pitanje 2.24. Tehnike testiranja. Karakteristike dobrog skupa testova. Dijagrami stanja. Tabele stanja. Primeri.**
+
+**Odgovor:**
+
+---
+
+**DIJAGRAMI STANJA (State Diagrams)**
+
+**Karakteristike:**
+
+- Prikazuje **sve moguće stanja sistema i prelaze između njih**
+- Koristi se za sisteme sa **diskretnim stanjima** (npr. lift, bankomat, prosleda)
+- Svaki krug predstavlja **jedno stanje**
+- Svaka strelica predstavlja **akciju/prelaz**
+
+**Struktura:**
+
+```
+     Akcija A
+     ────────→
+┌─────────────┐      ┌─────────────┐
+│  Stanje 1   │      │  Stanje 2   │
+└─────────────┘      └─────────────┘
+     ←────────
+     Akcija B
+```
+
+---
+
+**PRIMERI:**
+
+**Primer 1 - Dijagram stanja za bankomat**
+
+```
+         ┌─────────────────────────────────┐
+         │                                 │
+         │                                 │
+         ▼                                 │
+    ┌──────────────┐                      │
+    │ IDLE         │ ◄──────── LOGOVAT SE │
+    │ (Čekanje)    │                      │
+    └──────────────┘                      │
+         │                                 │
+         │ UNESI KARTICU                   │
+         ▼                                 │
+    ┌──────────────┐                      │
+    │ KARTICU      │                      │
+    │ UNESENA      │                      │
+    └──────────────┘                      │
+         │                                 │
+         │ UNESI PIN                       │
+         ▼                                 │
+    ┌──────────────┐    POGREŠAN PIN      │
+    │ LOGOVAN      ├────────────────────► │
+    │ KORISNIK     │                      │
+    └──────────────┘                      │
+         │                                 │
+         │ IZABERI OPERACIJU (UPLATA, ISPLATA, PROVERA STANJA)
+         ▼
+    ┌──────────────┐
+    │ OBRADI       │
+    │ ZAHTEV       │
+    └──────────────┘
+         │
+         │ ZAVRŠI
+         ▼
+    ┌──────────────┐
+    │ KINIKRNI      │
+    │ TRANSAKCIJA  │
+    └──────────────┘
+         │
+         │ IZAĐI IZ BANKOMATA
+         ▼
+    ┌──────────────┐
+    │ IDLE         │
+    │ (Čekanje)    │
+    └──────────────┘
+```
+
+---
+
+**Primer 2 - Dijagram stanja za e-commerce kupovinu**
+
+```
+    Počni
+      │
+      ▼
+ ┌──────────────┐
+ │ PRETRAGA     │  Izaberi proizvod
+ │ PROIZVODA    ├──────────────────────┐
+ └──────────────┘                      │
+                                       ▼
+                                  ┌──────────────┐
+                                  │ DETALJI      │  Dodaj u korpu
+                                  │ PROIZVODA    ├──────────────────┐
+                                  └──────────────┘                  │
+                                                                    ▼
+                                                               ┌──────────────┐
+                                                               │ KORPA        │
+                                                               │ (Proizvodi)  │
+                                                               └──────────────┘
+                                                                    │
+                                                      ┌─────────────┼─────────────┐
+                                        Nastavi       │             │ Kupi sekaš  │
+                                        Kupovinu      │             │             │
+                                                      ▼             ▼             ▼
+                                              ┌──────────────┐
+                                              │ PLAĆANJE     │
+                                              │ USPEŠNO      │
+                                              └──────────────┘
+                                                    │
+                                                    ▼
+                                              ┌──────────────┐
+                                              │ PORUDŽBINA   │
+                                              │ POTVRĐENA    │
+                                              └──────────────┘
+```
+
+---
+
+**TABELE STANJA (State Tables)**
+
+Tabela koja prikazuje **svako stanje i moguće prelaze**:
+
+**Struktura:**
+
+```
+Trenurno stanje │ Akcija        │ Sledeće stanje │ Rezultat
+────────────────┼───────────────┼────────────────┼──────────────
+```
+
+---
+
+**Primer 3 - Tabela stanja za bankomat**
+
+```
+┌──────────────────────┬──────────────┬──────────────────┬──────────────┐
+│ Trenutno stanje      │ Akcija       │ Sledeće stanje   │ Rezultat     │
+├──────────────────────┼──────────────┼──────────────────┼──────────────┤
+│ IDLE                 │ Ubaci karticu│ KARTICU UNESENA  │ Čekaj PIN    │
+├──────────────────────┼──────────────┼──────────────────┼──────────────┤
+│ KARTICU UNESENA      │ Unesi PIN    │ LOGOVAN          │ Prikazi meni │
+├──────────────────────┼──────────────┼──────────────────┼──────────────┤
+│ KARTICU UNESENA      │ Pogrešan PIN │ KARTICU UNESENA  │ Pokušaj opet │
+├──────────────────────┼──────────────┼──────────────────┼──────────────┤
+│ LOGOVAN              │ Isplata      │ OBRADI ZAHTEV    │ Unesi iznos  │
+├──────────────────────┼──────────────┼──────────────────┼──────────────┤
+│ OBRADI ZAHTEV        │ Transakcija  │ POTVRDA          │ Transakcija  │
+│                      │ uspešna      │ TRANSAKCIJE      │ gotova       │
+├──────────────────────┼──────────────┼──────────────────┼──────────────┤
+│ POTVRDA TRANSAKCIJE  │ Izađi        │ IDLE             │ Vraćena      │
+│                      │              │                  │ kartica      │
+└──────────────────────┴──────────────┴──────────────────┴──────────────┘
+```
+
+---
+
+**Primer 4 - Tabela stanja za door lock (zaključavanje vrata)**
+
+```
+┌──────────────┬──────────────┬──────────────┬──────────────────┐
+│ Stanje       │ Akcija       │ Novo stanje  │ Rezultat         │
+├──────────────┼──────────────┼──────────────┼──────────────────┤
+│ OTKLJUČANO   │ Zatvori      │ ZAKLJUČANO   │ Vrata zaključana │
+├──────────────┼──────────────┼──────────────┼──────────────────┤
+│ ZAKLJUČANO   │ Otvori       │ OTKLJUČANO   │ Vrata otključana │
+├──────────────┼──────────────┼──────────────┼──────────────────┤
+│ ZAKLJUČANO   │ Slomi        │ SLOMLJENO    │ Alarm uključen   │
+├──────────────┼──────────────┼──────────────┼──────────────────┤
+│ SLOMLJENO    │ Popravka     │ ZAKLJUČANO   │ Vrata reparirane │
+└──────────────┴──────────────┴──────────────┴──────────────────┘
+```
+
+---
+
+**Test slučajevi iz tabele stanja:**
+
+Testiramo sve prelaze:
+
+```
+Test 1: IDLE + "Ubaci karticu" → KARTICU UNESENA ✓
+Test 2: KARTICU UNESENA + "Unesi PIN (tačan)" → LOGOVAN ✓
+Test 3: KARTICU UNESENA + "Unesi PIN (pogrešan)" → KARTICU UNESENA ✓
+Test 4: LOGOVAN + "Isplata" → OBRADI ZAHTEV ✓
+Test 5: OBRADI ZAHTEV + "Uspešna transakcija" → POTVRDA TRANSAKCIJE ✓
+Test 6: POTVRDA TRANSAKCIJE + "Izađi" → IDLE ✓
+```
+
+---
+
+**Prednosti dijagrama stanja:**
+
+- ✓ Jasno prikazuje sve moguće scenarije
+- ✓ Pronalazi greške u prelazima između stanja
+- ✓ Pomoć pri pronalaženju nedostajućih prelaza
+- ✓ Jednostavno za razumevanje
+
+---
+
+### **Pitanje 2.25. Tehnike testiranja. Testiranje metodama bele kutije. Putanja i broj putanja u programu. Pojam i vrste pokrivenosti. Njihovi odnosi. Primeri.**
+
+**Odgovor:**
+
+---
+
+**TESTIRANJE BELE KUTIJE (White Box Testing)**
+
+Tester **poznaje internu strukturu koda** i testira logiku, putanje, iskaze.
+
+---
+
+**PUTANJA U PROGRAMU (Program Path)**
+
+**Definicija:** Sekvenca iskaza koja se izvršava od početka do kraja programa.
+
+**Primer - Kod sa grananjem:**
+
+```python
+def provera_starosti(uzrast):     # Početak
+    if uzrast >= 18:              # Iskaz 1 (If iskaz)
+        print("Punoletan")         # Iskaz 2
+        return True
+    else:
+        print("Nepunoletan")       # Iskaz 3
+        return False
+                                   # Kraj
+```
+
+Moguće putanje:
+
+- **Putanja 1:** Početak → Iskaz 1 (true) → Iskaz 2 → Kraj
+- **Putanja 2:** Početak → Iskaz 1 (false) → Iskaz 3 → Kraj
+
+---
+
+**BROJ PUTANJA (Path Count)**
+
+Računanje broja mogućih putanja korišćenjem **ciklomatske složenosti**:
+
+*C* = *E* − *N* + 2*P*
+
+Gde je:
+
+- E = broj grana (edges)
+- N = broj čvorova (nodes)
+- P = broj povezanih komponenti (obično 1)
+
+---
+
+**VRSTE POKRIVENOSTI**
+
+**1. Pokrivenost iskaza (Statement Coverage)**
+
+- **Cilj:** Svaki iskaz se izvrši najmanje jednom
+- **Procenat:** (Broj izvršenih iskaza / Ukupan broj iskaza) × 100%
+
+```python
+def provera_starosti(uzrast):
+    if uzrast >= 18:          # Iskaz 1
+        print("Punoletan")     # Iskaz 2 ← Mora se izvršiti
+        return True
+    else:
+        print("Nepunoletan")   # Iskaz 3 ← Mora se izvršiti
+        return False
+```
+
+Test sa 100% pokrivenosti iskaza:
+
+```
+Test 1: uzrast = 20 → Iskazi 1,2 se izvršavaju
+Test 2: uzrast = 15 → Iskazi 1,3 se izvršavaju
+Pokrivenost: 100% (svi iskazi 1,2,3 su pokriveni)
+```
+
+---
+
+**2. Pokrivenost grana (Branch Coverage)**
+
+- **Cilj:** Sve grane IF iskaza se izvršavaju (true I false)
+- **Procenat:** (Broj testiranih grana / Ukupan broj grana) × 100%
+
+```python
+if uzrast >= 18:        # Grana 1 (true)
+    # ...
+else:                   # Grana 2 (false)
+    # ...
+```
+
+Test sa 100% pokrivenosti grana:
+
+```
+Test 1: uzrast = 20 → Grana 1 (true) se testira ✓
+Test 2: uzrast = 15 → Grana 2 (false) se testira ✓
+```
+
+---
+
+**3. Pokrivenost puta (Path Coverage)**
+
+- **Cilj:** Sve moguće kombinacije putanja se testiraju
+- **Procenat:** (Broj testiranih putanja / Ukupan broj putanja) × 100%
+
+```python
+def zahtevaj_pristup(je_admin, ima_dozvolu):  # Početak
+    if je_admin:                               # Iskaz 1
+        if ima_dozvolu:                        # Iskaz 2
+            return True                        # Iskaz 3
+        else:
+            return False                       # Iskaz 4
+    else:
+        return False                           # Iskaz 5
+                                               # Kraj
+```
+
+Moguće putanje:
+
+- Putanja 1: je_admin=true, ima_dozvolu=true → True
+- Putanja 2: je_admin=true, ima_dozvolu=false → False
+- Putanja 3: je_admin=false, ima_dozvolu=bilo → False
+
+Test sa 100% pokrivenosti puta:
+
+```
+Test 1: je_admin=true,  ima_dozvolu=true   → True ✓
+Test 2: je_admin=true,  ima_dozvolu=false  → False ✓
+Test 3: je_admin=false, ima_dozvolu=bilo   → False ✓
+```
+
+1. Pokrivenost uslova - meri da li je **svaki pojedinačni logički uslov** u izrazu (svaka booleova pod‑ekspresija) bio bar jednom i true i false.
+- Primer:
+
+```jsx
+if (A && B) {
+	//..
+}
+
+Uslovi : A true B true i A false B false zadovoljavaju (2) 100% pokrivenost
+
+```
+
+- Svaki jednostavan uslov (npr. **`A > 0`**, **`B < 5`**) mora bar jednom biti true i bar jednom false u nekom testu.
+- Nije bitno da li su sve kombinacije uslova pokrivene, samo da je svaki uslov pojedinačno video i true i false.
+1. Pokrivenost visestrukih uslova - znači da su **sve kombinacije** istinitosnih vrednosti svih jednostavnih uslova u jednoj odluci testirane bar jednom
+- Primer
+
+```jsx
+if (A && B) {
+    // ...
+}
+Uslovi: A, B → 4 kombinacije: (T,T), (T,F), (F,T), (F,F). (100 % pokirvenost)
+MCC traži test set koji obuhvata sve ove kombinacije, 
+ne samo da je if jednom true, jednom false.
+
+```
+
+- Posmatra sve jednostavne uslove u odluci **zajedno** i traži da se pokriju sve kombinacije njihovih vrednosti (T/F) u toj odluci.
+- Za n uslova u jednom if‑u, MCC teoretski traži 2n2*n* kombinacija, pa je mnogo jači (strožiji) kriterijum od obične condition coverage.
+1. Pokrivenost funkcija. - mera koja pokaz¨je koliki je procenat funkcija izvrsen
+
+**ODNOSI POKRIVENOSTI**
+
+Hierarchija pokrivenosti (od najmanje ka najvećoj):
+
+```
+Pokrivenosti funkcija < Pokrivenost iskaza/naredbi < Pokrivenost grana/odluka < Pokrivenost puta
+```
+
+```jsx
+Pokrivenost grana/odluka < Pokrivenost uslova < Pokrivenost visestrukih uslova
+```
+
+**Odnos:**
+
+- Ako je **pokrivenost puta 100%**, tada je i **pokrivenost grana 100%** (i iskaza 100%)
+- Ako je **pokrivenost grana 100%**, tada je i **pokrivenost iskaza 100%**
+- Ali OBRNUTO NE VAŽI!
+
+**Primeri:**
+
+**Primer 1:**
+
+```python
+if A:
+    x = 1
+else:
+    x = 2
+print(x)
+```
+
+- Pokrivenost iskaza: 100% sa samo 1 test (jer se print UVEK izvršava)
+- Pokrivenost grana: Trebaju 2 testa (true i false grana if iskaza)
+
+---
+
+**Primer 2 - Kod sa dve if iskaze:**
+
+```python
+if uzrast >= 18:           # If 1
+    status = "Odraslo"
+if grad == "Beograd":      # If 2
+    bonus = 100
+```
+
+- Pokrivenost iskaza: Može biti 100% sa 1 testom (ako se oba if-a izvrše)
+- Pokrivenost grana: Trebaju 4 testa:
+    - uzrast >= 18: true i false
+    - grad == “Beograd”: true i false
+
+---
+
+### **Pitanje 2.26. Tehnike testiranja. Testiranje metodama bele kutije. Pojam i vrste pokrivenosti. Preporučen nivo pokrivenosti. Alati za merenje pokrivenosti. Primeri.**
+
+**Odgovor:**
+
+---
+
+**PREPORUČENI NIVOI POKRIVENOSTI**
+
+```
+Minimalno:  60-70%   (Osnovna funkcionalnost)
+Normalno:   75-85%   (Dobar standard za većinu projekata)
+Visoko:     85-95%   (Kritični sistemi)
+Veoma v:    95%+     (Medicinski, vazduhoplovni sistemi)
+```
+
+**Razlozi zašto 100% nije uvek optimalno:**
+
+- Neka koda su teško dostižna (error handling, edge cases)
+- Vreme za pisanje testova se nije proporcionalno povećava
+- Neki testovi mogu biti redundantni ili nije ekonomski isplativ
+
+**Preporuke po vrsti sistema:**
+
+- Web aplikacija: 70-80%
+- Mobilna aplikacija: 75-85%
+- Banking/Finance: 85-95%
+- Medicinski uređaji: 95%+
+- Avionski sistemi: 99%+
+
+---
+
+**ALATI ZA MERENJE POKRIVENOSTI**
+
+**1. Python - Coverage.py**
+
+```bash
+# Instalacija
+pip install coverage
+
+# Pokretanje
+coverage run -m pytest test_promenade.py
+
+# Izveštaj
+coverage report
+coverage html  # Generiše HTML izveštaj
+```
+
+Primer izveštaja:
+
+```
+Name                    Stmts   Miss  Cover
+─────────────────────────────────────────────
+test_module.py             20      3    85%
+─────────────────────────────────────────────
+TOTAL                      20      3    85%
+```
+
+---
+
+**2. Java - JaCoCo (Java Code Coverage)**
+
+```xml
+<!-- Dodaj u pom.xml -->
+<plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>0.8.8</version>
+</plugin>
+```
+
+```bash
+mvn test jacoco:report
+```
+
+Prikazuje:
+
+- Pokrivenost iskaza
+- Pokrivenost grana
+- Pokrivenost linija
+
+---
+
+**3. JavaScript/Node.js - Istanbul/nyc**
+
+```bash
+# Instalacija
+npm install --save-dev nyc
+
+# Pokretanje
+nyc npm test
+
+# Izveštaj
+nyc report --reporter=html
+```
+
+---
+
+**4. C# - OpenCover**
+
+```bash
+OpenCover.Console.exe -target:TestRunner.exe ...
+```
+
+---
+
+**5. C/C++ - gcov (GNU Coverage)**
+
+```bash
+gcc --coverage test.c -o test
+./test
+gcov test.c
+```
+
+---
+
+**PRIMERI IZ PRAKSE**
+
+**Primer 1 - Python projekt sa Coverage.py**
+
+```python
+# math_helper.py
+def je_pozitivan(broj):
+    if broj > 0:
+        return True
+    else:
+        return False
+
+def je_prost(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+```
+
+```python
+# test_math_helper.py
+from math_helper import je_pozitivan, je_prost
+
+def test_je_pozitivan():
+    assert je_pozitivan(5) == True      # Testira true granu
+    assert je_pozitivan(-5) == False    # Testira false granu
+
+def test_je_prost():
+    assert je_prost(2) == True
+    assert je_prost(7) == True
+    assert je_prost(10) == False
+```
+
+Izveštaj:
+
+```
+coverage report
+Name              Stmts   Miss  Cover
+─────────────────────────────────────────
+math_helper.py        10      2    80%
+```
+
+---
+
+**Primer 2 - Web aplikacija sa alatima**
+
+```jsx
+// calc.js
+function saberi(a, b) {
+    return a + b;
+}
+
+function podeliis(a, b) {
+    if (b === 0) {
+        throw new Error("Deljenje sa nulom!");
+    }
+    return a / b;
+}
+```
+
+```jsx
+// test.js (Jest)
+test('saberi dva broja', () => {
+    expect(saberi(2, 3)).toBe(5);
+});
+
+test('deljenje sa nulom baca grešku', () => {
+    expect(() => podeli(5, 0)).toThrow();
+});
+
+test('podeli dva broja', () => {
+    expect(podeli(10, 2)).toBe(5);
+});
+```
+
+Jest automatski generiše izveštaj:
+
+```
+├─ Statements   : 85.5% (17/20)
+├─ Branches     : 80%   (4/5)
+├─ Functions    : 100%  (3/3)
+└─ Lines        : 85.5% (17/20)
+```
+
+---
+
+**ČITANJE IZVEŠTAJA O POKRIVENOSTI**
+
+Izveštaj obično prikazuje:
+
+- **Statements:** Broj iskaza koji su testirani
+- **Branches:** Broj grana (if/else) koje su testirane
+- **Functions:** Broj funkcija koje su testirane
+- **Lines:** Broj linija koda koje su testirane
+
+---
+
+**BEST PRACTICES**
+
+1. ✓ Testiraj do 80-85% pokrivenosti za normalne projekte
+2. ✓ Fokusiraj se na kritične dijelove (business logic)
+3. ✓ Koristi automated izveštaje kao deo CI/CD pipeline
+4. ✓ Ne nasili prema 100% - fokusiraj se na kvalitetu testova
+5. ✓ Kombinuj različite vrste pokrivenosti
+
+---
+
+### **Pitanje 2.27. Tehnike testiranja. Testiranje metodama bele kutije. Izbor relevantnih testova i putanja. Testiranje osnovnih putanja. Testiranje na osnovu grafa toka podataka. Primeri.**
+
+**Odgovor:**
+
+---
+
+**IZBOR RELEVANTNIH TESTOVA I PUTANJA**
+
+Nije praktično testirati SVE putanje jer broj putanja može eksplicitno da raste. Zato se koriste **strategije za izbor relevantnih putanja**.
+
+---
+
+**1. TESTIRANJE OSNOVNIH PUTANJA (Basic Path Testing)**
+
+**Karakteristike:**
+
+- Testira se **svaka grana bar jednom** (pokrivenost grana)
+- Testira se **svaka moguća putanja** kroz if iskaze
+- Manje testova nego path coverage, ali /pouzdano
+- **McCabe-ov pristup**
+
+**Koraci:**
+
+1. Kreiraj graf toka kontrole
+2. Izračunaj ciklomatsku složenost (broj podstawnih putanja)
+3. Kreiraj test slučaj za svaku put aniju
+
+**Formula ciklomatske složenosti:**
+
+*M* = *E* − *N* + 2*P*
+
+Broj osnovnih putanja = M
+
+---
+
+**Primer 1 - Osnovne putanja**
+
+```python
+def provera_kredita(uzrast, prihod, istorija):  # Node 1
+    if uzrast >= 18:                             # Node 2
+        if prihod >= 30000:                      # Node 3
+            if istorija == "dobra":              # Node 4
+                return "ODOBREN"                 # Node 5
+            else:
+                return "ODBIJEN"                 # Node 6
+        else:
+            return "ODBIJEN"                     # Node 7
+    else:
+        return "ODBIJEN"                         # Node 8
+                                                 # Node 9 (Kraj)
+```
+
+**Graf toka:**
+
+```
+        1
+        |
+        2 (uzrast >= 18)
+       / \
+      3   8
+     / \
+    4   7
+   / \
+  5   6
+   \ / \
+    9
+```
+
+Ciklomatska složenost:
+
+- Grane (E): 8
+- Čvorovi (N): 9
+- P = 1
+- M = 8 - 9 + 2(1) = 1
+
+**Osnovne putanje (3 putanje za 2 uslova):**
+
+1. Putanja 1: uzrast=25, prihod=50000, istorija=“dobra” → ODOBREN
+2. Putanja 2: uzrast=25, prihod=50000, istorija=“loša” → ODBIJEN
+3. Putanja 3: uzrast=25, prihod=20000, bilo šta → ODBIJEN
+4. Putanja 4: uzrast=15, bilo šta, bilo šta → ODBIJEN
+
+---
+
+**2. TESTIRANJE NA OSNOVU GRAFA TOKA PODATAKA (Data Flow Testing)**
+
+**Karakteristike:**
+
+- Prati **kako se varijable definišu i koriste** u kodu
+- Testira **def-use parove** (gde je varijabla definisana i gde se koristi)
+- Pronalazi greške sa **neinicijalizovanim varijablama**
+
+**Terminologija:**
+
+- **DEF (Definicija):** Gde se varijabla prvo dodeluje vrednost
+- **USE (Upotreba):** Gde se varijabla koristi (čita)
+
+---
+
+**Primer 2 - Def-Use graf**
+
+```python
+def izracunaj_popust(cena, vip):     # Početak
+    popust = 0                        # DEF: popust = 0
+
+    if vip:                           # USE: vip
+        popust = 0.2                  # DEF: popust = 0.2
+    else:
+        popust = 0.1                  # DEF: popust = 0.1
+
+    finalna_cena = cena * (1 - popust)  # USE: popust, cena; DEF: finalna_cena
+
+    return finalna_cena               # USE: finalna_cena
+```
+
+**Def-Use parovi:**
+
+1. (DEF popust na 0) → (USE u računanju finalne_cene)
+2. (DEF popust na 0.2) → (USE u računanju finalne_cene)
+3. (DEF popust na 0.1) → (USE u računanju finalne_cene)
+4. (DEF finalna_cena) → (USE u return iskazu)
+
+**Test slučajevi:**
+
+```
+Test 1: cena=1000, vip=true
+- Putanja: popust=0.2 → finalna_cena=800 ✓
+
+Test 2: cena=1000, vip=false
+- Putanja: popust=0.1 → finalna_cena=900 ✓
+```
+
+---
+
+**Primer 3 - Pronalaženje grešaka sa neinicijalizovanim varijablama**
+
+```python
+def kreiraj_porudzbinu(korisnik_id):
+    if korisnik_id > 0:
+        status = "NOVO"               # DEF: status
+    # else: status nICE INICIJALIZOANA!
+
+    print(status)                     # USE: status ← GREŠKA! Može biti neinicijalizovana
+
+    return status
+```
+
+Def-Use analiza bi otkrila: **status se koristi bez inicijalizacije u else grani!**
+
+Ispravljeni kod:
+
+```python
+def kreiraj_porudzbinu(korisnik_id):
+    status = "NEPOZNAT"               # DEF: inicijalizacija za sve slučajeve
+
+    if korisnik_id > 0:
+        status = "NOVO"               # DEF: status
+
+    print(status)                     # USE: status ✓ Sigurno inicijalizovana
+
+    return status
+```
+
+---
+
+**STRATEGIJE ZA IZBOR PUTANJA**
+
+**1. All-Definitions (def-coverage)**
+
+- Pokriviti svaki DEF bar sa jednom USE-om
+
+**2. All-Uses (use-coverage)**
+
+- Pokriviti svaki USE bar sa jednom DEF-om
+
+**3. All-du-paths**
+
+- Pokriviti svaki def-use put
+
+---
+
+**PRAKTIČNI PRIMERI**
+
+**Primer 4 - E-commerce sistem**
+
+```python
+def obradi_narudzbinu(kolicina, cena, ima_popust):  # Početak
+    ukupna_cena = kolicina * cena                    # DEF: ukupna_cena
+
+    if ima_popust:
+        ukupna_cena = ukupna_cena * 0.9              # DEF: ukupna_cena
+
+    provizija = ukupna_cena * 0.05                   # USE: ukupna_cena; DEF: provizija
+
+    finalna_cena = ukupna_cena + provizija          # USE: ukupna_cena, provizija
+
+    return finalna_cena                              # USE: finalna_cena
+```
+
+Def-Use putanju:
+
+- (DEF ukupna_cena=kolicina*cena) → (USE u proviziji)
+- (DEF ukupna_cena=0.9*) → (USE u proviziji)
+
+Test slučajevi:
+
+```
+Test 1: kolicina=10, cena=100, popust=False
+- Putanja: ukupna=1000 → provizija=50 → finalna=1050 ✓
+
+Test 2: kolicina=10, cena=100, popust=True
+- Putanja: ukupna=900 → provizija=45 → finalna=945 ✓
+```
+
+---
+
+### **Pitanje 2.28. Tehnike testiranja. Problem proročišta. Metamorfno testiranje. Primeri.**
+
+**Odgovor:**
+
+---
+
+**PROBLEM PROROČIŠTA (Oracle Problem)**
+
+**Definicija:** Problem određivanja **očekivanog rezultata** kada se test izvršava.
+
+**Primer problema:**
+
+```python
+def izracunaj_kvadratni_koren(broj):
+    return broj ** 0.5
+
+# Test
+rezultat = izracunaj_kvadratni_koren(16)
+
+# Koji je očekivani rezultat? 4 ili 3.9999999 ili 4.0000001?
+# Kako znamo da je rezultat ispravan?
+```
+
+Problemi:
+
+- Nema specifikacije očekivanog rezultata
+- Rezultat je matematički neprecizna vrednost
+- Teško je znati je li rezultat prihvatljiv
+
+---
+
+**METAMORFNO TESTIRANJE (Metamorphic Testing)**
+
+**Karakteristike:**
+
+- **Ne testira se očekivani izlaz direktno**
+- Umesto toga, testira se **odnos između više izlaza** (metamorfne relacije)
+- Rešava problem nedostatka Oracle-a
+- Koristi se za sisteme gde je teško odrediti točan rezultat
+
+**Princip:**
+
+```
+Umesto: Test input → Output → Provera sa očekivanim
+Koristi: Test input 1 → Output 1
+         Test input 2 (modifikovani) → Output 2
+         Provera odnosa između Output1 i Output2
+```
+
+---
+
+**PRIMERI METAMORFNIH RELACIJA**
+
+**Primer 1 - Kvadratni koren**
+
+```python
+def kvadratni_koren(broj):
+    return broj ** 0.5
+
+# Metamorfna relacija: ako je x1 < x2, tada sqrt(x1) < sqrt(x2)
+
+# Test bez Oracle-a:
+x1 = 16
+x2 = 25
+
+sqrt_x1 = kvadratni_koren(x1)  # = 4
+sqrt_x2 = kvadratni_koren(x2)  # = 5
+
+# Provera odnosa:
+assert sqrt_x1 < sqrt_x2  # 4 < 5 ✓
+# Ne trebam da znam tačan rezultat, samo odnos!
+```
+
+---
+
+**Primer 2 - Sortiranje**
+
+```python
+def sortiraj(lista):
+    return sorted(lista)
+
+# Metamorfna relacija: ako sortiramo listu dva puta, rezultat je isti
+
+lista = [3, 1, 4, 1, 5]
+sortirano_1 = sortiraj(lista)       # [1, 1, 3, 4, 5]
+sortirano_2 = sortiraj(sortirano_1) # [1, 1, 3, 4, 5]
+
+# Provera:
+assert sortirano_1 == sortirano_2  # Idempotentnost ✓
+```
+
+---
+
+**Primer 3 - Kalkulator**
+
+```python
+def saberi(a, b):
+    return a + b
+
+# Metamorfna relacija: sabiranje je komutativno
+# saberi(a, b) == saberi(b, a)
+
+a = 10
+b = 20
+
+rezultat_1 = saberi(a, b)   # 30
+rezultat_2 = saberi(b, a)   # 30
+
+assert rezultat_1 == rezultat_2  # 30 == 30 ✓
+```
+
+---
+
+**Primer 4 - Pronalaženje maksimalne vrednosti**
+
+```python
+def maks(a, b):
+    return a if a > b else b
+
+# Metamorfna relacija: ako dodamo istu vrednost oba argumenta,
+# rezultat se takođe povećava za tu vrednost
+
+# Test 1:
+a1, b1 = 5, 3
+max1 = maks(a1, b1)  # 5
+
+# Test 2 (povećaj za 10):
+a2, b2 = 15, 13
+max2 = maks(a2, b2)  # 15
+
+# Provera:
+assert max2 == max1 + 10  # 15 == 5 + 10 ✓
+```
+
+---
+
+**Primer 5 - Konverzija temperatura**
+
+```python
+def celsius_u_fahrenheit(c):
+    return c * 9/5 + 32
+
+# Metamorfna relacija: ako je T1 > T2, tada F(T1) > F(T2)
+
+c1 = 0
+c2 = 100
+
+f1 = celsius_u_fahrenheit(c1)   # 32
+f2 = celsius_u_fahrenheit(c2)   # 212
+
+assert f1 < f2  # 32 < 212 ✓
+# Bez znanja tačnih vrednosti, znamo da je f1 < f2!
+```
+
+---
+
+**Primer 6 - Pronalaženje medijane**
+
+```python
+def medijana(lista):
+    sortirana = sorted(lista)
+    n = len(sortirana)
+    return sortirana[n // 2] if n % 2 == 1 else (sortirana[n//2-1] + sortirana[n//2]) / 2
+
+# Metamorfna relacija: Permutacija ulaza ne menja rezultat
+
+lista1 = [3, 1, 4, 1, 5, 9, 2]
+lista2 = [5, 1, 9, 2, 3, 4, 1]  # Ista lista, drugačij redosled
+
+med1 = medijana(lista1)
+med2 = medijana(lista2)
+
+assert med1 == med2  # Redosled ne utiče ✓
+```
+
+---
+
+**METAMORFNE RELACIJE U PRAKSI**
+
+| Problem | Metamorfna relacija |
+| --- | --- |
+| Sortiranje | Sortiraj(Sortiraj(X)) == Sortiraj(X) |
+| Min/Max | Ako X < Y, Min(X,Y) == X |
+| Uređene liste | Ako je lista sortirana, search(X) je brz |
+| Simetrični algoritmi | F(X, Y) = F(Y, X) |
+| Linearne funkcije | F(2X) = 2*F(X) |
+| Konverzije | C_to_F(C_to_F_inv(X)) == X |
+
+---
+
+**PREDNOSTI METAMORFNOG TESTIRANJA**
+
+- ✓ Rešava problem nedostatka Oracle-a
+- ✓ Pronalazi greške bez znanja tačnog rezultata
+- ✓ Čini testiranje lakšim za kompleksne sisteme
+- ✓ Automatizovano testiranje mogućnosti
+
+**Nedostaci:**
+
+- ✗ Trebalo znati metamorfne relacije za svaki sistem
+- ✗ Ne pronalazi sve greške
+- ✗ Zahteva detaljno razumevanje problema
+
+---
+
+### **Pitanje 2.29. Načini testiranja. Manuelno testiranje.**
+
+**Odgovor:**
+
+- Manuelno/automatsko generisanje testova i manuelno/automatsko sporvodjenje testiranja
+- automatsko generisanje i manuelno sprovodjenje u kombinaciji se obicno ne koriste
+
+---
+
+**MANUELNO TESTIRANJE (Manual Testing)**
+
+**Karakteristike:**
+
+- Tester **ručno izvršava test slučajeve** bez alata za automatizaciju
+- Tester **klikće, unosi podatke, čini akcije** kao obični korisnik
+- **Bez skripata** - sve se radi ručno
+- Obavlja se **čovekom** (testerom)
+- Vremenski zahtevnije od automatskog
+
+---
+
+**PREDNOSTI MANUELNOG TESTIRANJA:**
+
+✓ **Fleksibilnost** - Tester može da improvizuje i detaljno istražuje
+
+✓ **Humana perspektiva** - Pronalazi greške koje nisu očekivane (UX, korisničko iskustvo)
+
+✓ **Nema početnih troškova** - Nema potrebe za alatima za automatizaciju
+
+✓ **Jednostavnost za male projekate** - Brže za male promene
+
+✓ **Istraživačko testiranje** - Odličan za pronalaženje novih grešaka
+
+✓ **Korisničko iskustvo** - Tester može da vidi kako korisnik doživljava aplikaciju
+
+---
+
+**NEDOSTACI MANUELNOG TESTIRANJA:**
+
+✗ **Sporosto** - Čovek radi sporije nego program
+
+✗ **Umoran** - Tester se gubi u ponavljanju istih testova
+
+✗ **Greške** - Čovek može da zaboravi da testira nešto
+
+✗ **Skupo** - Traži više testere za iste testove
+
+✗ **Nema repeticije** - Težko je da se isti test ponavlja identično
+
+---
+
+**PRIMERI MANUELNOG TESTIRANJA:**
+
+**Primer 1 - Testiranje bankarskog sistema**
+
+Tester:
+
+1. Otvara aplikaciju
+2. Unosi podatke za prijavu (email + lozinka)
+3. Klikće na dugme “Login”
+4. Čeka da li se aplikacija učitava
+5. Gleda da li se Dashboard prikazuje
+6. Proučava sve menije i dugmadi
+7. Pokušava da prenese novac
+8. Proverava da li je transfer uspešan
+
+Tester pazi na:
+
+- Korisničko iskustvo (interfejs, dizajn)
+- Brzinaprikaza
+- Nedoslednosti ili čudno ponašanje
+- Tečnost radnji
+
+---
+
+**Primer 2 - Istraživačko testiranje (Exploratory Testing)**
+
+Tester ne prati unapred napisan plan, već:
+
+1. Koristi aplikaciju kao obični korisnik
+2. Pokušava neočekivane akcije
+3. Unosi pogrešne podatke
+4. Testira sa lošom internetskom vezom
+5. Pokušava da instalira dva puta
+6. Koristi aplikaciju sa posebnim karakterima u imenu
+
+Pronalazi greške kroz slobodno istraživanje.
+
+---
+
+**Primer 3 - Testiranje mobilne aplikacije**
+
+Tester:
+
+1. Preuzima aplikaciju sa App Store/Play Store
+2. Instalira aplikaciju
+3. Pokušava da je pokrene na prvi put
+4. Proverava dozvole (pristup fotCamera, lokaciji, itd.)
+5. Prolazi kroz onboarding (prvi put kada se pokrene)
+6. Testira na različitim rezolucijama ekrana
+7. Testira bez interneta
+8. Testira sa različitim ježivim jezicima
+
+---
+
+**Proces manuelnog testiranja:**
+
+```
+1. Priprema
+   - Čitanje test slučajeva
+   - Priprema test okruženja
+   - Priprema test podataka
+
+2. Izvršavanje
+   - Otvaranje aplikacije
+   - Unos podataka
+   - Izvršavanje akcija
+   - Beleženje rezultata
+
+3. Verifikacija
+   - Poređenje sa očekivanim rezultatima
+   - Pronalaženje grešaka
+
+4. Izveštavanje
+   - Pisanje izveštaja o greškama
+   - Prilaganje dokaza (screenshot)
+```
+
+---
+
+**KADA KORISTITI MANUELNO TESTIRANJE:**
+
+✓ Nove aplikacije - Istraživačko testiranje
+
+✓ Korisnički interfejs - Provera UX, dizajna, tečnosti
+
+✓ Male izmene - Nije isplativo pisati automatske testove
+
+✓ Ad-hoc testiranje - Eksperimentisanje
+
+✓ Usability testiranje - Kako korisnici koriste aplikaciju
+
+✓ Exploratory testiranje - Pronalaženje novih grešaka
+
+---
+
+### **Pitanje 2.30. Načini testiranja. Automatsko izvršavanje i evaluacija testova. Kontinuirana integracija.**
+
+**Odgovor:**
+
+---
+
+**AUTOMATSKO IZVRŠAVANJE I EVALUACIJA TESTOVA (Automated Testing)**
+
+**Karakteristike:**
+
+- **Testovi se pišu kao kod** (test skriptovi)
+- Test se **pokreće automatski** korišćenjem alata
+- **Bez ljudskog učešća** tokom izvršavanja
+- Veoma brzo (minuti ili sekunde umesto dana)
+- Lako se **ponavljaju** isti testovi
+
+---
+
+**PREDNOSTI AUTOMATSKOG TESTIRANJA:**
+
+✓ **Brzina** - Stotine testova se pokrene za sekunde
+
+✓ **Konzistentnost** - Isti test se ponavlja identično
+
+✓ **Skalabilnost** - Lako se dodaju novi testovi
+
+✓ **Pouzdanost** - Nema greške od umora
+
+✓ **24/7 testiranje** - Testovi se mogu pokretati tijekom noći
+
+✓ **Povratna informacija** - Brz Report sa greškama
+
+✓ **Regression testiranje** - Automatski se testira da nije nešto staro pokvareno
+
+---
+
+**NEDOSTACI AUTOMATSKOG TESTIRANJA:**
+
+✗ **Skupo na početku** - Trebalo je napisati testove
+
+✗ **Potrebna je veština** - Programerska znanja potrebna
+
+✗ **Održavanje** - Testovi trebaju da se ažuriraju
+
+✗ **Nema fleksibilnosti** - Teško improvizovati
+
+✗ **Nema UX** - Ne može videti korisničko iskustvo
+
+---
+
+**PRIMERI AUTOMATSKOG TESTIRANJA:**
+
+**Primer 1 - Unit testiranje sa Pytestom**
+
+```python
+# calc.py
+def saberi(a, b):
+    return a + b
+
+# test_calc.py (Test skript)
+import pytest
+from calc import saberi
+
+def test_saberi():
+    assert saberi(2, 3) == 5
+    assert saberi(-1, 1) == 0
+    assert saberi(0, 0) == 0
+```
+
+Pokretanje:
+
+```bash
+pytest test_calc.py
+```
+
+Rezultat:
+
+```
+test_calc.py::test_saberi PASSED [100%]
+```
+
+---
+
+**Primer 2 - Web testiranje sa Selenium-om**
+
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# Otvori Chrome pretraživač
+driver = webdriver.Chrome()
+
+# Idi na sajt
+driver.get("https://example.com/login")
+
+# Nadi polje za email i unesi
+email_field = driver.find_element(By.ID, "email")
+email_field.send_keys("korisnik@example.com")
+
+# Nadi polje za lozinku i unesi
+password_field = driver.find_element(By.ID, "password")
+password_field.send_keys("moja_lozinka")
+
+# Klikni dugme Login
+login_button = driver.find_element(By.ID, "login_btn")
+login_button.click()
+
+# Proveri da li je login uspešan
+assert driver.current_url == "https://example.com/dashboard"
+
+# Zatvori pretraživač
+driver.quit()
+```
+
+Pokretanje:
+
+```bash
+python test_login.py
+# Selenium će automatski otvoriti Chrome i testirati login
+```
+
+---
+
+**Primer 3 - API testiranje sa Requests**
+
+```python
+import requests
+
+# Testira API
+response = requests.get("https://api.example.com/users/1")
+
+# Provera statusa
+assert response.status_code == 200
+
+# Provera podataka
+data = response.json()
+assert data['name'] == "John Doe"
+assert data['email'] == "john@example.com"
+
+print("Test uspešan!")
+```
+
+---
+
+**KONTINUIRANA INTEGRACIJA (Continuous Integration - CI)**
+
+**Karakteristike:**
+
+- **Automatsko testiranje** svaki put kada se kod promeni
+- Čim **programer prosledi kod**, testovi se pokreću
+- Greške se pronalaze **trenutno**, ne kasnije
+- **Brza povratna informacija**
+
+**Princip:**
+
+```
+Programer napiše kod → GitHub push → CI server prosledi testove
+→ Ako PASS: Odobren kod → Ako FAIL: Obavest programera
+```
+
+---
+
+**POPULARNI CI ALATI:**
+
+1. **Jenkins** - Najpopularniji, open source
+2. **GitLab CI** - Integrisana u GitLab
+3. **GitHub Actions** - Integrisana u GitHub
+4. **CircleCI** - Cloud-based
+5. **Travis CI** - Za open source projekte
+
+---
+
+**PRIMER - GitHub Actions**
+
+Kreiraj `.github/workflows/test.yml`:
+
+```yaml
+name: Automatsko testiranje
+
+on:[push, pull_request]
+
+jobs:
+test:
+runs-on: ubuntu-latest
+
+steps:
+-uses: actions/checkout@v2
+
+-name: Set up Python
+uses: actions/setup-python@v2
+with:
+python-version:3.9
+
+-name: Instaliraj zavisnosti
+run: pip install -r requirements.txt
+
+-name: Pokreni testove
+run: pytest
+```
+
+Tok:
+
+```
+1. Programer napiše kod i prosledi na GitHub
+2. GitHub Actions se automatski pokreće
+3. Instala Python i zavisnosti
+4. Pokreće sve testove (pytest)
+5. Ako su testovi PASS: Odobren pull request ✓
+6. Ako su testovi FAIL: Obavest programera ✗
+```
+
+---
+
+**PRIMENA U PRAKSI - Git Workflow:**
+
+```
+1. Programer kreira novu granu
+   git checkout -b feature/login
+
+2. Piše kod i testove
+   # login.py, test_login.py
+
+3. Prosledi kod
+   git push origin feature/login
+
+4. Kreira Pull Request na GitHub
+
+5. CI automatski testira (GitHub Actions)
+   ✓ Sve testove prođu
+
+6. Code review: Druga osoba pregleda kod
+   ✓ Pregled OK
+
+7. Merge u main granu
+   ✓ Kod je sada u produkciji
+
+8. CI ponovo testira nakon merge-a
+   ✓ Sve je OK
+```
+
+---
+
+**PREDNOSTI KONTINUIRANE INTEGRACIJE:**
+
+✓ **Greške se pronalaze brzo** - Dan, a ne nedelja kasnije
+
+✓ **Kvalitetniji kod** - Svi testovi moraju da prođu
+
+✓ **Automatizovani sistem** - Nema zaboravljanja testiranja
+
+✓ **Brži razvoj** - Manje vremena za debugging
+
+✓ **Pouzdanost** - Samo testiran kod ide u produkciju
+
+---
+
+### **Pitanje 2.31. Načini testiranja. Automatsko generisanje test primera.**
+
+**Odgovor:**
+
+---
+
+**AUTOMATSKO GENERISANJE TEST PRIMERA (Automated Test Generation)**
+
+**Karakteristike:**
+
+- Testovi se **automatski kreiraju** bez ručnog pisanja
+- Koriste se **alati i tehnike** za pronalaženje test slučajeva
+- **Mašina generira testove** umesto čoveka
+- Posebna tehnologija za pronalaženje grešaka
+
+---
+
+**TEHNIKE AUTOMATSKOG GENERISANJA:**
+
+**1. Fuzzing (Random Testing)**
+
+Šalje **nasumične/random podatke** sistemu i gleda šta se dešava.
+
+```python
+import random
+import string
+
+def test_fuzzing_string():
+    """Generiši nasumične stringove i testiraj funkciju"""
+
+    def je_broj(s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False
+
+    # Generiši 100 nasumičnih stringova
+    for i in range(100):
+        random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=10))
+        result = je_broj(random_string)
+        # Ako se desi greška, Fuzzing je našao bug!
+```
+
+**Primena:**
+
+- Pronalaženje buffer overflow grešaka
+- Pronalaženje crash greške
+- Pronalaženje sigurnosnih ranjivosti
+
+**Alati:**
+
+- AFL (American Fuzzy Lop)
+- LibFuzzer
+- LLVM
+
+---
+
+**2. Property-Based Testing**
+
+Definiš **svojstva koja će biti uvek istinita**, onda test generiše podatke.
+
+```python
+from hypothesis import given, strategies as st
+
+@given(st.lists(st.integers()))
+def test_sortiraj(lista):
+    """Generiši nasumične liste i testiraj sortiranje"""
+    sortirano = sorted(lista)
+
+    # Svojstvo 1: Sortirana lista je duža ili jednaka originalnoj
+    assert len(sortirano) == len(lista)
+
+    # Svojstvo 2: Svaki element je manji od sledećeg
+    for i in range(len(sortirano) - 1):
+        assert sortirano[i] <= sortirano[i + 1]
+
+    # Svojstvo 3: Sortirana lista sadrži sve originalne elemente
+    assert sorted(sortirano) == sorted(lista)
+```
+
+**Alati:**
+
+- Hypothesis (Python)
+- QuickCheck (Haskell)
+- ScalaCheck (Scala)
+
+---
+
+**3. Symbolic Execution**
+
+Analizira kod **simbolički** da pronađe sve moguće putanje.
+
+```python
+# Kod:
+def test(x, y):
+    if x > 5:
+        if y < 3:
+            return "Greška"
+    return "OK"
+
+# Symbolic Execution bi generisao:
+# Test 1: x=6, y=2  → Greška
+# Test 2: x=6, y=4  → OK
+# Test 3: x=3, y=2  → OK
+```
+
+**Alati:**
+
+- KLEE
+- Java PathFinder (JPF)
+
+---
+
+**4. Mutations (Mutation Testing)**
+
+Generiše **mutantne verzije koda** da vidi da li testovi pronalaze greške.
+
+```python
+# Originalni kod:
+def je_pozitivan(broj):
+    return broj > 0
+
+# Mutacija 1:
+def je_pozitivan_mut1(broj):
+    return broj >= 0  # Promenjena operacija
+
+# Mutacija 2:
+def je_pozitivan_mut2(broj):
+    return broj < 0   # Obrnuta logika
+
+# Test da proverite da li pronalazi mutacije:
+test_je_pozitivan()  # Trebalo bi da prosledi originalni kod ali padne na mutantima
+```
+
+**Alati:**
+
+- Stryker (JavaScript, Java, Python)
+- PIT (Java)
+
+---
+
+**PRIMERI AUTOMATSKOG GENERISANJA:**
+
+**Primer 1 - Fuzzing sa AFL-om**
+
+```bash
+# Kreiraj test program
+cat > test.c << 'EOF'
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char buffer[^10];
+    scanf("%s", buffer);  # Ranjiv na buffer overflow!
+    printf("Input: %s\n", buffer);
+    return 0;
+}
+EOF
+
+# Kompajluj sa AFL
+afl-gcc -o test test.c
+
+# Generiši nasumične inpute
+afl-fuzz -i in -o out ./test
+
+# AFL će pronać crash sa dugim stringovima!
+```
+
+---
+
+**Primer 2 - Property-Based Testing sa Hypothesis**
+
+```python
+from hypothesis import given, strategies as st
+
+@given(st.lists(st.integers()))
+def test_max(lista):
+    """Generise nasumične liste i testira max()"""
+    if len(lista) > 0:
+        maks = max(lista)
+        # Svojstvo: max mora biti >= od svih elemenata
+        for elem in lista:
+            assert maks >= elem
+
+# Hypothesis će generisati:
+# [], [^1], [5, 3, 2], [-100, 50], ...
+# I testirati sve!
+```
+
+---
+
+**Primer 3 - Mutaciono testiranje sa Stryker-om**
+
+```bash
+# Instaliraj
+npm install --save-dev @stryker-mutator/core
+
+# Konačfiguruj stryker.conf.json
+# Pokreni
+npm run stryker
+
+# Izveštaj:
+# Test obezbađivanja za mutanty:
+# - Original: test1() prosledi
+# - Mutant 1 (broj > broj >=): test1() pada ✓ Dobar test!
+# - Mutant 2 (broj > broj <): test1() pada ✓ Dobar test!
+```
+
+---
+
+**PREDNOSTI AUTOMATSKOG GENERISANJA:**
+
+✓ **Manje ručnog rada** - Ne trebam pisati sve testove
+
+✓ **Pronalaženje neočekivanih grešaka** - Random testovi pronalaze čudne slučajeve
+
+✓ **Brže testiranje** - Automatski generisanje je brže od ručnog
+
+✓ **Boljepokrivenost** - Generiše test slučajeve koje čovek ne bi pomislio
+
+✓ **Sigurnost** - Fuzzing pronalazi sigurnosne ranjivosti
+
+---
+
+**NEDOSTACI:**
+
+✗ **Može biti spora** - Fuzzing može trajati sate
+
+✗ **Smanjeni validitet** - Random testovi mogu biti beznačajni
+
+✗ **Teško interpretirati rezultate** - Greške iz random testova nisu intuitorne
+
+✗ **Potrebna je analiza** - Rezultati zahtevaju ručnu analizu
+
+---

@@ -11,3 +11,6 @@ Iskoristi skriptu `random_questions.py` da mi postavis jedno pitanje iz grupe 1.
 
 Nemoj da pitas nesto sto se ne nalazi u odgovoru. Ako kazem nesto sto je tacno, ali se ne nalazi u datom tekstu, nemoj racunati da je to ispravno.
 ```
+Nakon toga ili odgovoriti na postavljeno pitanje ili popricati sa agentom o nejasnocama.
+
+Pokretati prompt iz pocetka dok se ne odgovori na sva pitanja.

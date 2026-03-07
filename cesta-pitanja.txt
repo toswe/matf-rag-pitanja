@@ -1,0 +1,36 @@
+Format:
+Pitanje 0.{broj_glave}.{broj_pitanja}
+Pitanje 0.{broj_glave}.{broj_pitanja}.{broj_podpitanja}
+
+Pitanje 0.1.1 Značaj kvaliteta softvera
+Pitanje 0.2.1 Uticaj neispravnog softvera
+Pitanje 0.4.1 Testiranje u razvoju softvera.
+Pitanje 0.4.2 Vrste testiranja
+Pitanje 0.4.2.1 Sistemsko testiranje.
+Pitanje 0.4.2.2 Nefunkcionalno testiranje.
+Pitanje 0.4.3 Tehnike testiranja.
+Pitanje 0.4.3.1 Karakteristike dobrog skupa tesotva.
+Pitanje 0.4.3.2 Testiranje metodama crne kutĳe.
+Pitanje 0.4.3.3 Testiranje metodama bele kutĳe.
+Pitanje 0.4.4 Načini testiranja.
+Pitanje 0.5.1 Debagovanje.
+Pitanje 0.5.1.1 Veza izvršivog koda i debagera.
+Pitanje 0.6.1 Profajliranje.
+Pitanje 0.6.1.1 Instrumentaciono profajliranje.
+Pitanje 0.6.1.2 Sanitajzeri.
+Pitanje 0.6.1.3 Valgrind i najpoznatĳi Valgrind alati
+Pitanje 0.7.1 Semantika programskih jezika
+Pitanje 0.7.1.1 Operaciona semantika
+Pitanje 0.8.1 Pregledi koda.
+Pitanje 0.8.1.1 Neformalni pregledi.
+Pitanje 0.9.1 Simboličko izvršavanje.
+Pitanje 0.9.1.1 Konkoličko izvršavanje.
+Pitanje 0.9.1.2 Strategĳe obilaska puteva.
+Pitanje 0.9.1.3 Izazovi simboličkog izvršavanja.
+Pitanje 0.10.1 Proveravanje modela
+Pitanje 0.10.1.1 Osnove i motivacĳa.
+Pitanje 0.10.1.2 Pravljenje modela.
+Pitanje 0.10.1.3 Formalna specifikacĳa.
+Pitanje 0.10.1.4 Algoritmi za proveravanje modela.
+Pitanje 0.10.1.5 Kontrola kombinatorne eksplozije u proveravanju modela.
+Pitanje 0.11.1 Apstraktna interpretacĳa.

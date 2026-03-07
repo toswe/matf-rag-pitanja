@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Nasumično bira pitanja iz foldera pojedinacno (format grupa.broj.txt).
+"""Nasumično bira pitanja iz foldera pojedinacno (format grupa.broj.txt ili grupa.broj.znam.txt).
 
 Parametri (svi neobavezni):
-  --grupa N  tražena grupa, 1–4 (podrazumijevano: sve grupe)
-  --broj N   ukupan broj pitanja za izbor (podrazumijevano: sva u grupi/grupama)
+  --grupa N         tražena grupa, 1–4 (podrazumijevano: sve grupe)
+  --broj N           ukupan broj pitanja za izbor (podrazumijevano: sva u grupi/grupama)
+  --preskaci-znam    ne biraj pitanja označena kao „znam“ (postoji grupa.broj.znam.txt)
 """
 
 import argparse
@@ -30,23 +31,38 @@ def naslov_pitanja(path):
 
 
 def dostupna_pitanja():
-    """Vraća listu (grupa, broj) za sve fajlove grupa.broj.txt."""
+    """Vraća listu (grupa, broj) za fajlove grupa.broj.txt i grupa.broj.znam.txt."""
     if not os.path.isdir(POJEDINACNO):
         return []
-    pitanja = []
+    pitanja = set()
     for f in os.listdir(POJEDINACNO):
         if not f.endswith(".txt"):
             continue
         base = f[:-4]  # bez .txt
-        if "." in base:
-            parts = base.split(".", 1)
-            try:
-                g, b = int(parts[0]), int(parts[1])
-                if 1 <= g <= 4:
-                    pitanja.append((g, b))
-            except ValueError:
-                continue
+        if base.endswith(".znam"):
+            base = base[:-5]  # grupa.broj
+        if "." not in base:
+            continue
+        parts = base.split(".", 1)
+        try:
+            g, b = int(parts[0]), int(parts[1])
+            if 1 <= g <= 4:
+                pitanja.add((g, b))
+        except ValueError:
+            continue
     return sorted(pitanja)
+
+
+def fajl_pitanja(grupa, broj):
+    """Put do fajla pitanja: grupa.broj.txt ako postoji, inače grupa.broj.znam.txt."""
+    obicno = os.path.join(POJEDINACNO, f"{grupa}.{broj}.txt")
+    znam = os.path.join(POJEDINACNO, f"{grupa}.{broj}.znam.txt")
+    return obicno if os.path.isfile(obicno) else znam
+
+
+def pitanje_oznaceno_znam(grupa, broj):
+    """Da li postoji fajl grupa.broj.znam.txt."""
+    return os.path.isfile(os.path.join(POJEDINACNO, f"{grupa}.{broj}.znam.txt"))
 
 
 def main():
@@ -70,11 +86,16 @@ def main():
         metavar="N",
         help="Koliko pitanja nasumično izabrati",
     )
+    parser.add_argument(
+        "--preskaci-znam",
+        action="store_true",
+        help="Preskači pitanja označena kao „znam“ (fajl grupa.broj.znam.txt)",
+    )
     args = parser.parse_args()
 
     sva = dostupna_pitanja()
     if not sva:
-        print("U folderu pojedinacno nema fajlova grupa.broj.txt.")
+        print("U folderu pojedinacno nema fajlova grupa.broj.txt / grupa.broj.znam.txt.")
         return 1
 
     if args.grupa is not None:
@@ -83,6 +104,10 @@ def main():
     else:
         u_rasponu = sva
         raspon_tekst = "sve grupe (1–4)"
+
+    if args.preskaci_znam:
+        u_rasponu = [(g, b) for g, b in u_rasponu if not pitanje_oznaceno_znam(g, b)]
+        raspon_tekst += " (bez „znam“)"
 
     if not u_rasponu:
         print(f"Nema pitanja za {raspon_tekst}.")
@@ -101,8 +126,8 @@ def main():
 
     print(f"Izabrano {len(izabrana)} pitanja ({raspon_tekst}):\n")
     for i, (g, b) in enumerate(izabrana):
-        filename = f"{g}.{b}.txt"
-        path = os.path.join(POJEDINACNO, filename)
+        path = fajl_pitanja(g, b)
+        filename = os.path.basename(path)
         print(f"--- {filename} ---")
         naslov = naslov_pitanja(path)
         if naslov is not None:

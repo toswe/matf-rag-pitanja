@@ -1,4 +1,4 @@
-Pitanje 3.1 Semantika programskih jezika. Uloga i značaj. Formalno i neformalno zadavanje semantike.
+Pitanje 3.53 Semantika programskih jezika. Uloga i značaj. Formalno i neformalno zadavanje semantike.
 
 Semantika programskih jezika pridružuje značenje ispravnim izrazima
 napisanim na nekom programskom jeziku. Ona odreduje šta se dešava
@@ -25,7 +25,7 @@ doneti zaključci o ekvivalentnosti dva koda. Formalna semantika, ipak,
 programerima, dizajnerima programskog jezika i programerima kompajlera daje okvir za zaključivanje o osobinama programa. Ona daje mogućnost
 ispitivanja različitih uslova ispravnosti/korektnosti programa.
 
-Pitanje 3.2 Semantika programskih jezika. Operaciona semantika. Prirodna semantika.
+Pitanje 3.54 Semantika programskih jezika. Operaciona semantika. Prirodna semantika.
 
 Operaciona semantika opisuje kako se izračunavanje izvršava. Najčešće
 se koristi za opis i zaključivanje o imperativnim jezicima jer pojedinačni
@@ -75,7 +75,7 @@ Dokazivanje ekvivalencije dva izraza se svodi dokazivanje ⟨S1 , s⟩ → s′ 
 ⟨S2 , s⟩ → s′ . Ovo se postiže kreiranjem stabala izvodenja za jedan izraz i
 postavljanja njega kao premise za izvršavanje drugog programa.
 
-Pitanje 3.3 Semantika programskih jezika. Operaciona semantika. Strukturna semantika.
+Pitanje 3.55 Semantika programskih jezika. Operaciona semantika. Strukturna semantika.
 
 Strukrurna semantika opisuje pojedinačne korake izračunavanja. Ona
 koristi tranzicione relacije oblika ⟨S, s⟩ =⇒ γ. gde γ može biti:
@@ -99,7 +99,7 @@ Dokazi važenja nekih svojstava se izvode indukcijom po dužini izvodenja
 (prvo se pokaže za izvodenje dužine 0, pa za konačnu dužinu k i onda za
 k + 1)
 
-Pitanje 3.4 Semantika programskih jezika. Denotaciona semantika.
+Pitanje 3.56 Semantika programskih jezika. Denotaciona semantika.
 
 Denotaciona semantika definiše značenje jednog jezika prevodenjem u
 drugi jezik za koji se pretpostavlja da ima poznatu semantiku, najčešće
@@ -189,7 +189,7 @@ undefined,
 
 • funkcija FIX za opis naredbe while
 
-Pitanje 3.5 Semantika programskih jezika. Aksiomatska semantika.
+Pitanje 3.57 Semantika programskih jezika. Aksiomatska semantika.
 
 Aksionatska semantika omogućava viši nivo apstrakcije i udaljavanje
 od konkretne semantike programa. Njen cilj je da omogući proveravanje
@@ -225,7 +225,7 @@ posle
 {P } if b then S1 else S2 {Q}
 uslovi koji treba da važe, a ispod naredba koja će se desiti)
 
-Pitanje 3.6 Simboličko izvršavanje. Istorija, alati, stablo izvršavanja.
+Pitanje 3.58 Simboličko izvršavanje. Istorija, alati, stablo izvršavanja.
 
 Simboličko izvršavanje je tehnika izvršavanja programa gde se prate
 simbolička, a ne konkretna stanja. Simultano se izvršava puno putanja
@@ -259,7 +259,7 @@ definisanja i petlji.
 – ako je ¬e ∧ π zadovoljiva, onda je naden ulaz za koji assert
 pada
 
-Pitanje 3.7 Simboličko izvršavanje. Primene.
+Pitanje 3.59 Simboličko izvršavanje. Primene.
 
 Primene:
 • pronalaženje grešaka je moguće kreiranjem formule putanje izvršavanja i njenom proverom
@@ -270,7 +270,7 @@ formula nezadovoljiva, onda ona opisuje nedostižnu putanju
 • generisanje automatskih ispravki koda
 • ...
 
-Pitanje 3.8 Simboličko izvršavanje. Izazovi.
+Pitanje 3.60 Simboličko izvršavanje. Izazovi.
 
 Teorijski, simboličkim izvršavanjem je moguće generisati sve moguće putanje kroz koje bi program mogao da prode. Ovo e najčešće neizvodljivo
 u praksi .
@@ -292,7 +292,7 @@ mnogo uslova u sebi. SMT rešavači uspevaju dobro da rade sa velikim
 formulama, ali problem nastaje kada ograničenja sadrže nelinearnu
 aritmetiku
 
-Pitanje 3.9 Simboličko izvršavanje. Konkoličko izvršavanje.
+Pitanje 3.61 Simboličko izvršavanje. Konkoličko izvršavanje.
 
 Online izvršavanje podrazumeva kloniranje stanja na svakom mestu
 gde može da dode do grananja kako bi se izbeglo ponovno izvršavanje
@@ -322,7 +322,7 @@ Ako se neka putanja označi kao nedostižna zbog soft ograničenja radi se
 backtracking kako bi se odabrali drugi argumenti.
 8
 
-Pitanje 3.10. Simboličko izvršavanje. Strategije obilaska puteva. Pretraga u dubinu, širinu i odabir slučajnog puta.
+Pitanje 3.62. Simboličko izvršavanje. Strategije obilaska puteva. Pretraga u dubinu, širinu i odabir slučajnog puta.
 
 Strategije obilaska puteva služe za navodenje pretrage putanja u stablu
 simboličkog izvršavanja jer je iscrpna pretraga preskupa ili memorijski/vremenski nedostižna. Različite heuristike služe za ostvarivanje različitih
@@ -337,7 +337,7 @@ izborom narednem putanje, nasumičnom metodom se resetuje stanje ako
 se u programu ništa novo ne dešava već neko vreme ili ako postoje putanje istih prioriteta nasumično odabrati jednu od njih. Problem s ovim
 metodama može biti reprodukcija, pa se mora čuvati seed.
 
-Pitanje 3.11 Simboličko izvršavanje. Strategije obilaska puteva. Izvršavanje vodeno pokrivenošću koda. Simboličko izvršavanje najkraćeg rastojanja.
+Pitanje 3.63 Simboličko izvršavanje. Strategije obilaska puteva. Izvršavanje vodeno pokrivenošću koda. Simboličko izvršavanje najkraćeg rastojanja.
 
 Ukoliko nam je cilj testiranje, želimo da generišemo ulazne parametre koji
 povećavaju pokrivenost koda, tj navode izvršavanje na putanje koje sadrže
@@ -353,7 +353,7 @@ vrednosti n zavisi kvalitet heuristike.
 Izvršavanje vodeno najkraćim rastojanjem služi za pronalaženje ulaznih parametara koji če dovesti do izvršavanja ciljane tačke u programu.
 Rastojanje se računa kao dužina najkraće putanje u grafu kontrole toka.
 
-Pitanje 3.12 Simboličko izvršavanje. Strategije obilaska puteva. Generacijska pretraga. Kombinovana strategija.
+Pitanje 3.64 Simboličko izvršavanje. Strategije obilaska puteva. Generacijska pretraga. Kombinovana strategija.
 
 Generacijska pretraga je hibrid pretrage u dubinu i izvršavaja vodenog
 pokrivenošću koda. Ideja je da se izvrši neka putanja do kraja, a da se
@@ -363,7 +363,7 @@ generacije.
 Kombinovana pretraga podrazumeva pokretanja nekoliko algoritama
 nad istim kodom istovremeno ili alternirajući izmedu njih.
 
-Pitanje 3.13 Simboličko izvršavanje. Strategije obilaska puteva. Tehnike izvršavanja unazad.
+Pitanje 3.65 Simboličko izvršavanje. Strategije obilaska puteva. Tehnike izvršavanja unazad.
 
 Simboličko izvršavanje unazad je tehnika simboličkog izvršavanja kod
 koje izvršavanje počinje od ciljane tačke prema tački ulaza. Osnovi cilj
@@ -379,7 +379,7 @@ Da bi ove tehnike mogle da se sprovedu, neophodno je da postoji graf
 kontrole toka za ceo program. Konstruisanje ovog grafa je jako složeno,
 a sam graf kompleksan.
 
-Pitanje 3.14 Simboličko izvršavanje. Modelovanje memorije. Puna simbolička memorija.
+Pitanje 3.66 Simboličko izvršavanje. Modelovanje memorije. Puna simbolička memorija.
 
 Kako bi se opisali pokazivači i nizovi neophodno je da imamo način modelovanja memorije. To podrazumeva proširivanje memorije tako da je
 omogućeno preslikavanje memorijskih adresa u simboličke izraze ili vrednosti. Simboličko skladiške σ se može posmatrati kao preslikavanje koje
@@ -419,7 +419,7 @@ i u narednim činjama sa te pozicije ćemo dobiti tu vrednost
 jednu poziciju ne menja vrednosti na ostalim pozicijama
 • ∀a∀b((∀i(select(a, i) = select(b,i))) =⇒ a = b)
 
-Pitanje 3.15 Simboličko izvršavanje. Modelovanje memorije. Izazovi i rešenja.
+Pitanje 3.67 Simboličko izvršavanje. Modelovanje memorije. Izazovi i rešenja.
 
 U najvećem broju slučajeva, simbolička memorija može da uzima ograničen i relativno mali broj konkretnih vrednosti, pa je broj stanja mali.
 Medutim, u opštem slučaju memorija može da referiše na bilo koju ćeliju
@@ -441,7 +441,7 @@ lokalizovana i razumno rasporedena.
 Simboličko izvršavanje i analiza su značajno otežane ako se u kodu koriste složene strukture podataka kao što su stabla ili liste. Da bi se analiza olakšala, često se kombinuju tehnike provere modela i simboličkog
 izvršavanja.
 
-Pitanje 3.16 Simboličko izvršavanje. Modelovanje okoline.
+Pitanje 3.68 Simboličko izvršavanje. Modelovanje okoline.
 
 Modelovanje okoline se odnosi na modelovanje bibliotečkih funkcija i
 sadržaja datoteka i okoline. Kako je izvorni kod biblioteka nepoznat, kao
@@ -460,14 +460,14 @@ nad operativnim sistemom da se ne bi propagirala nekonzistentna stanja.
 Slična ovoj je tehnika emulacije celog softverskog okvira koja dopušta prevodenje instrukcija i njihovo izvršavanje direktno na emuliranom
 softveru.
 
-Pitanje 3.17 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja.
+Pitanje 3.69 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja.
 
 Kako se simboličkim izvršavanjem mogu pojaviti nova stanja na svakom
 grananju, ukupan broj vrlo lako postaje eksponencijalan po broju grananja, tj nastaje eksplozija broja stanja. Glavni izvori eksplozije broja
 grana su petlje i pozivi kunkcija. Postoje različite tehnike za redukciju stanja, kao što su odsecanje nedostižnih putanja, spajanje stanja, sumiranje
 petlji i ponovno korišćenje uslova.
 
-Pitanje 3.18 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja. Eksploatacija preduslova i ulaznih karakteristika, spajanje stanja.
+Pitanje 3.70 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja. Eksploatacija preduslova i ulaznih karakteristika, spajanje stanja.
 
 Eksploatacija preduslova i ulaznih karakteristika je jedna tehnika
 redukcije eksplozije broj putanja. Ona podrazumeva usmeravanje istraživanja
@@ -484,7 +484,7 @@ se σ ′ kreira sa ite izrazima koji razmatra razlike u skladištu. Ova tehnik
 značajno usložnjava kompleksnost formule koja se prosleduje rešavaču, pa
 treba pažljivo birati kada će se putanje spajati.
 
-Pitanje 3.19 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja. Odsecanje putanja i sumiranje petlji.
+Pitanje 3.71 Simboličko izvršavanje. Eksplozija broja putanja i regulisanje broja stanja. Odsecanje putanja i sumiranje petlji.
 
 Odsecanje nedostižnih putanja je tehnika redukcije broja stanja za
 analizu pozivanjem SMT rešavača kod svakog grananja kako bi se utvrdilo
@@ -497,7 +497,7 @@ jer su petlje glavni izvor eksplozije broja stanja. Medutim, gubimo saglasnost. 
 se preskoči njena analiza prilikom simboličkog izvršavanja. Problem kreiranja invarijante petlje je neodlučiv, pa ako se i taj proces automatizuje
 umesto ručnog zadavanja, proces može značajno da traje.
 
-Pitanje 3.20 Simboličko izvršavanje. Efikasna upotreba rešavača. Redukovanje uslova i ponovno korišćenje.
+Pitanje 3.72 Simboličko izvršavanje. Efikasna upotreba rešavača. Redukovanje uslova i ponovno korišćenje.
 
 Pozivi rešavača su jako skupi jer obično zahtevaju dosta vremena, pa njihovo prečesto pozivanje može značajno da optereti vreme analize. Poznato
 je da je SAT problem NP težak ali postoje napredci u rešavanju odredenih
@@ -525,7 +525,7 @@ da je putanja nastala nadogradnjom nekog uslova dodatnim uslovom. Ako
 se rešavač pozove za neki poduslov, rezonovanje o naduslovu ne mora da
 krene od nule jer već postoje infrmacije o njenom delu.
 
-Pitanje 3.21 Simboličko izvršavanje. Efikasna upotreba rešavača. Lenji uslovi i konkretizacija.
+Pitanje 3.73 Simboličko izvršavanje. Efikasna upotreba rešavača. Lenji uslovi i konkretizacija.
 
 Lenji uslovi se koriste kada se naide na uslov grananja koji uključuje skupu simboliču operaciju. Tada se uzimaju i tačna i netačna grana i dodaje
 se lenji uslov nad njima kako bi se ta skupa operacija izbegla. Rezonovanje
@@ -535,7 +535,7 @@ konkretnim vrednostima. Da bi se ovo efikasno postiglo, preporučuje se
 kombinovana tehnika simboličkog i konkretnog uzvršavanja. Ovime se briše
 potreba za rešavačem koji bi morao da rezonuje o kompleksnom uslovu.
 
-Pitanje 3.22 Selektivno simboličko izvršavanje.
+Pitanje 3.74 Selektivno simboličko izvršavanje.
 
 Selektivno izvršavanje podrazumeva smenu konkretnog i simboličkog
 izvršavanja. Kada se naide na deo koda koji nije značajan za analizu,
@@ -547,7 +547,7 @@ pozitivnih rezultata). Zato se ograničenja markiraju kao soft ograničenja.
 Ako se neka putanja označi kao nedostižna zbog soft ograničenja radi se
 backtracking kako bi se odabrali drugi argumenti.
 
-Pitanje 3.23 Ograničenja koja nameće izvršavanje binarnog koda.
+Pitanje 3.75 Ograničenja koja nameće izvršavanje binarnog koda.
 
 Simboličko izvršavanje je moguće kada nam je poznat graf kontrole toka. U
 slučaju izvršavanja binarnog koda mi nemamo te informacije, pa moramo
@@ -556,11 +556,11 @@ se često primenjuju tehnike koje namerno otežavaju proces rekonstrukcije
 programa, što u cilju zaštite intelektualne svojine, što iz bezbednosnih
 razloga.
 
-Pitanje 3.24 Otvorena pitanja i prostori za dalja unapredenja.
+Pitanje 3.76 Otvorena pitanja i prostori za dalja unapredenja.
 
 NEMA NIČEGA ZA OVO PITANJE.
 
-Pitanje 4.1 Pregledi koda. Ciljevi pregleda koda. Primeri.
+Pitanje 4.77 Pregledi koda. Ciljevi pregleda koda. Primeri.
 
 Pregledi koda predstavljaju ručnu prveru koda od strane kolega obično
 pre priduživanja promena direktorijumu. Oni služe za otkrivanje propusta i unapredenje kvaliteta softvera, kao i razmenu znanja unutar tima i
@@ -594,7 +594,7 @@ formatiranje i koristiti {} oko if naredbi
 • najbolje bi bilo koristiti ugradene funkcije za računanje max
 max3 = max(a, max(b,c))
 
-Pitanje 4.2 Pregledi koda. Efekti i značaj pregleda koda. Primeri.
+Pitanje 4.78 Pregledi koda. Efekti i značaj pregleda koda. Primeri.
 
 Pregled koda je značajan jer ako je odraden kako treba garantuje korist
 u razvoju, doprinosu razmeni znanja u timu što od starijih ka mladim
@@ -608,7 +608,7 @@ kojoj je softver od oko 10 000 linija koda i 10 programera kreiran bez
 pregleda koda, a zatim sa drugim skupom programera pregledan. Pregled koda je uštedeo polovinu troškova otklanjanja grešaka i pronašao
 stotinak novih grešaka.
 
-Pitanje 4.3 Pregledi koda. Preporuke za efikasan pregled koda. Primeri.
+Pitanje 4.79 Pregledi koda. Preporuke za efikasan pregled koda. Primeri.
 
 Pregledi koda predstavljaju ručnu prveru koda od strane kolega obično
 pre priduživanja promena direktorijumu. Oni služe za otkrivanje propusta i unapredenje kvaliteta softvera, kao i razmenu znanja unutar tima i
@@ -640,7 +640,7 @@ dokumentovani
 
 16
 
-Pitanje 4.4 Pregledi koda. Formalni pregledi.
+Pitanje 4.80 Pregledi koda. Formalni pregledi.
 
 Formalni pregledi podrazumevaju grupne sastanke 3 do 6 osoba na kojima se diskutuje o kvalitetu koda. Kada programer izmeni kod, on zakazuje
 uvodni sastanak na kome prezentuje kod. Zatim pregledači proveravaju
@@ -650,7 +650,7 @@ se svi pregledači ne usagalse da kod ne treba više menjati. Ovo je jako
 intezivan i zahtevan proces za koji kompanije često nemaju resursa, pa se
 on sprovodi samo za kritične delove koda.
 
-Pitanje 4.5 Pregledi koda. Neformalni pregledi. Pregled preko ramena.
+Pitanje 4.81 Pregledi koda. Neformalni pregledi. Pregled preko ramena.
 
 Neformalni pregledi mogu biti preko ramena, preko mejla, preko alata
 za pregledanje koda ili programiranje u paru. Pre integracije u repozitorujum, programer samostalno poreće testove, a zatim šalje izmene kolegama,
@@ -661,7 +661,7 @@ mnogo truda za organizaciju ovakvog pregleda, dovoljno je da se kolege
 medusobno dogovore i zakažu pregled. Ovo je najneformalniji oblig pregleda i nakon njega obično nema dodatnih pregleda, pa se može desiti da
 neki problemi ostanu neprimećeni.
 
-Pitanje 4.6 Pregledi koda. Neformalni pregledi. Pregled putem elektronske pošte.
+Pitanje 4.82 Pregledi koda. Neformalni pregledi. Pregled putem elektronske pošte.
 
 Pregled putem elektronske pošte podrazumeva slanje izmena koda
 mejlom pregledačima pre ili nakon integracije u repozitorijum. Pregledači
@@ -670,14 +670,14 @@ njih. Prednosti pregleda pre integracije su mogućnost lake izmene koda,
 dok pregled nakon integracije zahteva veći stepen provere ali daje bržu
 isporuku.
 
-Pitanje 4.7 Pregledi koda. Neformalni pregledi. Pregled korišćenjem specijalizovanih alata.
+Pitanje 4.83 Pregledi koda. Neformalni pregledi. Pregled korišćenjem specijalizovanih alata.
 
 Specijalizovani alati za pregled koda pružaju mogućnost pregeda dodatog koda po datotekama, komentara od strane pregledača i njihovih
 statusa kao i istorije promena. Unutar njih se odvija ceo proces pregleda. Nakon što programer doda kod, on prepoznaje pregledače i poziva ih
 da pregledaju kod, na osnovu njihovih komentara menja kod dok se svi
 pregledači ne usaglase da nema potrebe za dodatnim proverama.
 
-Pitanje 4.8 Pregledi koda. Neformalni pregledi. Programiranje u paru.
+Pitanje 4.84 Pregledi koda. Neformalni pregledi. Programiranje u paru.
 
 Programiranje u paru podrazumeva da jedan programer aktivno kuca
 kod dok drugi razmišlja o široj slici i ukazuje na greške. Ovako se brzo i lako
@@ -688,7 +688,7 @@ da su zajedno. Dodatni problem nastaje ako programeri rade zajedno i
 krenu da razmišljaju na sličan način i počnu da previdaju iste stvari čak
 i kada se smenjuju za tastaturom.
 
-Pitanje 4.9 Proveravanje modela. Osnove i motivacija. Osnovni pojmovi. Primeri: hardver i softver.
+Pitanje 4.85 Proveravanje modela. Osnove i motivacija. Osnovni pojmovi. Primeri: hardver i softver.
 
 Proveravanje modela je metoda formalne verifikacije softvera ili hardvera koja za cilj ima proveru zadovoljenosti svojstva koja su bitna za taj
 sistem.
@@ -727,7 +727,7 @@ y = -y ;
 z = z * y + 1;
 }
 
-Pitanje 4.10 Proveravanje modela. Osnove i motivacija. Primene proveravanja modela. Verifikacija hardvera, konkurentnih sistema, komunikacionih protokola i softvera.
+Pitanje 4.86 Proveravanje modela. Osnove i motivacija. Primene proveravanja modela. Verifikacija hardvera, konkurentnih sistema, komunikacionih protokola i softvera.
 
 Proveravanje modela je nastalo da bi se verifikovao hardver ali se razvilo
 tako da je upotrebljivo i kod verifikacije softvera, čak i kada on ima jako
@@ -749,7 +749,7 @@ petlji, garancije napredovanja i dostavljanja paketa i pravilno uspostavljanje i
 Verifikacija softvera tehnikom provere modela je postala moguća razvojem metoda za regukciju apstraktnih sistema i porastom snage računara
 tako da je moguće izvesti komplikovana izračunavanja.
 
-Pitanje 4.11 Proveravanje modela. Pravljenje modela. Modelovanje jednostavnih sistema. Primeri.
+Pitanje 4.87 Proveravanje modela. Pravljenje modela. Modelovanje jednostavnih sistema. Primeri.
 
 Def. 5:
 Tranzicioni sistem je uredena šestorka (S, Act, →, I, V, λ), gde je S
@@ -864,7 +864,7 @@ h2 := odmara
 
 22
 
-Pitanje 4.12 Proveravanje modela. Pravljenje modela. Modelovanje hardvera. Primer.
+Pitanje 4.88 Proveravanje modela. Pravljenje modela. Modelovanje hardvera. Primer.
 
 Modelovanje hardvera podrazumeva da su stanja odredena stanjima
 registara i ulaznim vrednostima koje dolaze iz spoljašnosti. Relacija prelaska opisuje ponašanje kola u svakom ciklusu časovnika, skup λ(s) je skup
@@ -879,7 +879,7 @@ brednosti
 
 Slika 4: dijagram kola
 
-Pitanje 4.13 Proveravanje modela. Pravljenje modela. Modelovanje softvera. Primeri.
+Pitanje 4.89 Proveravanje modela. Pravljenje modela. Modelovanje softvera. Primeri.
 
 Da bi se definisao tranzicioni sistem softvera, neophodan je njegov formalni
 model.
@@ -1002,7 +1002,7 @@ z←
 • skup predikata može da bude V = {y > 0, |z| < 3}
 • obeležavanje može bit λ(L2 , [1, −1, −2]) = |z| < 3
 
-Pitanje 4.14 Proveravanje modela. Formalna specifikacija. Klase svojstava. Primeri.
+Pitanje 4.90 Proveravanje modela. Formalna specifikacija. Klase svojstava. Primeri.
 
 Formalna specifikacija definiše očekivano ponašanje sistema i kriterijume koje model treba da zadovolji. Ona definiše koja svojstva će biti deo
 verifikacije.
@@ -1023,7 +1023,7 @@ blokiranja (pr. kada x postane 1 i y će postati 1 u nekom trenutku)
 puta izvršavati, tj da nema izglednjivanja u programu (pr. ako x
 beskonačno puta dostiže 1 i y će beskonačno puta dostići 1)
 
-Pitanje 4.15 Proveravanje modela. Formalna specifikacija. Temporalne logike. Odnos LTL, CTL i CTL*.
+Pitanje 4.91 Proveravanje modela. Formalna specifikacija. Temporalne logike. Odnos LTL, CTL i CTL*.
 
 Temporalna logika predstavlja klasu logičkih okvira koji omogućavaju
 formalno opisivanje i evaluiranje tvrdenja čija istinitost zavisi od vremenskog trenutka. Operatori koji se najčešće sreću su:
@@ -1044,7 +1044,7 @@ operatora i kvantifikatora putanja. Sa praktične strane se razlike ogledaju
 u algoritamskoj složenosti odlučivanja, gde CTL ima najmanju složenost,
 a LTL je najintuitivnija.
 
-Pitanje 4.16 Proveravanje modela. Formalna specifikacija. LTL. Primeri.
+Pitanje 4.92 Proveravanje modela. Formalna specifikacija. LTL. Primeri.
 
 Def. 12:
 Sintaksa LTL formula nad tranzicionim
@@ -1134,7 +1134,7 @@ Stvari koje se ne mogu iskazati LTL jezikom:
 • Počev od nekog trenutka, ove putanje će imati svojstvo ϕ
 • Iz svakog dostižnog stanja se može stići u neko početno stanje
 
-Pitanje 4.17 Proveravanje modela. Formalna specifikacija. CTL i CTL*. Primeri.
+Pitanje 4.93 Proveravanje modela. Formalna specifikacija. CTL i CTL*. Primeri.
 
 U okviru CTL i CTL* logika se uvode kvantifikatori putanja Aϕ - formula
 ϕ važi na svim putanjama koje kreću iz trenutnog stanja i Eϕ - postoji
@@ -1149,7 +1149,7 @@ uvek važiti p
 CTL*: A G F p - na svakoj putanji u svakom trenutku postoji buduće
 stanje u kome će važiti p
 
-Pitanje 4.18 Proveravanje modela. Algoritmi za proveravanje modela. Obilazak grafa tranzicionog sistema. Primeri.
+Pitanje 4.94 Proveravanje modela. Algoritmi za proveravanje modela. Obilazak grafa tranzicionog sistema. Primeri.
 
 Algoritmi za proveru modela služe da na osnovu modela i formalne
 specifikacije svojstava provere da li model zadovoljava svojstva i ako ne da
@@ -1179,7 +1179,7 @@ u kome ne važi svojstvo može da se vrati do početnog unazad
 • pretraga u šitinu - najbrže pronalazi stanje u kome je invarijanta
 narušena
 
-Pitanje 4.19 Proveravanje modela. Algoritmi za proveravanje modela. Provera LTL svojstva putem Bihijevih automata. Primeri.
+Pitanje 4.95 Proveravanje modela. Algoritmi za proveravanje modela. Provera LTL svojstva putem Bihijevih automata. Primeri.
 
 Bihijevi automati se koriste za verifikaciju opštih LTL svojstava. Izvršavanja u tranzitivnim sistemima se posmatraju kao beskonačna reči
 nad azbukom.
@@ -1258,7 +1258,7 @@ onda je ϕ valjano u T , inače postoji ω-reč (baš ta koja je prihvaćena
 od strane automata) tj putanja izvršavanja na kojoj ϕ ne važi i baš
 ona je kontraprimer.
 
-Pitanje 4.20 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Apstrakcija predikata. Profinjavanje apstrakcije vodeno kontraprimerima. Primeri.
+Pitanje 4.96 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Apstrakcija predikata. Profinjavanje apstrakcije vodeno kontraprimerima. Primeri.
 
 Eksplozija prostora stanja prilikom proveravanja tranzicionog sistema
 se odnosi na ogroman broj stanja koja često nije moguće predstaviti u
@@ -1317,7 +1317,7 @@ odnosi na upotrebu lažnih kontraprimera koje je apstraktni model kreirao
 kako bi se konstruisalo preciznije apstrhovanje. Lažni kontraprimeri nastaju kada apsrakcija nije dovoljno precizna, pa je moguće dokazati samo
 ograničen skup iskaza.
 
-Pitanje 4.21 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Simboličko proveravanje modela.
+Pitanje 4.97 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Simboličko proveravanje modela.
 
 Simboličko proveravanje modela je tehnika redukcije broj stanja prilikom verifikacije u kojoj se stanja i prelasci čuvaju simbolički. Skup stanja
 se može, na primer, opisati formulom i time se smanjiti broj stanja. Stanja i prelasci se modeluju pomoću simboličkih struktura kao što su binarni
@@ -1331,7 +1331,7 @@ SMT reševači omogućavaju proveru zadovoljivosti SMT formule na nivou iskaz
 iskaznog modela u izabranoj teoriji koja zadovoljava polaznu formu. Postoje mnoge teorije: aritmetička, teorija nizova i rekurentnih struktura
 podataka, teorija bit-vektora i druge.
 
-Pitanje 4.22 Proveravanje modela. Pristupi kombinatornoj eksploziji stanja. Ograničena provera modela. SAT kodiranje. Primeri.
+Pitanje 4.98 Proveravanje modela. Pristupi kombinatornoj eksploziji stanja. Ograničena provera modela. SAT kodiranje. Primeri.
 
 Ograničena provera modela podrazumeva traženja kontraprimera u
 prvih k koraka izvršavanja, gde je k unapred zadato. Zbog ograničavanja
@@ -1413,7 +1413,7 @@ modeluje formulom Φ ≡ Φ0 ∧ Φ1 ∧ Φ2 ∧ Φ3 , gde je Φi ≡
 • ispituje se zadovoljivost formule I(s0 ) ∧ T (s0 , s1 ) ∧ T (s1 , s2 ) ∧
 T (s2 , s3 ) ∧ ¬Φ
 
-Pitanje 4.23 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Ograničena provera modela. SMT kodiranje. Primeri.
+Pitanje 4.99 Proveravanje modela. Kontrola kombinatorne eksplozije u proveravanju modela. Ograničena provera modela. SMT kodiranje. Primeri.
 
 SMT kodiranje nam daje mogućost modelovanja softvera i predikata
 koji izražavaju aritmetička i relacijska svojstva. Programske promenljive
@@ -1436,7 +1436,7 @@ then xi+1 = xi − 1 y̸=x (yi+1 = yi ) ∧ li+1 = p + 1
 else R
 gde R razmatra ostale lokacije. Ova formula kaže: na lokaciji p umanjujemo x za 1 dok ostale promeljive (označene sa y) ostaju nepromenjene i prelazimo na naredbu na sledećoj lokaciji.
 
-Pitanje 4.24 Apstraktna interpretacija. Konkretan i apstraktan domen. Primeri: parnost broja, znak broja, intervali.
+Pitanje 4.100 Apstraktna interpretacija. Konkretan i apstraktan domen. Primeri: parnost broja, znak broja, intervali.
 
 Apstraktna interpretacija je teorijski okvir za formalizovanje apstrakcije u analizi programa u kojoj se konkretna semantika aproksimira apstraktnom semantikom koja čuva osobine ali je jednostavnija za rasudivanje.
 Apstraktna semantika se definiše nad apstraktnim domenom koji je nadskup stanja originalnog sistema, pa je moguće dobijati lažna upozorenja.
@@ -1485,7 +1485,7 @@ i :
 stanje odgovara i konkretnom ali i drugima, npr stanju si : {x →
 Z, y → Z, y → {10, 15, 20}}
 
-Pitanje 4.25 Apstraktna interpretacija. Konkretno izvršavanje i apstraktna
+Pitanje 4.101 Apstraktna interpretacija. Konkretno izvršavanje i apstraktna
 
 interpretacija kroz primere. Parnost broja, znak broja, intervali.
 Kokretno izvršavanje opisuje ponašanje programa kroz stanja i vrednosti do kojih se dolazi.
@@ -1580,7 +1580,7 @@ izvršavanja petlje. Kada izade iz petlje znamo da se to desilo jer je
 x ≥ 10, pa je interval koji sadrži x [10, +∞]. Ovaj zaključak nam
 garantuje bezbednost u nastavku ako imamo naredbu z = y/x.
 
-Pitanje 4.26 Apstraktna interpretacija. Formalne osnove apstraktne interpretacije. Apstrakcija, generalizacija, Galoaove veze. Primeri.
+Pitanje 4.102 Apstraktna interpretacija. Formalne osnove apstraktne interpretacije. Apstrakcija, generalizacija, Galoaove veze. Primeri.
 
 Zbog gubitka informacija usled apstrahovanja može doći do lažnih grešaka.
 Da bi se odabrale adekvatne apstrakcije domena koriste se teorije parcijalno uredenih skupova, teorija rešetaka i Galoaove veze.
@@ -1655,7 +1655,7 @@ Neka su (C, ⪯C ) i (A, ⪯A ) parcijalno uredeni skupovi, gde je C konkretni, 
 γ : A → C, formira Galoaovu vezu ako važi (∀c ∈ C)(∀a ∈ A)(α(c) ⪯A
 a) ⇔ c ⪯C γ(a).
 
-Pitanje 4.27 Apstraktna interpretacija. Primer apstrakcije intervalima.
+Pitanje 4.103 Apstraktna interpretacija. Primer apstrakcije intervalima.
 
 Primer 44.
 Uzmimo program sa 3 celobrojne promenljive x, y, z. Skup predikata
@@ -1678,7 +1678,7 @@ Na primer, stanje s# = {x → [5, 7], y → [10, 20], z →
 →
 {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}}, z → {−2}
 
-Pitanje 4.28 Apstraktna interpretacija. Primer apstrakcije znakom broja.
+Pitanje 4.104 Apstraktna interpretacija. Primer apstrakcije znakom broja.
 
 Primer 45.
 Znak broja
@@ -1708,7 +1708,7 @@ Fukcija konkretizacije se zadaje sa:
 • γ({a+ , a− }) = (−∞, 0) ∪ (0, +∞)
 • γ({a+ , a− , a0 }) = Z
 
-Pitanje 4.29 Apstraktna interpretacija. Praktične primene.
+Pitanje 4.105 Apstraktna interpretacija. Praktične primene.
 
 Na teorisjkim osnovama asptraktne interpretacije su izgradeni alati za
 statičku analizu kao što su Astree (jez C, avio industija), Polyspace

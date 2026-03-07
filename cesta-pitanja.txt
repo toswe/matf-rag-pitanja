@@ -1,7 +1,3 @@
-Format:
-Pitanje 0.{broj_glave}.{broj_pitanja}
-Pitanje 0.{broj_glave}.{broj_pitanja}.{broj_podpitanja}
-
 Pitanje 0.1.1 Značaj kvaliteta softvera
 Pitanje 0.2.1 Uticaj neispravnog softvera
 Pitanje 0.4.1 Testiranje u razvoju softvera.

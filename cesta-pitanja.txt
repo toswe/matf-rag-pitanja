@@ -1,32 +1,991 @@
 Pitanje 0.1.1 Značaj kvaliteta softvera
+# Značaj kvaliteta softvera
+
+Softver je danas prisutan u gotovo svim oblastima života, od kućnih uređaja i mobilnih telefona do medicinskih sistema, transporta i komunikacionih tehnologija. Zbog toga je kvalitet softvera izuzetno važan, jer utiče na pouzdanost sistema, bezbednost korisnika i uspešnost softverskog proizvoda. Visok kvalitet softvera omogućava ispunjavanje korisničkih zahteva, smanjenje broja grešaka i efikasno korišćenje resursa tokom razvoja i korišćenja sistema. :contentReference[oaicite:0]{index=0}
+
+## Procesi vezani za kvalitet softvera
+
+Upravljanje kvalitetom softvera obuhvata nekoliko osnovnih procesa.
+
+### Planiranje kvaliteta softvera
+Planiranje kvaliteta podrazumeva definisanje pristupa razvoju softvera i standarda koji će obezbediti željeni nivo kvaliteta. Nivo kvaliteta zavisi od namene softvera, pa su zahtevi za kvalitet različiti za kritične sisteme (npr. avion) i jednostavne aplikacije.
+
+### Obezbeđivanje kvaliteta softvera
+Obezbeđivanje kvaliteta znači uključivanje principa kvaliteta u sve faze razvoja softvera. Cilj je da se spreče greške tokom razvoja i da se obezbedi poštovanje definisanih standarda.
+
+### Kontrola kvaliteta softvera
+Kontrola kvaliteta podrazumeva proveru da li završeni softver zadovoljava postavljene zahteve i standarde. U ovoj fazi se koriste različite tehnike provere, kao što su testiranje i analiza softvera.
+
+### Poboljšanje kvaliteta softvera
+Poboljšanje kvaliteta predstavlja kontinuirano unapređivanje procesa razvoja softvera na osnovu iskustva i povratnih informacija, sa ciljem smanjenja grešaka i povećanja efikasnosti razvoja. :contentReference[oaicite:1]{index=1}
+
+## Standardi kvaliteta softvera
+
+Kvalitet softvera se često definiše i međunarodnim standardima.
+
+### ISO/IEC 25000
+Serija standarda ISO/IEC 25000 predstavlja okvir za procenu kvaliteta softvera. Najvažniji standard u ovoj seriji je ISO/IEC 25010, koji definiše karakteristike kvaliteta softvera.
+
+### ISO/IEC 25023
+Ovaj standard definiše metrike i načine merenja karakteristika kvaliteta softvera.
+
+### IEEE standardi
+IEEE standardi, kao što su IEEE 730 i IEEE 1012, daju smernice za upravljanje kvalitetom, kao i procese verifikacije i validacije softvera. :contentReference[oaicite:2]{index=2}
+
+## Atributi kvaliteta softvera
+
+Standard ISO/IEC 25010 definiše osnovne atribute kvaliteta softvera:
+
+- **Funkcionalna podobnost** – stepen u kome softver ispunjava funkcionalne zahteve.
+- **Performantnost (efikasnost)** – brzina rada i korišćenje resursa sistema.
+- **Kompatibilnost** – mogućnost rada sa drugim sistemima i na različitim platformama.
+- **Pouzdanost** – stabilnost sistema i sposobnost rada bez kvarova.
+- **Upotrebljivost** – jednostavnost korišćenja i kvalitet korisničkog interfejsa.
+- **Bezbednost (safety)** – sprečavanje situacija koje mogu ugroziti ljude ili okolinu.
+- **Sigurnost (security)** – zaštita podataka i informacija od neovlašćenog pristupa.
+- **Održivost** – lakoća izmene, održavanja i unapređivanja softvera.
+- **Prenosivost** – mogućnost korišćenja softvera u različitim okruženjima. :contentReference[oaicite:3]{index=3}
+
+## Zaključak
+
+Kvalitet softvera je ključan za pouzdan rad sistema, bezbednost korisnika i uspeh softverskog proizvoda. Upravljanje kvalitetom, primena standarda i analiza atributa kvaliteta omogućavaju razvoj stabilnog, efikasnog i pouzdanog softvera.
+
 Pitanje 0.2.1 Uticaj neispravnog softvera
+## Uticaj neispravnog softvera
+
+Neispravan softver može imati različite posledice po korisnike i organizacije. Ove posledice se najčešće dele na tri kategorije.
+
+### 1. Neprijatnosti
+Najblaži oblik posledica su neprijatnosti za korisnike, kao što su gašenje aplikacija, greške u radu programa ili problemi pri korišćenju servisa. Iako ne izazivaju veliku štetu, ove greške narušavaju korisničko iskustvo i smanjuju poverenje u softver.
+
+### 2. Materijalni gubici
+Greške u softveru mogu izazvati finansijske gubitke, posebno u poslovnim i bankarskim sistemima. One mogu dovesti do gubitka novca, kompromitovanja podataka i narušavanja reputacije kompanije.
+
+### 3. Fatalne posledice
+U kritičnim sistemima, kao što su medicinski uređaji, sistemi za upravljanje vozilima ili svemirske letelice, softverske greške mogu imati veoma ozbiljne posledice. U ekstremnim slučajevima mogu dovesti do nesreća, velikih finansijskih gubitaka ili čak gubitka ljudskih života.
+
 Pitanje 0.4.1 Testiranje u razvoju softvera.
+# Testiranje u razvoju softvera
+
+Testiranje je proces izvršavanja programa sa ciljem pronalaženja grešaka i povećanja poverenja u ispravnost softvera. Predstavlja najčešći oblik **dinamičke verifikacije softvera**, jer se softver proverava tokom njegovog izvršavanja. Cilj testiranja je da se otkrije što više defekata i da se smanji verovatnoća da greške ostanu u sistemu. :contentReference[oaicite:0]{index=0}  
+
+U savremenom razvoju softvera testiranje je prisutno tokom **celog životnog ciklusa razvoja**, a ne samo na kraju projekta. Ranije otkrivanje grešaka je veoma važno jer se trošak njihovog ispravljanja povećava što se kasnije uoče.
+
+## Cena greške u kontekstu vremena otkrivanja
+Što se greška kasnije otkrije u procesu razvoja softvera, njeno otklanjanje je skuplje i složenije. Greške pronađene tokom razvoja su relativno jeftine za ispravku, dok one koje se otkriju nakon puštanja sistema u rad mogu dovesti do velikih finansijskih gubitaka, problema sa korisnicima ili narušavanja reputacije.
+
+## Uloga testera u razvoju softvera
+Tester ispituje funkcionalnosti sistema i pokušava da pronađe situacije u kojima softver ne radi u skladu sa specifikacijom. On definiše test scenarije, izvršava testove i analizira rezultate testiranja kako bi identifikovao defekte.
+
+## Faze testiranja softvera
+Proces testiranja obično obuhvata sledeće faze:
+
+- **Planiranje testiranja** – definišu se strategija testiranja, ciljevi i resursi.  
+- **Dizajn testova** – kreiraju se test slučajevi sa ulaznim podacima i očekivanim rezultatima.  
+- **Izvršavanje testova** – program se pokreće sa definisanim test slučajevima.  
+- **Analiza rezultata** – identifikuju se i prijavljuju pronađene greške.  
+- **Ponovno testiranje i regresiono testiranje** – proverava se da li su greške ispravljene i da li izmene nisu pokvarile postojeće funkcionalnosti.
+
+## Zaključak
+Testiranje je ključni deo procesa verifikacije softvera jer omogućava otkrivanje grešaka i povećanje pouzdanosti sistema. Iako testiranje ne može garantovati potpunu ispravnost softvera, sistematskim testiranjem značajno se smanjuje verovatnoća da greške ostanu u finalnom proizvodu.
+
 Pitanje 0.4.2 Vrste testiranja
+## Vrste testiranja
+
+Testiranje softvera može se podeliti prema **nivou na kojem se testiranje sprovodi**. Osnovne vrste su: testiranje jedinica koda, komponentno testiranje, integraciono testiranje i sistemsko testiranje. Na svakom od ovih nivoa mogu se proveravati i funkcionalne i nefunkcionalne karakteristike softvera.
+
+### 1. Testiranje jedinica koda (Unit testing)
+Testiranje jedinica koda predstavlja proveru **najmanjih delova programa** koji se mogu testirati nezavisno, kao što su funkcije, klase ili procedure. Cilj je da se utvrdi da li pojedinačna jedinica koda radi ispravno pre nego što se poveže sa drugim delovima sistema.
+
+### 2. Komponentno testiranje (Component testing)
+Komponentno testiranje proverava **veće celine softvera**, odnosno komponente koje se sastoje od više jedinica koda. Cilj je da se ispita da li komponenta kao celina funkcioniše ispravno i da li njeni unutrašnji delovi pravilno sarađuju.
+
+### 3. Integraciono testiranje (Integration testing)
+Integraciono testiranje ispituje **saradnju između različitih komponenti sistema**. Fokus je na proveri komunikacije i interfejsa između modula kako bi se otkrile greške u razmeni podataka ili u načinu njihove međusobne interakcije.
+
+### 4. Sistemsko testiranje (System testing)
+Sistemsko testiranje proverava **ceo softverski sistem kao jedinstvenu celinu**. U ovoj fazi se ispituje da li sistem radi u skladu sa zahtevima i specifikacijom korisnika, uključujući i funkcionalne i nefunkcionalne osobine sistema.
+
+### Regresiono testiranje
+Regresiono testiranje predstavlja **ponovno izvršavanje ranije uspešnih testova nakon izmena u softveru**. Njegov cilj je da proveri da li nove izmene nisu narušile postojeće funkcionalnosti sistema.
+
 Pitanje 0.4.2.1 Sistemsko testiranje.
+## Sistemsko testiranje
+
+**Sistemsko testiranje** predstavlja nivo testiranja u kome se proverava kompletan softverski sistem kao celina. Cilj je da se utvrdi da li se ponašanje sistema poklapa sa specifikacijom i zahtevima koje je definisao klijent. Tokom ovog testiranja ispituju se svi delovi sistema zajedno, uključujući bazu podataka, mrežu i druge komponente sistema.
+
+Sistemsko testiranje obuhvata proveru **funkcionalnih** i **nefunkcionalnih** karakteristika softvera.
+
+### Funkcionalno sistemsko testiranje
+Funkcionalno sistemsko testiranje proverava da li su sve funkcionalnosti sistema implementirane i da li rade u skladu sa zahtevima korisnika. Testiraju se različiti scenariji korišćenja sistema, uključujući tipične slučajeve, granične vrednosti i neočekivane ulaze.
+
+### Nefunkcionalno sistemsko testiranje
+Nefunkcionalno sistemsko testiranje proverava kvalitativne karakteristike sistema. U njega spadaju testovi performansi, kompatibilnosti, pouzdanosti, upotrebljivosti, bezbednosti, sigurnosti i prenosivosti.
+
+### Ostale vrste sistemskog testiranja
+U sistemsko testiranje ubrajaju se i:
+- **Istraživačko testiranje** – tester istražuje sistem bez strogo definisanih test slučajeva kako bi pronašao potencijalne greške.
+- **Testiranje prihvatljivosti** – korisnici ili klijenti proveravaju da li sistem zadovoljava njihove potrebe i očekivanja.
+- **Instalaciono testiranje** – proverava se da li se softver pravilno instalira i funkcioniše u realnom okruženju.
+
 Pitanje 0.4.2.2 Nefunkcionalno testiranje.
+# Nefunkcionalno testiranje
+
+Nefunkcionalno testiranje proverava **kvalitet rada sistema**, odnosno kako sistem funkcioniše, a ne samo koje funkcionalnosti ima. Cilj je da se ispita da li softver zadovoljava zahteve kao što su brzina, stabilnost, bezbednost i upotrebljivost. Ova vrsta testiranja je deo sistemskog testiranja i fokusira se na osobine koje utiču na ukupni kvalitet softvera.
+
+## Testovi performansi
+Testovi performansi proveravaju brzinu i efikasnost sistema pri izvršavanju operacija i većem opterećenju.
+
+- **Testiranje kapaciteta** – ispituje maksimalan broj korisnika ili zahteva koje sistem može da obradi bez značajnog pada performansi.  
+- **Stres testiranje** – proverava ponašanje sistema u ekstremnim uslovima opterećenja i da li dolazi do pada ili degradacije sistema.
+
+## Testiranje kompatibilnosti
+Proverava da li softver pravilno funkcioniše u različitim okruženjima, operativnim sistemima, uređajima i konfiguracijama.
+
+## Testiranje pouzdanosti
+Ispituje stabilnost sistema tokom dužeg rada i proverava da li sistem može da funkcioniše bez grešaka ili prekida.
+
+## Testiranje upotrebljivosti
+Proverava koliko je sistem jednostavan i intuitivan za korišćenje i koliko lako korisnici mogu da obave zadatke u aplikaciji.
+
+## Testiranje bezbednosti
+Proverava da li sistem može da radi bez opasnosti po korisnike, podatke ili okruženje.
+
+## Testiranje sigurnosti
+Ispituje zaštitu sistema od neovlašćenog pristupa i napada, kao i bezbednost podataka.
+
+## Testiranje prenosivosti
+Proverava koliko lako softver može da se koristi ili pokrene na različitim platformama i sistemima.
+
 Pitanje 0.4.3 Tehnike testiranja.
+# Tehnike testiranja
+
+Tehnike testiranja predstavljaju metode za kreiranje test primera i procenu kvaliteta testiranja softvera. Njihov cilj je da se sistematski proveri ispravnost softvera i poveća verovatnoća otkrivanja grešaka.
+
+## 1. Pokrivenost testiranjem
+Pokrivenost testiranjem je metrika koja pokazuje koliko su testovi obuhvatili softver. Ona pomaže u proceni koliko su testovi sveobuhvatni i koji delovi sistema nisu testirani.
+
+Najčešće metrike pokrivenosti su:
+- **Pokrivenost naredbi** – procenat naredbi u programu koje su izvršene tokom testiranja.
+- **Pokrivenost odluka (grana)** – proverava da li su sve odluke u programu testirane i kao tačne i kao netačne.
+- **Pokrivenost uslova** – proverava da li su svi logički uslovi evaluirani i kao tačni i kao netačni.
+- **Pokrivenost putanja** – meri koliko je različitih putanja kroz program izvršeno tokom testiranja.
+
+## 2. Podela tehnika testiranja
+Tehnike testiranja se dele na:
+- testiranje crne kutije  
+- testiranje bele kutije  
+- testiranje sive kutije  
+
+Ova podela zavisi od toga da li se prilikom testiranja koristi znanje o unutrašnjoj strukturi programa.
+
+## 3. Testiranje crne kutije
+Testiranje crne kutije zasniva se na specifikaciji sistema i ne uzima u obzir unutrašnju strukturu koda. Tester proverava da li sistem daje ispravne izlaze za zadate ulaze.
+
+Tipične metode su:
+- metode klasa ekvivalencije  
+- metod graničnih vrednosti  
+- tabele odlučivanja  
+- dijagrami stanja
+
+## 4. Testiranje bele kutije
+Testiranje bele kutije zasniva se na poznavanju unutrašnje strukture i logike programa. Test primeri se prave analizom izvornog koda i različitih putanja izvršavanja.
+
+Cilj je da se obezbedi dobra pokrivenost koda i da se testiraju različite putanje kroz program.
+
+## 5. Metamorfno testiranje
+Metamorfno testiranje koristi se kada je teško odrediti tačan očekivani rezultat testa (problem proročišta). Umesto toga posmatra se odnos između više ulaza i njihovih izlaza.
+
+Promenom ulaza očekuje se predvidiva promena izlaza, što omogućava proveru ispravnosti sistema i kada tačan rezultat nije poznat.
+
 Pitanje 0.4.3.1 Karakteristike dobrog skupa tesotva.
+# Karakteristike dobrog skupa testova
+
+## 1. Visoka pokrivenost
+Dobar skup testova treba da obezbedi visoku pokrivenost sistema. To znači da testovi treba da obuhvate što veći deo koda, uključujući različite naredbe, grane i putanje izvršavanja. Na taj način se smanjuje verovatnoća da neki deo programa ostane neproveren.
+
+## 2. Mali broj testova (efikasnost)
+Skup testova treba da sadrži što manji broj test slučajeva uz zadržavanje dobre pokrivenosti. Cilj je da se testiranje učini efikasnim i da se izbegne nepotrebno povećanje troškova i vremena testiranja.
+
+## 3. Bez redundantnih testova
+Testovi ne bi trebalo da budu redundantni, odnosno da više testova proverava istu stvar. Svaki test treba da doprinosi proveri neke nove situacije ili dela sistema. Time se izbegava nepotrebno ponavljanje i povećava efikasnost testiranja.
+
+## 4. Velika verovatnoća otkrivanja grešaka
+Testovi treba da budu osmišljeni tako da imaju veliku verovatnoću da otkriju defekte u softveru. Zbog toga je važno testirati ne samo uobičajene scenarije, već i granične vrednosti i neočekivane ulaze.
+
+## 5. Reprezentativni ulazi
+Ulazni podaci u testovima treba da predstavljaju realne i tipične slučajeve korišćenja sistema. Pored toga, treba uključiti i ekstremne ili neispravne vrednosti kako bi se proverilo ponašanje sistema u različitim situacijama.
+
 Pitanje 0.4.3.2 Testiranje metodama crne kutĳe.
+# Testiranje metodama crne kutije
+
+**Testiranje crne kutije** (engl. *black box testing*) je tehnika testiranja u kojoj se test slučajevi kreiraju na osnovu **specifikacije sistema**, bez uvida u internu strukturu ili implementaciju koda. Fokus je na **ulazima i izlazima sistema**, odnosno proverava se da li sistem daje očekivane rezultate za određene ulazne podatke. Ovaj pristup posmatra sistem iz **ugla korisnika**, pa testeri proveravaju funkcionalnost sistema bez poznavanja načina na koji je on implementiran.
+
+## Isprobavanje svih mogućih ulaza
+Ovaj pristup podrazumeva testiranje sistema sa svim mogućim ulaznim vrednostima. Time bi se teoretski obezbedilo potpuno testiranje funkcionalnosti sistema. Međutim, u praksi je ovakav pristup često neizvodljiv zbog ogromnog broja mogućih ulaza, pa se koriste efikasnije metode za izbor reprezentativnih testova.
+
+## Metod klasa ekvivalencije
+Kod ove tehnike ulazni podaci se dele na **klase ekvivalencije**, odnosno skupove vrednosti koje sistem obrađuje na isti način. Klase mogu biti **validne** (sistem prihvata ulaz) i **nevalidne** (sistem odbacuje ulaz). Umesto testiranja svih vrednosti iz jedne klase, bira se **jedan reprezentativni test slučaj**, čime se smanjuje broj testova uz očuvanje pokrivenosti ulaznog prostora.
+
+## Metod graničnih vrednosti
+Ova tehnika se zasniva na činjenici da se greške često pojavljuju na **granicama opsega ulaznih podataka**. Zbog toga se testiraju vrednosti koje se nalaze **na granici opsega, neposredno ispod i neposredno iznad granice**. Na taj način se povećava verovatnoća otkrivanja grešaka u uslovima i poređenjima u programu.
+
 Pitanje 0.4.3.3 Testiranje metodama bele kutĳe.
+## Testiranje metodama bele kutije
+
+Testiranje metodama bele kutije (*white box testing*) predstavlja pristup testiranju u kome se test primeri formiraju na osnovu **unutrašnje strukture i logike programa**, odnosno analizom izvornog koda. Za razliku od testiranja crne kutije, koje posmatra samo ulaze i izlaze sistema, kod ove metode se proučava način na koji je program implementiran.
+
+Ovakvo testiranje zahteva dobro poznavanje koda, pa ga najčešće sprovode **programeri tokom razvoja softvera**. Čest primer su **testovi jedinica koda**, gde se proverava ispravnost pojedinačnih funkcija ili manjih delova programa.
+
+Cilj testiranja bele kutije je da se ispitaju **različite putanje izvršavanja programa**. Putanja predstavlja niz naredbi koje se izvršavaju tokom jednog pokretanja programa, a zavisi od ulaznih podataka i strukture koda.
+
+Na formiranje putanja utiču različiti elementi programa:
+- uslovna grananja (`if`, `switch`)
+- petlje (`for`, `while`, `do-while`)
+- skokovi (`break`, `continue`, `return`)
+- pozivi funkcija
+- obrada izuzetaka (`try`, `catch`, `finally`)
+
+U okviru ove metode važan pojam je **pokrivenost testiranjem (coverage)**, koja pokazuje koliki deo koda je obuhvaćen testovima. Veća pokrivenost znači da su testovima proverene različite putanje kroz program, što povećava verovatnoću otkrivanja grešaka.
+
 Pitanje 0.4.4 Načini testiranja.
+## Načini testiranja
+
+U procesu testiranja izdvajaju se dve osnovne aktivnosti:  
+1) generisanje test primera i  
+2) izvršavanje i evaluacija testova.  
+Obe aktivnosti mogu biti manuelne ili automatske, pa se razlikuju sledeći načini testiranja.
+
+### 1. Manuelno testiranje
+Kod manuelnog testiranja i generisanje testova i njihovo izvršavanje obavlja čovek. Testeri osmišljavaju test slučajeve, pokreću ih i analiziraju rezultate. Ovaj pristup je važan kada je potrebna ljudska procena, razumevanje konteksta ili procena kvaliteta iz ugla korisnika.
+
+### 2. Automatsko izvršavanje testova
+Kod ovog pristupa test slučajeve definišu ljudi, ali se njihovo izvršavanje i provera rezultata obavlja automatski pomoću alata. Ovakvo testiranje omogućava brzo i često pokretanje velikog broja testova. Često se koristi u kontinuiranoj integraciji kako bi se brzo otkrile greške u kodu.
+
+### 3. Automatsko generisanje testova
+U ovom slučaju alati automatski generišu test primere na osnovu analize koda, specifikacije ili ulaznih podataka. Na primer, alati mogu generisati veliki broj različitih ulaza kako bi pronašli neočekivano ponašanje sistema. Ipak, kod složenih funkcionalnosti često je potrebno kombinovati ovaj pristup sa manuelnim testiranjem.
+
 Pitanje 0.5.1 Debagovanje.
+# Debagovanje
+
+## Pojam debagovanja
+Debagovanje je proces u razvoju softvera čiji je cilj pronalaženje greške odnosno uzroka defekta u programu. Kada testiranje pokaže da program ne radi ispravno, debagovanje se koristi da bi se otkrilo gde i zašto dolazi do problema. :contentReference[oaicite:0]{index=0}  
+
+Debagovanje se obavlja pomoću alata koji se nazivaju **debageri**. Debager omogućava praćenje izvršavanja programa, pregled vrednosti promenljivih, memorije i toka izvršavanja, što olakšava pronalaženje greške. :contentReference[oaicite:1]{index=1}  
+
+---
+
+# Veza izvršivog koda i debagera
+
+## Režim prevođenja za upotrebu (release)
+Ovaj režim ima za cilj optimizaciju brzine i efikasnosti izvršavanja programa. Kompajler primenjuje optimizacije koje menjaju strukturu koda, zbog čega je debagovanje otežano i ova verzija se obično ne koristi za analizu grešaka. :contentReference[oaicite:2]{index=2}  
+
+## Režim prevođenja za pronalaženje grešaka (debug)
+Ovaj režim generiše izvršivu verziju programa sa dodatnim informacijama za debagovanje. Program je manje optimizovan, ali omogućava lakše praćenje linija koda i vrednosti promenljivih. :contentReference[oaicite:3]{index=3}  
+
+## Kombinovani režim
+Kombinuje optimizacije iz release režima sa informacijama potrebnim za debagovanje. Koristi se kada je potrebno analizirati program koji se ponaša slično produkcionoj verziji. :contentReference[oaicite:4]{index=4}  
+
+## Anti-debagovanje
+Anti-debagovanje predstavlja skup tehnika koje imaju za cilj da otežaju ili onemoguće debagovanje programa. Koristi se radi zaštite intelektualne svojine ili u malicioznim programima kako bi se izbegla analiza. :contentReference[oaicite:5]{index=5}  
+
+---
+
+# Vrste debagovanja
+
+## Interaktivno debagovanje
+Interaktivno debagovanje je osnovni način debagovanja i podrazumeva analizu programa tokom izvršavanja uz aktivno učešće programera. Koriste se **tačke prekida (breakpoints)** koje zaustavljaju izvršavanje programa kako bi se moglo analizirati stanje sistema. :contentReference[oaicite:6]{index=6}  
+
+## Udaljeno debagovanje
+Kod udaljenog debagovanja program se izvršava na jednom sistemu, a debager na drugom. Komunikacija između njih ostvaruje se preko mreže, što je korisno kod embedded sistema ili udaljenih servera. :contentReference[oaicite:7]{index=7}  
+
+## Debagovanje nakon prekida izvršavanja (post-mortem)
+Ovaj pristup analizira program nakon njegovog pada. Analiza se vrši pomoću podataka snimljenih u trenutku prekida, najčešće u obliku **core dump** datoteka koje sadrže stanje memorije procesa. :contentReference[oaicite:8]{index=8}  
+
+---
+
+# Primeri debagera
+Najpoznatiji debageri su **GDB, LLDB, Visual Studio Debugger i WinDbg**. Oni omogućavaju različite vrste debagovanja i mogu se integrisati u razvojna okruženja. :contentReference[oaicite:9]{index=9}  
+
+---
+
+# Ograničenja debagovanja
+Debagovanje ima određena ograničenja. Optimizacije kompajlera mogu otežati povezivanje izvršivog koda sa izvornim kodom, a kod velikih sistema količina podataka može učiniti analizu sporom i kompleksnom. :contentReference[oaicite:10]{index=10}  
+
+Zbog toga se debagovanje često kombinuje sa drugim tehnikama kao što su testiranje, logovanje i statička analiza. :contentReference[oaicite:11]{index=11}  
+
+---
+
+# Štampanje umesto debagera
+Jedna od najjednostavnijih tehnika debagovanja je umetanje `print` naredbi u kod kako bi se pratile vrednosti promenljivih i tok izvršavanja. Ova metoda je jednostavna, ali daje ograničen uvid u stanje programa i smatra se zastarelom u odnosu na upotrebu debagera. :contentReference[oaicite:12]{index=12}  
+
 Pitanje 0.5.1.1 Veza izvršivog koda i debagera.
+## Veza izvršivog koda i debagera
+
+Debagovanje je proces pronalaženja greške odnosno uzroka defekta u programu. Debager je alat koji omogućava praćenje izvršavanja programa kako bi programer mogao da razume ponašanje sistema i pronađe grešku. Da bi debager mogao da prikaže informacije na nivou izvornog koda, potrebna je podrška kompajlera i linkera koji povezuju izvršivi kod sa izvornim kodom i generišu dodatne informacije za debagovanje. Takođe, rad debagera zavisi od podrške operativnog sistema, a ponekad i hardvera. :contentReference[oaicite:0]{index=0}  
+
+### Režim prevođenja za upotrebu (release mode)
+Ovaj režim ima za cilj dobijanje optimizovanog izvršivog programa namenjenog krajnjem korisniku. Kompajler primenjuje različite optimizacije kao što su uklanjanje nepotrebnog koda, preuređivanje instrukcija i umetanje funkcija. Zbog tih transformacija veza između izvršivog i izvornog koda postaje slabija, pa je debagovanje u ovom režimu otežano i retko se koristi za pronalaženje grešaka. :contentReference[oaicite:1]{index=1}  
+
+### Režim prevođenja za pronalaženje grešaka (debug mode)
+Ovaj režim je namenjen lakšem pronalaženju grešaka u programu. Kompajler generiše dodatne informacije koje omogućavaju debageru da poveže izvršivi kod sa linijama izvornog koda. Zahvaljujući tim informacijama moguće je pratiti izvršavanje programa korak po korak i analizirati vrednosti promenljivih.
+
+### Kombinovani režimi prevođenja
+Kombinovani režim predstavlja kompromis između optimizacije i mogućnosti debagovanja. U ovom režimu uključuju se određene optimizacije, ali se zadržavaju i informacije potrebne za debagovanje. Na primer, kod gcc kompajlera često se koriste opcije optimizacije zajedno sa opcijom za generisanje debug informacija (`-g`). :contentReference[oaicite:2]{index=2}  
+
+### Anti-debagovanje
+Anti-debagovanje predstavlja skup tehnika koje imaju za cilj da otežaju ili onemoguće debagovanje programa. Ove tehnike se koriste radi zaštite softvera od obrnutog inženjeringa ili neovlašćenog kopiranja. Mogu uključivati detekciju prisustva debagera, promenu toka izvršavanja ili različite metode obfuskacije koda. :contentReference[oaicite:3]{index=3}  
+
 Pitanje 0.6.1 Profajliranje.
+# Profajliranje
+
+**Profajliranje** je tehnika **dinamičke analize programa** kojom se tokom izvršavanja programa prikupljaju podaci o njegovom ponašanju. Cilj profajliranja je da se identifikuju delovi koda koji troše najviše vremena ili resursa kako bi se program mogao optimizovati. Rezultat profajliranja je **profil programa**, koji sadrži informacije o izvršavanju funkcija, vremenu izvršavanja, korišćenju memorije i drugim karakteristikama.
+
+## Instrumentacija
+**Instrumentacija** je proces dodavanja dodatnih instrukcija u program kako bi se tokom izvršavanja pratile određene pojave i prikupljali podaci o ponašanju programa. Ona se koristi u profajlerima i alatima za dinamičku analizu. Dobra instrumentacija ne sme da menja funkcionalnost programa, treba da prikuplja potrebne podatke i da što manje utiče na performanse i potrošnju memorije.
+
+## Profajleri
+**Profajleri** su alati koji analiziraju izvršavanje programa i generišu profil sa informacijama o performansama. Na osnovu dobijenih podataka programeri mogu identifikovati „uska grla“ i odlučiti koje delove koda treba optimizovati.
+
+### Upotreba profila
+Profil programa koristi se za optimizaciju softvera. Na osnovu prikupljenih podataka programer ili kompajler može odlučiti koje delove koda treba poboljšati. Važno je da se profajliranje vrši nad ulazima koji odgovaraju realnoj upotrebi programa.
+
+### Kvalitet profila
+Kvalitet profila zavisi od toga koliko prikupljeni podaci realno predstavljaju ponašanje programa. Ako ulazni podaci ili uslovi izvršavanja nisu realni, profil može dovesti do pogrešnih zaključaka o optimizaciji.
+
+### Profajliranje uzimanjem uzoraka
+Kod ovog pristupa profajler periodično uzima uzorke stanja programa tokom izvršavanja. Ova metoda ima mali uticaj na performanse i omogućava izvršavanje programa skoro punom brzinom, ali daje statističke, a ne potpuno precizne rezultate.
+
+### Instrumentaciono profajliranje
+Ovaj pristup koristi instrumentaciju da bi pratio izvršavanje pojedinih delova koda. Daje vrlo precizne informacije o izvršavanju funkcija, grana i blokova koda, ali može značajno usporiti program i povećati potrošnju memorije.
+
 Pitanje 0.6.1.1 Instrumentaciono profajliranje.
+## Instrumentaciono profajliranje
+
+Instrumentaciono profajliranje je tehnika profajliranja kod koje se u program ubacuju dodatne instrukcije (instrumentacija) kako bi se tokom izvršavanja prikupljali podaci o ponašanju programa. Na taj način se dobija profil izvršavanja koji sadrži informacije o tome koji delovi koda se izvršavaju i koliko često. Ovi podaci se koriste za optimizaciju performansi i analizu programa.
+
+Instrumentacija se može izvršiti tokom kompilacije, kada je poznat graf kontrole toka programa, ili tokom samog izvršavanja programa pomoću posebnih profajlera koji dinamički ubacuju dodatne instrukcije i prate ponašanje programa.
+
+### Profajliranje putanja
+Profajliranje putanja prikuplja informacije o najčešće korišćenim putanjama kroz program, odnosno o redosledu izvršavanja blokova koda. Ova vrsta profajliranja daje najdetaljnije informacije, ali zahteva složenije algoritme i može značajno uticati na performanse programa.
+
+### Profajliranje blokova
+Profajliranje blokova meri koliko puta se izvršava svaki osnovni blok programa. To se obično postiže ubacivanjem brojača u svaki blok koda. Ova metoda daje tačne informacije o učestalosti izvršavanja blokova, ali ne pokazuje kojim se putevima kroz program dolazi do tih blokova.
+
+### Profajliranje grana
+Profajliranje grana prikuplja podatke o prelazima između blokova koda, odnosno o tome koliko puta se izvršava svaka grana programa. Na osnovu ovih informacija moguće je rekonstruisati tok izvršavanja i utvrditi koji su prelazi najčešći.
+
+### Nedostaci
+Glavni nedostatak instrumentacionog profajliranja je povećanje vremena izvršavanja i potrošnje memorije zbog dodatnih instrukcija u programu. Zbog toga se koriste različite tehnike za smanjenje troškova instrumentacije.
+
 Pitanje 0.6.1.2 Sanitajzeri.
+## Sanitajzeri
+
+Sanitajzeri su alati za **dinamičku detekciju grešaka u programima**. Oni se razvijaju u okviru kompajlerskih infrastruktura i tokom faze kompilacije vrše **automatsku instrumentaciju programa** i drugačiju organizaciju memorije kako bi tokom izvršavanja mogli da otkriju greške. Njihova primena povećava vreme izvršavanja i potrošnju memorije, pa se obično koriste u **testnom, a ne produkcionom okruženju**. :contentReference[oaicite:0]{index=0}  
+
+Sanitajzeri omogućavaju automatsko otkrivanje problema kao što su **neispravni pristupi memoriji, curenje memorije, korišćenje neinicijalizovanih vrednosti i greške u radu sa nitima**. Koriste se često u ranim fazama razvoja kako bi programeri lakše pronašli i otklonili greške u kodu. :contentReference[oaicite:1]{index=1}  
+
+---
+
+## Vrste sanitajzera
+
+### AddressSanitizer (ASan)
+AddressSanitizer služi za detekciju grešaka u radu sa memorijom. Otkriva pristup memoriji van granica, korišćenje memorije nakon oslobađanja, dvostruko oslobađanje i curenje memorije. :contentReference[oaicite:2]{index=2}  
+
+### MemorySanitizer (MSan)
+MemorySanitizer detektuje **korišćenje neinicijalizovanih vrednosti** u programu. Pomaže u pronalaženju grešaka koje mogu dovesti do nepredvidivog ponašanja programa. :contentReference[oaicite:3]{index=3}  
+
+### ThreadSanitizer (TSan)
+ThreadSanitizer pronalazi greške u **višenitnim programima**, posebno nesinhronizovan pristup zajedničkim podacima između niti. :contentReference[oaicite:4]{index=4}  
+
+### UndefinedBehaviorSanitizer (UBSan)
+UndefinedBehaviorSanitizer detektuje **nedefinisano ponašanje prema standardu programskog jezika**, kao što su integer overflow, dereferenciranje null pokazivača ili nepravilne konverzije tipova. :contentReference[oaicite:5]{index=5}  
+
 Pitanje 0.6.1.3 Valgrind i najpoznatĳi Valgrind alati
+# Valgrind i najpoznatiji Valgrind alati
+
+## Valgrind
+**Valgrind** je platforma za dinamičku analizu programa koja omogućava otkrivanje grešaka i analizu performansi tokom izvršavanja programa. Ona ne analizira izvorni kod već mašinski kod, pa se može koristiti za programe napisane u različitim programskim jezicima, najčešće u C i C++. Tokom izvršavanja vrši dinamičku transformaciju i instrumentaciju koda, zbog čega se programi pod Valgrindom izvršavaju znatno sporije, ali omogućavaju veoma detaljnu analizu. :contentReference[oaicite:0]{index=0}
+
+## Memcheck
+**Memcheck** je najpoznatiji alat Valgrind platforme i koristi se za detekciju memorijskih grešaka. Može da otkrije probleme kao što su pristup memoriji van dozvoljenog opsega, pristup već oslobođenoj memoriji, curenje memorije i korišćenje neinicijalizovanih promenljivih. :contentReference[oaicite:1]{index=1}
+
+## Massif
+**Massif** je alat za analizu potrošnje memorije, posebno dinamičke memorije (heap). Omogućava uvid u to koji delovi programa troše najviše memorije i pomaže pri optimizaciji memorijske efikasnosti.
+
+## Cachegrind
+**Cachegrind** je profajler koji analizira ponašanje keš memorije procesora. Prati broj pristupa memoriji i promašaje u kešu, što pomaže u optimizaciji performansi programa.
+
+## Callgrind
+**Callgrind** je alat za profajliranje funkcija i analizu poziva funkcija. Omogućava uvid u to koliko puta su funkcije pozvane i koliko vremena se troši u njima, što pomaže u pronalaženju delova programa koji najviše utiču na performanse.
+
+## Helgrind
+**Helgrind** je alat za detekciju grešaka u višenitnim programima. Koristi se za otkrivanje problema sa sinhronizacijom niti, kao što su data race situacije i nepravilno korišćenje mehanizama za zaključavanje.
+
+## DRD
+**DRD** je alat sličan Helgrind-u koji takođe detektuje greške u višenitnim programima. Fokusiran je na pronalaženje problema u korišćenju sinhronizacionih mehanizama kao što su mutexi i barijere.
+
 Pitanje 0.7.1 Semantika programskih jezika
+# Semantika programskih jezika
+
+Semantika programskih jezika bavi se **značenjem programa**, odnosno opisom kako se program izvršava i kakve rezultate daje. Dok sintaksa definiše kako program izgleda, semantika definiše **šta program radi** i kako njegove naredbe menjaju stanje sistema. Precizno definisana semantika je važna za analizu programa, razvoj kompajlera i formalnu verifikaciju softvera. :contentReference[oaicite:0]{index=0}
+
+---
+
+## Neformalna semantika
+
+Neformalna semantika opisuje značenje konstrukcija programskog jezika **prirodnim jezikom** u dokumentaciji ili specifikaciji jezika.  
+Takav opis je lak za razumevanje, ali može biti **neprecizan i dvosmislen**, zbog čega nije pogodan za formalnu analizu i dokazivanje ispravnosti programa.
+
+---
+
+## Osnovne vrste formalnih semantika
+
+Formalna semantika koristi **matematičke modele** kako bi se precizno definisalo značenje programa.  
+Najvažnije vrste formalne semantike su:
+
+- operaciona semantika  
+- denotaciona semantika  
+- aksiomatska semantika  
+
+Ovi pristupi omogućavaju rigorozno analiziranje i dokazivanje osobina programa.
+
+### Rezonovanje o osobinama programa
+
+Formalna semantika omogućava **dokazivanje svojstava programa**, kao što su ispravnost, sigurnost ili terminacija.  
+Na osnovu formalnih modela moguće je matematički pokazati da program zadovoljava određene uslove.
+
+### Osnovni elementi semantike
+
+Semantika programa opisuje **stanja programa i promene tih stanja** tokom izvršavanja instrukcija.  
+Na taj način se formalno definiše kako pojedine naredbe utiču na program i njegove podatke.
+
+---
+
+## Operaciona semantika
+
+Operaciona semantika opisuje značenje programa kroz **proces njegovog izvršavanja**.  
+Ona definiše pravila koja određuju kako se naredbe izvršavaju i kako menjaju stanje sistema.
+
+### Prirodna semantika
+
+Prirodna semantika opisuje izvršavanje programa **od početnog stanja do konačnog rezultata**.  
+Fokus je na tome kakav rezultat program daje nakon izvršavanja.
+
+### Strukturna operaciona semantika
+
+Strukturna operaciona semantika opisuje izvršavanje programa **kroz niz malih koraka**.  
+Svaki korak predstavlja prelaz iz jednog stanja programa u drugo.
+
+---
+
+## Denotaciona semantika
+
+Denotaciona semantika pridružuje svakoj konstrukciji programskog jezika **matematički objekat**, najčešće funkciju.  
+Program se tako preslikava u matematički model koji opisuje njegovo ponašanje.
+
+---
+
+## Aksiomatska semantika
+
+Aksiomatska semantika opisuje programe pomoću **logičkih tvrdnji o njihovom ponašanju**.  
+Najčešće se koristi **Hoareova logika**, gde se program opisuje pomoću preduslova i postuslova:
+
+
 Pitanje 0.7.1.1 Operaciona semantika
+## Operaciona semantika
+
+Operaciona semantika je formalni način definisanja značenja programa tako što opisuje **kako se program izvršava**. Značenje programa određuje se kroz **pravila izvršavanja i promene stanja sistema tokom rada programa**, često pomoću modela apstraktne mašine. Ovaj pristup odgovara na pitanje *šta program radi* i blizak je intuitivnom razumevanju izvršavanja programa.
+
+Operaciona semantika se često koristi za formalno opisivanje ponašanja programskih jezika i za modelovanje izvršavanja programa.
+
+### Prirodna semantika (big-step semantics)
+
+Prirodna semantika opisuje izvršavanje programa tako što **direktno povezuje početno i konačno stanje izvršavanja**. Zapis oblika  
+`⟨S, s⟩ → s'`  
+znači da će izvršavanjem programa `S` u početnom stanju `s` rezultat biti stanje `s'`. Ovaj pristup opisuje **ukupan rezultat izvršavanja**, bez prikazivanja svih pojedinačnih koraka.
+
+### Strukturna operaciona semantika (small-step semantics)
+
+Strukturna operaciona semantika opisuje izvršavanje programa kao **niz elementarnih koraka**. Svaki korak predstavlja prelaz iz jedne konfiguracije u drugu. Konfiguracija može predstavljati ili nastavak izvršavanja (preostali deo programa i trenutno stanje) ili konačno stanje kada se program završi.
+
+Ovaj pristup omogućava **precizno modelovanje korak-po-korak izvršavanja programa**.
+
 Pitanje 0.8.1 Pregledi koda.
+# Pregledi koda
+
+**Pregledi koda (code reviews)** predstavljaju proces u kome programeri ručno pregledaju izvorni kod, najčešće pre nego što se on uključi u glavni repozitorijum projekta. Cilj pregleda je pronalaženje grešaka, poboljšanje kvaliteta koda i provera usklađenosti sa pravilima programiranja i arhitekturom sistema. Pregledi koda omogućavaju otkrivanje problema koje automatsko testiranje često ne može da uoči, kao što su loše dizajnerske odluke ili nečitljiv kod. :contentReference[oaicite:0]{index=0}
+
+---
+
+## 8.1 Ciljevi pregleda koda
+
+- **Otkrivanje grešaka**  
+  Pregledom se traže logičke i implementacione greške koje mogu izazvati neispravno ponašanje programa.
+
+- **Procena kvaliteta dizajna**  
+  Analizira se da li postoji jednostavnije, održivije ili efikasnije rešenje za implementaciju određene funkcionalnosti.
+
+- **Usklađenost sa arhitekturom i pravilima kodiranja**  
+  Proverava se da li je kod u skladu sa arhitekturom sistema, stilskim pravilima i konvencijama imenovanja.
+
+- **Poboljšanje čitljivosti i održivosti koda**  
+  Posebna pažnja posvećuje se jasnoći, dokumentaciji i strukturi koda. :contentReference[oaicite:1]{index=1}
+
+---
+
+## 8.2 Efekti i značaj pregleda koda
+
+- **Povećanje kvaliteta softvera**  
+  Ranim otkrivanjem grešaka smanjuju se troškovi njihovog kasnijeg ispravljanja.
+
+- **Motivacija programera**  
+  Programeri ulažu više truda u kvalitet koda kada znaju da će njihov rad biti pregledan.
+
+- **Razmena znanja u timu**  
+  Pregledi omogućavaju prenos znanja između iskusnijih i manje iskusnih članova tima. :contentReference[oaicite:2]{index=2}
+
+---
+
+## 8.3 Preporuke za efikasan pregled koda
+
+- **Ograničiti količinu koda po sesiji**  
+  Preporučuje se pregled oko **200–400 linija koda** u jednoj sesiji.
+
+- **Održavati odgovarajuću brzinu pregleda**  
+  Optimalna brzina je **300–500 linija koda na sat** kako bi se izbeglo propuštanje grešaka.
+
+- **Ograničiti trajanje pregleda**  
+  Pregled ne bi trebalo da traje duže od oko **90 minuta** zbog zamora.
+
+- **Koristiti listu provera**  
+  Lista pitanja ili pravila pomaže sistematičnom i efikasnom pregledanju koda. :contentReference[oaicite:3]{index=3}
+
+---
+
+## 8.4 Formalni pregledi
+
+Formalni pregledi su organizovan proces u kome učestvuje **3–6 članova tima**. Oni uključuju planiranje pregleda, individualnu pripremu učesnika, sastanak za diskusiju o kodu i ispravljanje pronađenih grešaka. Ovaj pristup omogućava pronalaženje velikog broja grešaka, ali zahteva mnogo vremena i resursa, pa se najčešće koristi za kritične delove sistema. :contentReference[oaicite:4]{index=4}
+
+---
+
+## 8.5 Neformalni pregledi
+
+Neformalni pregledi su jednostavniji i češće se koriste u praksi.
+
+- **Pregled „preko ramena”** – jedan programer pokazuje kod kolegi koji ga odmah komentariše.  
+- **Pregled putem mejla** – kod ili izmene šalju se timu koji daje komentare.  
+- **Pregled pomoću specijalizovanih alata** – alati omogućavaju komentare po linijama koda i praćenje statusa pregleda.  
+- **Programiranje u paru** – dva programera rade zajedno na istom kodu, pa se greške uočavaju tokom samog pisanja programa. :contentReference[oaicite:5]{index=5}
+
 Pitanje 0.8.1.1 Neformalni pregledi.
+# Neformalni pregledi
+
+Neformalni pregledi koda predstavljaju manje strukturisan način provere koda u odnosu na formalne preglede. Oni mogu biti različitog stepena formalnosti i često se koriste u agilnim metodologijama razvoja softvera i u procesu kontinuirane integracije. Cilj im je da se brzo uoče greške i poboljša kvalitet koda kroz saradnju programera.
+
+## Vrste neformalnih pregleda
+
+### Pregled „preko ramena” (over-the-shoulder review)
+Programer pokazuje svoj kod kolegi koji ga pregleda dok autor objašnjava šta je uradio. Ovaj pregled je veoma neformalan i često se odvija spontano, bez posebne dokumentacije ili formalnog procesa.
+
+### Pregled putem elektronske pošte (e-mail pass-around)
+Kod se šalje drugim članovima tima putem mejla kako bi ga pregledali i dali komentare. Ovaj pristup omogućava pregled bez sastanka, ali može otežati praćenje diskusije i statusa izmena.
+
+### Pregled korišćenjem specijalizovanih alata (tool-assisted review)
+U ovom pristupu koriste se alati za pregled koda (npr. GitLab, Gerrit, Phabricator). Oni omogućavaju komentarisanje koda, praćenje diskusije i istorije izmena, što proces pregleda čini preglednijim i organizovanijim.
+
+### Programiranje u paru (pair programming)
+Dva programera rade zajedno za istim računarom. Jedan piše kod, dok drugi prati rad, analizira i daje predloge, pa se pregled koda odvija u realnom vremenu.
+
 Pitanje 0.9.1 Simboličko izvršavanje.
+# Simboličko izvršavanje
+
+**Simboličko izvršavanje** je tehnika statičke verifikacije softvera u kojoj se program ne izvršava nad konkretnim ulaznim vrednostima, već nad **simboličkim promenljivama**. Tokom izvršavanja prate se **uslovi putanje** (logički uslovi koji moraju biti ispunjeni da bi se određena grana programa izvršila). Na ovaj način moguće je analizirati veliki broj mogućih izvršavanja programa i pronaći greške ili generisati test primere. :contentReference[oaicite:0]{index=0}
+
+---
+
+## Simboličko stablo izvršavanja
+Simboličko izvršavanje se može predstaviti **stablom izvršavanja** u kome svaki čvor predstavlja stanje programa, a grane predstavljaju različite tokove izvršavanja nastale usled grananja u programu.  
+Uz svaku putanju čuva se **uslov putanje** koji opisuje pod kojim uslovima je ta putanja moguća. Ako je uslov neispunjiv, ta putanja se smatra nedostižnom i ne razmatra se dalje. :contentReference[oaicite:1]{index=1}
+
+---
+
+## Principi dizajna
+Sistemi za simboličko izvršavanje održavaju **simboličko stanje programa** (vrednosti promenljivih i uslove putanje).  
+Za proveru da li je neka putanja moguća koriste se **rešavači ograničenja (SMT/SAT solveri)** koji proveravaju logičke formule i mogu generisati konkretne ulazne vrednosti za testiranje programa. :contentReference[oaicite:2]{index=2}
+
+---
+
+## Konkoličko izvršavanje
+**Konkoličko izvršavanje** kombinuje konkretno i simboličko izvršavanje programa. Program se izvršava sa konkretnim ulazima, dok se paralelno prate simbolički uslovi putanje.
+
+### Dinamičko simboličko izvršavanje
+Simbolička analiza se vrši tokom stvarnog izvršavanja programa, a na osnovu uslova putanje generišu se novi ulazi koji vode ka drugim granama programa.
+
+### Selektivno simboličko izvršavanje
+Simbolička analiza se primenjuje samo na određenim delovima programa, dok se ostali delovi izvršavaju konkretno radi efikasnosti. :contentReference[oaicite:3]{index=3}
+
+---
+
+## Strategije obilaska putanja
+Pošto broj putanja može biti veliki, koriste se različite strategije za njihov izbor:
+- **Jednostavne strategije** – sistematsko obilazak stabla (npr. dubinska ili širinska pretraga).
+- **Pseudoslučajne strategije** – nasumičan izbor putanja.
+- **Strategije vođene pokrivenošću koda** – biraju putanje koje povećavaju pokrivenost programa.
+- **Strategije usmerene ka ciljnoj tački** – pokušavaju da dostignu određeni deo koda.
+- **Kombinovane strategije** – kombinacija više pristupa. :contentReference[oaicite:4]{index=4}
+
+---
+
+## Izazovi simboličkog izvršavanja
+
+### Eksplozija putanja
+Broj mogućih putanja programa može eksponencijalno rasti zbog velikog broja grananja.
+
+### Modelovanje memorije
+Teško je precizno modelovati memoriju, posebno kod pokazivača, nizova i dinamičke alokacije.
+
+### Uloga rešavača
+Efikasnost simboličkog izvršavanja zavisi od sposobnosti rešavača da brzo rešava logičke formule nastale iz uslova putanje. :contentReference[oaicite:5]{index=5}
+
 Pitanje 0.9.1.1 Konkoličko izvršavanje.
+## Konkoličko izvršavanje
+
+**Konkoličko izvršavanje** (eng. *concolic execution*) je pristup koji kombinuje **konkretno izvršavanje programa** i **simboličko izvršavanje**. Program se izvršava nad konkretnim ulazima, dok se istovremeno prate simbolički izrazi i uslovi putanje. Na osnovu prikupljenih uslova generišu se novi ulazi koji omogućavaju istraživanje drugih putanja programa i automatsko generisanje test primera. :contentReference[oaicite:0]{index=0}  
+
+### Dinamičko simboličko izvršavanje
+**Dinamičko simboličko izvršavanje (DSE)** kombinuje konkretno izvršavanje sa simboličkom analizom tokom rada programa. Program se pokreće sa konkretnim ulazima, a paralelno se beleže uslovi grananja koji formiraju uslov putanje. Nakon izvršavanja, neki od tih uslova se menjaju kako bi se generisali novi ulazi koji vode kroz druge putanje programa. Na taj način se sistematski istražuju različite grane programa i pronalaze greške.
+
+### Selektivno simboličko izvršavanje
+**Selektivno simboličko izvršavanje** predstavlja optimizaciju u kojoj se samo određeni delovi programa analiziraju simbolički, dok se ostali izvršavaju konkretno. Time se smanjuje potrošnja resursa i ubrzava analiza, ali se može izgubiti deo preciznosti. Prelazak između konkretnog i simboličkog izvršavanja može se dešavati prilikom poziva funkcija, gde se jedan deo programa izvršava simbolički, a drugi konkretno. :contentReference[oaicite:1]{index=1}
+
 Pitanje 0.9.1.2 Strategĳe obilaska puteva.
+## Strategije obilaska putanja
+
+Strategije obilaska putanja određuju redosled kojim alat za simboličko izvršavanje istražuje različite putanje u programu. Pošto broj mogućih putanja može biti veoma veliki, izbor strategije značajno utiče na efikasnost analize i brzinu pronalaženja grešaka. :contentReference[oaicite:0]{index=0}
+
+### 1. Jednostavne strategije
+
+#### DFS (Depth-First Search)
+DFS strategija prati jednu putanju izvršavanja do kraja pre nego što se vrati i istraži druge grane. Prednost ove strategije je mala potrošnja memorije. Nedostatak je što se analiza može zadržati u dubokim ili beskonačnim granama, posebno u prisustvu petlji. :contentReference[oaicite:1]{index=1}
+
+#### BFS (Breadth-First Search)
+BFS strategija istražuje putanje nivo po nivo u stablu izvršavanja. Na taj način omogućava ravnomerno istraživanje prostora stanja i brže pronalaženje grešaka koje se nalaze na manjim dubinama. Nedostatak je velika potrošnja memorije jer je potrebno čuvati veliki broj stanja. :contentReference[oaicite:2]{index=2}
+
+### 2. Pseudoslučajne strategije
+
+Pseudoslučajne strategije koriste nasumičan izbor između više mogućih putanja tokom pretrage. Time se povećava raznovrsnost istraživanja i šansa da se otkriju nove putanje ili greške. Da bi rezultati bili reproduktivni, koristi se fiksirana početna vrednost (seed) generatora pseudoslučajnih brojeva. :contentReference[oaicite:3]{index=3}
+
+### 3. Strategije vođene pokrivenošću koda
+
+Ove strategije imaju za cilj da povećaju pokrivenost koda. Prioritet se daje putanjama koje vode do delova programa koji još nisu izvršeni. Pri izboru sledećeg stanja mogu se uzeti u obzir različiti kriterijumi, kao što su broj posećenosti stanja ili broj dostupnih grana. :contentReference[oaicite:4]{index=4}
+
+### 4. Strategije usmerene ka dostizanju ciljne tačke
+
+Kod ovih strategija cilj je da se izvršavanje usmeri ka određenoj lokaciji u programu. Koriste se heuristike koje procenjuju udaljenost trenutnog stanja od ciljne instrukcije i daju prioritet putanjama koje su bliže cilju.
+
+### 5. Kombinovana strategija
+
+U praksi se često koristi kombinacija više strategija kako bi se postigla bolja efikasnost. Na primer, generacijska pretraga kombinuje DFS pristup sa strategijama vođenim pokrivenošću koda kako bi se sistematski istraživale nove putanje i povećala pokrivenost programa. :contentReference[oaicite:5]{index=5}
+
 Pitanje 0.9.1.3 Izazovi simboličkog izvršavanja.
+## Izazovi simboličkog izvršavanja
+
+### 1. Eksplozija broja stanja i putanja
+Jedan od najvećih problema simboličkog izvršavanja je eksplozija broja stanja i putanja. Svako grananje u programu može proizvesti novu putanju izvršavanja, pa njihov broj može eksponencijalno rasti. Zbog ograničenih resursa u praksi nije moguće istražiti sve putanje.
+
+#### Odsecanje nedostižnih putanja
+Tokom analize proverava se da li su uslovi putanje zadovoljivi pomoću SMT rešavača. Ako je formula nezadovoljiva, ta putanja se odbacuje i ne istražuje dalje. Na taj način se smanjuje broj putanja koje je potrebno analizirati.
+
+#### Spajanje putanja
+Spajanje putanja je tehnika kojom se više simboličkih stanja kombinuje u jedno korišćenjem `ite` (if-then-else) izraza. Time se smanjuje broj putanja koje treba istražiti. Međutim, ovakav pristup povećava složenost formula koje rešava SMT rešavač.
+
+#### Petlje
+Petlje mogu proizvesti veoma veliki ili čak beskonačan broj putanja izvršavanja. Da bi se ovaj problem ublažio, često se koriste invarijante petlji koje sažimaju efekat petlje. Ovaj pristup smanjuje broj stanja, ali može dovesti do gubitka preciznosti analize.
+
+---
+
+### 2. Modelovanje memorije
+Modelovanje memorije predstavlja značajan izazov, posebno kod programa koji koriste pokazivače i nizove. Potrebno je precizno opisati moguće manipulacije memorijom, što može značajno povećati složenost analize.
+
+#### Puna simbolička memorija
+Kod pune simboličke memorije sve memorijske lokacije i njihove vrednosti modeluju se simbolički. Ovaj pristup je veoma precizan jer obuhvata sve moguće manipulacije memorijom. Međutim, može dovesti do eksplozije broja stanja i velike složenosti formula.
+
+#### Konkretizacija simboličkih adresa
+Kada je analiza previše složena, simboličke adrese se mogu zameniti konkretnim vrednostima. Time se smanjuje složenost i ubrzava analiza. Nedostatak je što se gubi potpunost jer neke putanje mogu ostati neistražene.
+
+#### Parcijalno modelovanje memorije
+Parcijalno modelovanje memorije predstavlja kompromis između preciznosti i efikasnosti. Neke adrese se tretiraju konkretno, dok se druge modeluju simbolički. Na taj način se zadržava određeni nivo preciznosti uz kontrolu složenosti analize.
+
+---
+
+### 3. Uloga rešavača
+SMT rešavač je ključna komponenta simboličkog izvršavanja jer proverava zadovolјivost ograničenja i generiše nove ulazne vrednosti. Tokom analize često se poziva kako bi se proverila dostižnost određenih putanja. Međutim, pozivi rešavaču su računski skupi i mogu značajno usporiti analizu.
+
+Zbog toga se koriste različite optimizacije, kao što su pojednostavljivanje izraza, inkrementalno rešavanje i čuvanje prethodnih rezultata. Cilj ovih tehnika je smanjenje broja poziva rešavaču i ubrzanje simboličkog izvršavanja.
 Pitanje 0.10.1 Proveravanje modela
+# Proveravanje modela
+
+**Proveravanje modela (model checking)** je tehnika formalne verifikacije softverskih i hardverskih sistema. Cilj je da se automatski proveri da li sistem zadovoljava određena formalno definisana svojstva, kao što su sigurnosna svojstva, invarijante i svojstva živosti. :contentReference[oaicite:0]{index=0}  
+
+Osnovna ideja je da se napravi **formalni model sistema** i **formalna specifikacija svojstava**, a zatim se algoritmom proverava da li model zadovoljava ta svojstva. Ako svojstvo nije zadovoljeno, proveravač modela generiše **kontraprimer**, tj. izvršavanje sistema koje pokazuje gde dolazi do greške. :contentReference[oaicite:1]{index=1}  
+
+---
+
+## Osnovni pojmovi
+
+Proces proveravanja modela obuhvata tri glavna koraka:
+
+- **Pravljenje modela (modelovanje)** – sistem se predstavlja kao apstraktni model, najčešće tranzicioni sistem sa skupom stanja i relacijom prelaska. :contentReference[oaicite:2]{index=2}  
+- **Formalna specifikacija** – svojstva sistema se formalno opisuju pomoću matematičke logike. :contentReference[oaicite:3]{index=3}  
+- **Proveravanje modela** – algoritam proverava da li model zadovoljava zadatu specifikaciju.
+
+---
+
+## Pravljenje modela
+
+Model sistema se najčešće predstavlja kao **tranzicioni sistem** koji sadrži:
+
+- skup stanja sistema  
+- relaciju prelaska između stanja  
+- skup početnih stanja  
+- skup predikata i funkciju obeležavanja stanja. :contentReference[oaicite:4]{index=4}  
+
+Model može biti deterministički ili nedeterministički i često ima veoma veliki broj mogućih stanja.
+
+---
+
+## Formalna specifikacija
+
+Svojstva sistema se opisuju pomoću **temporalnih logika**, koje omogućavaju opis ponašanja sistema kroz vreme.
+
+Najčešće korišćene logike su:
+
+- **LTL (Linear Temporal Logic)** – opisuje svojstva duž jedne putanje izvršavanja.  
+- **CTL (Computation Tree Logic)** – omogućava kvantifikaciju nad različitim putanjama.  
+- **CTL\*** – opštija logika koja obuhvata i LTL i CTL. :contentReference[oaicite:5]{index=5}  
+
+---
+
+## Algoritmi za proveravanje modela
+
+Proveravanje modela se vrši algoritmima koji istražuju prostor stanja sistema.
+
+- **Obilazak grafa stanja** – koristi se pretraga grafa tranzicionog sistema. :contentReference[oaicite:6]{index=6}  
+- **Provera LTL svojstava pomoću Büchi automata** – problem se svodi na proveru prihvatljivosti beskonačnih reči u automatu. :contentReference[oaicite:7]{index=7}  
+
+---
+
+## Kontrola eksplozije prostora stanja
+
+Veliki problem proveravanja modela je **eksplozija prostora stanja**, jer sistemi mogu imati ogroman broj mogućih stanja. :contentReference[oaicite:8]{index=8}  
+
+Zbog toga se koriste tehnike:
+
+- **Apstrakcija predikata** – smanjuje broj stanja korišćenjem apstraktnih predikata.  
+- **Simboličko proveravanje modela** – koristi logičke formule i strukture podataka poput BDD.  
+- **Ograničeno proveravanje modela** – traži kontraprimere samo do određene dužine izvršavanja. :contentReference[oaicite:9]{index=9}  
+
+---
+
+## Zaključak
+
+Proveravanje modela je moćna metoda formalne verifikacije koja omogućava automatsku proveru ispravnosti sistema. Ona se zasniva na modelovanju sistema, formalnoj specifikaciji svojstava i algoritmima koji proveravaju da li model zadovoljava ta svojstva.
+
 Pitanje 0.10.1.1 Osnove i motivacĳa.
+# Proveravanje modela — Osnove i motivacija (kratka verzija)
+# Proveravanje modela
+
+**Proveravanje modela (model checking)** je tehnika formalne verifikacije softverskih i hardverskih sistema. Cilj je da se automatski proveri da li sistem zadovoljava određena formalno definisana svojstva, kao što su sigurnosna svojstva, invarijante i svojstva živosti. :contentReference[oaicite:0]{index=0}  
+
+Osnovna ideja je da se napravi **formalni model sistema** i **formalna specifikacija svojstava**, a zatim se algoritmom proverava da li model zadovoljava ta svojstva. Ako svojstvo nije zadovoljeno, proveravač modela generiše **kontraprimer**, tj. izvršavanje sistema koje pokazuje gde dolazi do greške. :contentReference[oaicite:1]{index=1}  
+
+---
+
+## Osnovni pojmovi
+
+Proces proveravanja modela obuhvata tri glavna koraka:
+
+- **Pravljenje modela (modelovanje)** – sistem se predstavlja kao apstraktni model, najčešće tranzicioni sistem sa skupom stanja i relacijom prelaska. :contentReference[oaicite:2]{index=2}  
+- **Formalna specifikacija** – svojstva sistema se formalno opisuju pomoću matematičke logike. :contentReference[oaicite:3]{index=3}  
+- **Proveravanje modela** – algoritam proverava da li model zadovoljava zadatu specifikaciju.
+
+---
+
+## Pravljenje modela
+
+Model sistema se najčešće predstavlja kao **tranzicioni sistem** koji sadrži:
+
+- skup stanja sistema  
+- relaciju prelaska između stanja  
+- skup početnih stanja  
+- skup predikata i funkciju obeležavanja stanja. :contentReference[oaicite:4]{index=4}  
+
+Model može biti deterministički ili nedeterministički i često ima veoma veliki broj mogućih stanja.
+
+---
+
+## Formalna specifikacija
+
+Svojstva sistema se opisuju pomoću **temporalnih logika**, koje omogućavaju opis ponašanja sistema kroz vreme.
+
+Najčešće korišćene logike su:
+
+- **LTL (Linear Temporal Logic)** – opisuje svojstva duž jedne putanje izvršavanja.  
+- **CTL (Computation Tree Logic)** – omogućava kvantifikaciju nad različitim putanjama.  
+- **CTL\*** – opštija logika koja obuhvata i LTL i CTL. :contentReference[oaicite:5]{index=5}  
+
+---
+
+## Algoritmi za proveravanje modela
+
+Proveravanje modela se vrši algoritmima koji istražuju prostor stanja sistema.
+
+- **Obilazak grafa stanja** – koristi se pretraga grafa tranzicionog sistema. :contentReference[oaicite:6]{index=6}  
+- **Provera LTL svojstava pomoću Büchi automata** – problem se svodi na proveru prihvatljivosti beskonačnih reči u automatu. :contentReference[oaicite:7]{index=7}  
+
+---
+
+## Kontrola eksplozije prostora stanja
+
+Veliki problem proveravanja modela je **eksplozija prostora stanja**, jer sistemi mogu imati ogroman broj mogućih stanja. :contentReference[oaicite:8]{index=8}  
+
+Zbog toga se koriste tehnike:
+
+- **Apstrakcija predikata** – smanjuje broj stanja korišćenjem apstraktnih predikata.  
+- **Simboličko proveravanje modela** – koristi logičke formule i strukture podataka poput BDD.  
+- **Ograničeno proveravanje modela** – traži kontraprimere samo do određene dužine izvršavanja. :contentReference[oaicite:9]{index=9}  
+
+---
+
+## Zaključak
+
+Proveravanje modela je moćna metoda formalne verifikacije koja omogućava automatsku proveru ispravnosti sistema. Ona se zasniva na modelovanju sistema, formalnoj specifikaciji svojstava i algoritmima koji proveravaju da li model zadovoljava ta svojstva.
+
+## Osnove
+
+Proveravanje modela (*model checking*) je formalna metoda verifikacije koja automatski proverava da li sistem zadovoljava određena svojstva. Sistem se najpre predstavlja apstraktnim modelom, najčešće u obliku tranzicionog sistema koji opisuje moguća stanja sistema i prelaze između njih.
+
+Proces proveravanja modela sastoji se iz tri glavna koraka: pravljenje modela sistema, formalno definisanje svojstava koja sistem treba da zadovolji i automatska provera da li model ispunjava ta svojstva. Ako neko svojstvo nije zadovoljeno, alat za proveravanje modela daje **kontraprimer**, odnosno konkretan tok izvršavanja koji pokazuje gde dolazi do greške.
+
+## Motivacija
+
+Motivacija za proveravanje modela potiče iz potrebe da se pouzdano proveri ispravnost složenih softverskih i hardverskih sistema. Klasično testiranje ne može da ispita sve moguće scenarije izvršavanja sistema, dok proveravanje modela sistematski analizira sva moguća stanja modela.
+
+Još jedna važna motivacija je to što formalizacija zahteva često otkriva greške, nedoslednosti ili dvosmislenosti u neformalnim specifikacijama sistema. Pored toga, proveravanje modela omogućava automatsko pronalaženje grešaka i generisanje kontraprimera, što značajno olakšava otkrivanje i ispravljanje problema u sistemu.
+
 Pitanje 0.10.1.2 Pravljenje modela.
+# Pravljenje modela
+
+**Pravljenje modela (modelovanje)** je proces izgradnje apstraktnog modela sistema na osnovu njegove konkretne implementacije. U proveravanju modela sistem se najčešće predstavlja kao **tranzicioni sistem**, koji se sastoji od skupa stanja i relacije prelaska između tih stanja. Model se često automatski generiše iz programskog jezika ili jezika za opis hardvera. :contentReference[oaicite:0]{index=0}
+
+## Modelovanje jednostavnih sistema
+Kod jednostavnih sistema model se često prikazuje pomoću **dijagrama stanja**. Čvorovi predstavljaju stanja sistema, a grane prelaze između tih stanja. Ovakav model omogućava analizu mogućih putanja izvršavanja i dostižnih stanja sistema. :contentReference[oaicite:1]{index=1}
+
+## Modelovanje hardvera
+U modelima hardvera stanja sistema određuju **vrednosti registara i ulaznih signala**. Ulazi dolaze iz spoljašnjeg okruženja i ne mogu se unapred predvideti, što uvodi nedeterminizam u sistem. Broj mogućih stanja može biti veoma veliki i često raste eksponencijalno sa brojem bitova registara i ulaza. :contentReference[oaicite:2]{index=2}
+
+## Modelovanje softvera
+Kod softverskih sistema stanje je određeno **vrednostima promenljivih i trenutnom tačkom izvršavanja programa**. Početno stanje određeno je početnim vrednostima promenljivih i ulaznom tačkom programa. Relacija prelaska između stanja definisana je semantikom programskih naredbi, odnosno načinom na koji izvršavanje instrukcija menja stanje programa. :contentReference[oaicite:3]{index=3}
+
 Pitanje 0.10.1.3 Formalna specifikacĳa.
+# Formalna specifikacija
+
+Formalna specifikacija predstavlja **precizan matematički opis svojstava sistema** koja treba proveriti tokom verifikacije. Ova svojstva opisuju očekivano ponašanje sistema i predstavljaju kriterijume koje model sistema mora da zadovolji. U proveravanju modela svojstva se najčešće izražavaju pomoću **formalnih logičkih formula** koje se proveravaju nad modelom sistema.
+
+## Klase svojstava
+
+### Svojstva stanja
+Svojstva stanja izražavaju uslov koji važi za **pojedinačno stanje sistema**. Ona se formalno zapisuju kao logičke formule nad predikatima definisanim nad stanjima tranzicionog sistema. Sama po sebi nisu veoma izražajna jer ne opisuju prelaze između stanja.
+
+### Invarijante
+Invarijanta je svojstvo koje mora važiti u **svim dostižnim stanjima sistema**. Drugim rečima, bez obzira na tok izvršavanja, to svojstvo nikada ne sme biti narušeno. Invarijante su često korišćene za opisivanje osnovnih ograničenja sistema.
+
+### Sigurnosna svojstva (Safety)
+Sigurnosna svojstva izražavaju da se **neka neželjena situacija nikada ne sme dogoditi** tokom izvršavanja sistema. Ako se sigurnosno svojstvo naruši, moguće je pronaći konačni deo izvršavanja koji pokazuje gde je nastala greška.
+
+### Svojstva živosti (Liveness)
+Svojstva živosti opisuju da će se **neki željeni događaj u budućnosti sigurno dogoditi**. Ona ne zabranjuju određena stanja, već garantuju napredak sistema, na primer da će zahtev korisnika na kraju dobiti odgovor.
+
+### Svojstva pravednosti (Fairness)
+Svojstva pravednosti uvode dodatna ograničenja kako bi se izbegla nerealna ponašanja sistema. Ona obezbeđuju da određeni procesi ili akcije neće biti trajno zanemareni tokom izvršavanja.
+
+## Temporalne logike
+
+Temporalne logike omogućavaju opisivanje **ponašanja sistema kroz vreme**. One uvode posebne operatore koji se odnose na buduće ili sledeće stanje sistema. Najčešći operatori su:
+- **G (globally)** – svojstvo važi uvek  
+- **F (future)** – svojstvo će važiti u budućnosti  
+- **X (next)** – svojstvo važi u sledećem stanju  
+- **U (until)** – jedno svojstvo važi dok se ne ispuni drugo
+
+Najvažnije temporalne logike u proveravanju modela su **LTL, CTL i CTL\***.
+
+## Linearna temporalna logika (LTL)
+
+LTL opisuje ponašanje sistema posmatrajući **jednu linearnu putanju izvršavanja**. Svojstva se izražavaju formulama koje koriste logičke i temporalne operatore. Ova logika je intuitivna za opisivanje zahteva koji se odnose na redosled događaja u sistemu.
+
+## CTL i CTL\*
+
+CTL i CTL\* posmatraju **sve moguće putanje izvršavanja sistema**, koje formiraju stablo izvršavanja. CTL koristi kvantifikatore putanja da izrazi da li neko svojstvo važi za sve ili za neku putanju. CTL\* je izražajnija logika koja predstavlja nadskup i LTL i CTL, ali je algoritamski složenija za proveravanje.
+
 Pitanje 0.10.1.4 Algoritmi za proveravanje modela.
+# Algoritmi za proveravanje modela
+
+Algoritmi za proveravanje modela služe za automatsku proveru da li model sistema (tranzicioni sistem) zadovoljava zadatu formalnu specifikaciju. Osnovni pristupi su obilazak grafa tranzicionog sistema i provera LTL svojstava pomoću Büchi automata. :contentReference[oaicite:0]{index=0}
+
+## 1. Obilazak grafa tranzicionog sistema
+
+Ovaj pristup posmatra model sistema kao graf čija su čvorovi stanja, a grane prelazi između stanja. Proveravanje modela svodi se na sistematsku pretragu svih dostižnih stanja počev od početnog stanja. :contentReference[oaicite:1]{index=1}  
+
+Tokom pretrage proverava se da li postoji stanje u kome je narušeno dato svojstvo (npr. invarijanta). Ako se takvo stanje pronađe, algoritam vraća kontraprimer – put izvršavanja koji vodi do tog stanja.  
+
+Tipičan algoritam je **obilazak u širinu (BFS)**, koji omogućava pronalaženje najkraćeg puta do stanja u kome je svojstvo narušeno. Nedostatak ovog pristupa je što kod velikih sistema potpuni obilazak prostora stanja može biti veoma skup ili neizvodljiv. :contentReference[oaicite:2]{index=2}  
+
+## 2. Provera LTL svojstva putem Büchi automata
+
+Ovaj pristup koristi se za proveru svojstava izraženih u **linearnoj temporalnoj logici (LTL)**. Izvršavanja sistema posmatraju se kao beskonačne sekvence stanja (ω-reči). :contentReference[oaicite:3]{index=3}  
+
+Najpre se konstruiše **Büchi automat za negaciju formule** koju proveravamo. Zatim se formira proizvod tranzicionog sistema i tog automata, koji simultano prati ponašanje sistema i automata. :contentReference[oaicite:4]{index=4}  
+
+Na kraju se proverava da li proizvodni automat prihvata neku sekvencu. Ako je prihvaćeni jezik prazan, svojstvo važi u sistemu. U suprotnom postoji kontraprimer, odnosno izvršavanje sistema koje ne zadovoljava dato svojstvo. :contentReference[oaicite:5]{index=5}
+
 Pitanje 0.10.1.5 Kontrola kombinatorne eksplozije u proveravanju modela.
+# Kontrola kombinatorne eksplozije u proveravanju modela
+
+Glavni problem u proveravanju modela je **eksplozija prostora stanja (state-space explosion)**. Tranzicioni sistemi mogu imati ogroman broj mogućih stanja, zbog čega često nije moguće eksplicitno predstaviti kompletan graf stanja u memoriji. Zbog toga se koriste tehnike koje smanjuju ili efikasnije predstavljaju prostor stanja.
+
+## 1. Apstrakcija predikata
+Apstrakcija predikata smanjuje prostor stanja tako što se konkretne vrednosti promenljivih zamenjuju informacijom o tome da li određeni logički predikati važe. Na taj način veliki ili beskonačan skup stanja preslikava se u manji skup apstraktnih stanja. Ako apstrakcija dovede do lažnog kontraprimera, model se dodatno precizira postupkom **CEGAR**.
+
+## 2. Simboličko proveravanje modela
+Kod simboličkog proveravanja modela skupovi stanja i relacije prelaska predstavljaju se **simbolički**, pomoću logičkih formula i struktura poput **BDD (Binary Decision Diagrams)**. Time se izbegava eksplicitno nabrajanje svih stanja i omogućava analiza sistema sa veoma velikim prostorom stanja.
+
+## 3. Ograničena provera modela
+Ograničena provera modela (bounded model checking) proverava da li postoji kontraprimer u prvih **k koraka izvršavanja sistema**. Problem se obično svodi na rešavanje **SAT ili SMT formula**. Ova metoda je veoma efikasna za pronalaženje grešaka, ali proverava sistem samo do zadate dubine izvršavanja.
+
 Pitanje 0.11.1 Apstraktna interpretacĳa.
+# Apstraktna interpretacija
+
+**Apstraktna interpretacija** je teorijski okvir za statičku analizu programa koji omogućava analizu ponašanja programa putem **aproksimacije njegove semantike**. Umesto razmatranja svih konkretnih izvršavanja, koristi se **apstraktna semantika** koja je jednostavnija za analizu, ali zadržava bitna svojstva programa.
+
+## 11.1 Konkretan i apstraktan domen
+
+### Konkretan domen
+Konkretan domen predstavlja skup svih mogućih stanja programa tokom izvršavanja. Svako stanje opisuje moguće vrednosti promenljivih u programu.
+
+### Apstraktan domen
+Apstraktan domen je pojednostavljena reprezentacija konkretnog domena koja grupiše više konkretnih stanja u jedno apstraktno stanje. Na taj način se smanjuje prostor stanja koji treba analizirati.
+
+## 11.2 Konkretno izvršavanje i apstraktna interpretacija
+
+### Konkretno izvršavanje
+Konkretno izvršavanje predstavlja izvršavanje programa sa tačnim vrednostima promenljivih i daje precizne rezultate za jedno konkretno izvršavanje programa.
+
+### Apstraktna interpretacija
+U apstraktnoj interpretaciji konkretne vrednosti se zamenjuju apstraktnim vrednostima koje predstavljaju skup mogućih vrednosti. Time se omogućava analiza velikog broja izvršavanja programa odjednom.
+
+## 11.3 Formalne osnove apstraktne interpretacije
+Formalne osnove zasnivaju se na matematičkim strukturama kao što su parcijalno uređeni skupovi, rešetke i Galoaove veze. One omogućavaju formalno povezivanje konkretnog i apstraktnog domena i garantuju korektnost zaključivanja.
+
+## 11.4 Praktične primene
+Apstraktna interpretacija se koristi u alatima za statičku analizu programa koji otkrivaju potencijalne greške bez izvršavanja programa. Posebno je značajna u bezbednosno-kritičnim sistemima kao što su avionika, automobilska industrija i medicinski softver.
